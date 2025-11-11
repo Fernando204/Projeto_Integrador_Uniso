@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de microempresas</title>
+    <link rel="icon" href="../images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../assets/css/index.css">
+</head>
+<body>
+    <h1>Gerenciador de Microempresas</h1>
+    <img id="logoImg" width="200px" src="../images/logo.png" alt="Logo gerenciador de microempresas">
+
+    <div class="login-container">
+        <h2>Login de usuário</h2>
+        <input id="userEmail" type="text" placeholder="email">
+        <input id="password" type="password" placeholder="Senha">
+        <div class="show-password">
+            <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> 
+            <p>Mostrar Senha</p>
+        </div>
+        
+        <button>Entrar</button>
+        <p>ou isso</p>
+        <a href="../recover/recover.html">Esqueceu a senha?</a>
+        <a href="../cadastro/cadastro.html">Cadastrar usuário</a>
+    </div>
+
+    <script type="module" src="scripts/User.js"></script>
+    <script type="module" src="scripts/Repository.js"></script>
+    <script type="module" src="Login.js"></script>
+</body>
+</html>

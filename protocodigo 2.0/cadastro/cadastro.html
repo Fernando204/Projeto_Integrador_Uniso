@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="icon" href="../images/logo.png" type="image/png">
+    <link rel="stylesheet" href="../assets/css/index.css">
+    <style>
+        button{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cadastro de usuário</h1>
+    <img id="logoImg" src="../images/logo.png" alt="logo gerenciador de microempresas" width="200px">
+
+    <div class="login-container" id="userInfo" style="opacity: 1;">
+        <input id="username" type="text" placeholder="Nome de usuário">
+        <input id="email" type="email" placeholder="Email">
+        <button class="avanceBt">Avançar</button>
+        <p>ou</p>
+        <a href="../login/login.html">Já possui uma conta? Entre aqui</a>
+    </div>
+
+    <div class="login-container" id="passwordSection" style="display:none; opacity: 0;">
+        <input id="password" type="password" placeholder="Senha">
+        <input id="confirmPassword" type="password" placeholder="Confirme a senha">
+        <button class="avanceBt">avançar</button>
+        <button class="returnBt">Voltar</button>
+    </div>
+
+    <div class="login-container" id="securityQuestionsSection" style="display:none; opacity: 0;">
+        <h3>Cadastre duas perguntas para recuperação</h3>
+
+        <select name="" id="pergunta1">
+            <option value="">Selecione</option>
+            <option value="nome da mae">Primeiro nome da mãe</option>
+            <option value="cidade natal">Qual é sua cidade natal</option>
+            <option value="data de nascimento">Data de Nascimento</option>
+        </select>
+        <input id="resposta1" type="text" placeholder="Resposta">
+
+        <select name="" id="pergunta2">
+            <option value="">Selecione</option>
+            <option value="nome do pai">Primeiro nome do pai</option>
+            <option value="nome do primeiro pet">Qual é o nome do seu primeiro pet</option>
+            <option value="nome do melhor amigo">Qual é o nome do seu melhor amigo</option>
+
+        </select>
+        <input id="resposta2" type="text" placeholder="Resposta">
+        <button class="avanceBt" >Finalizar</button>
+        <button class="returnBt">Voltar</button>
+    </div>
+
+    <script type="module" src="../assets/js/User.js"></script>
+    <script type="module" src="../assets/js/Repository.js"></script>
+    <script type="module" src="cadastro.js"></script>
+</body>
+</html>

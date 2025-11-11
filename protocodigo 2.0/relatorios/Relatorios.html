@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatórios Financeiros</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="stylesheet" href="relatorios.css">
+        <script src="../assets/js/loadUser.js"></script>
+    </head>
+    <body>
+        <header>
+            <h3>Finanças</h3>
+            <div id="welcome-container">
+                <h3 id="welcomeLabel"></h3>
+            </div>
+        <button style="z-index: 2;" onclick="window.location.href = '../dashboard/dashboard.html'">Voltar</button>
+    </header>
+
+        <h1 id="saldoLabel">Saldo total: 123,45</h1>
+        <div>
+            <div class="reports-overview">
+                <h4>Adicionar Entradas</h4>
+                <input type="text" placeholder="Descrição" id="descriçãoEntradas">
+                <input type="number" placeholder="Valor" id="valorEntradas">
+                <button onclick="createEntry('entrada')">Adicionar</button>
+            </div>
+            <div class="reports-overview">
+                <h4>Adicionar despesas</h4>
+                <input type="text" placeholder="Descrição" id="descriçãoSaidas">
+                <input type="number" placeholder="Valor" id="valorSaidas">
+                <button onclick="createEntry('saida')">Adicionar</button>
+            </div>
+
+        </div>
+        <div class="entries" id="entriesContainer">
+            <div class="title-container ">
+                <h4>Extrato </h4>
+            </div>
+            <div class="lucro report">
+                <h4>Venda de produtos</h4>
+                <p>Descrição doisujfois dsdifu disfuuds oifdsf i ifu odifs sd</p>
+                <p class="report-value">+ R$ 500,00</p>
+            </div>
+            <div class="despesa report">
+                <h4>Compra de materiais</h4>
+                <p>Descrição doisujfois dsdifu disfuuds oifdsf i kdjfh dsifo sdlfdslf dsifu odifs sd</p>
+                <p class="report-value">- R$ 200,00</p>
+            </div>
+        </div>
+
+        <div class="entries goals" id="goalsContainer">
+            <div class="title-container ">
+                <h4>criação de metas</h4>
+            </div>
+           <div class="goal-form">
+                <input type="text" placeholder="Nome da meta"> 
+                <input type="number" placeholder="valor meta (R$)">
+                <input type="date" placeholder="data limite">
+
+                <button>Salvar</button>
+           </div>
+
+           <div class="title-container">
+                <h4>Resumo de metas</h4>
+           </div>
+            <div class="report goal">
+                <h4>Meta 1</h4>
+                <p>Valor: R$ 1.000,00</p>
+                <p>Data limite: 31/12/2025</p>
+                <p>Status: Em andamento</p>
+                <button><i class="fa-solid fa-pen"></i></button>
+            </div>  
+            <div class="report goal">
+                <h4>Meta 2</h4>
+                <p>Valor: R$ 500,00 </p>
+                <p>Data limite: 30/06/2025</p>
+                <p>Status: Atingida</p>
+
+                <button><i class="fa-solid fa-pen"></i></button>
+            </div>
+        </div>
+
+        <div>
+
+        </div>
+    
+        <footer>
+            <p>© 2025 MicroGestor. Todos os direitos reservados.</p>
+        </footer>
+
+        <script type="module" src="../assets/js/entries.js"></script>
+        <script type="module" src="../assets/js/Repository.js"></script>
+        <script type="module" src="../assets/js/User.js"></script>
+        <script type="module" src="../assets/js/goals.js"></script>
+        <script type="module" src="relatorios.js"></script>
+</body>
+</html>

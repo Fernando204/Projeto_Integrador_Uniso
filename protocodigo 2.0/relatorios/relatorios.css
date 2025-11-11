@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body{
+    height: 100vh;
+    width:  100vw;
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+    flex-direction: column;
+}
+header{
+    width: 100%;
+    background-color: #007BFF;
+    display: flex;
+    padding: 30px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 50px;
+}
+header h4{
+    margin-left: 10px;
+}
+header button{
+    margin-left: auto;
+    margin-right: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #0056b3;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 40px;
+    width: 80px;
+}
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 30px;
+}
+button{
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    height: 40px;
+    width: 120px;
+    margin: 20px;
+}
+input{
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+.reports-overview, .entries{
+    flex: none;
+}
+.reports-overview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    width: 80%;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    padding: 70px;
+    min-width: 300px;
+    max-width: 300px;
+}
+.entries{
+    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    width: 800px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 300px;
+    justify-content: flex-start;
+}
+.title-container{
+    display: flex;
+    flex-direction: row;
+    min-height: 50px;
+    width: 800px;
+    height: 50px;
+    margin: 0;
+    z-index: 1;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.lucro{
+    color: green;
+    background-color: lightgreen;
+}
+.despesa{
+    color: red;
+    background-color: #ff7f7f;
+}
+.report{
+    margin: 0;
+    height: 50px;
+    width: 800px;
+    padding-left: 20px;
+}
+.report h4{
+    margin: 10px;
+}
+.report .report-value{
+    margin-left: auto;
+    margin-right: 20px;
+}
+.goal-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.goal{
+    gap: 30px;
+    min-height: 60px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.goal button{
+    right: 0;
+    width: 40px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: 40px;
+}
+#welcome-container{
+    position: absolute;
+    display: flex;
+    margin-top: -2vh;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100px;
+}

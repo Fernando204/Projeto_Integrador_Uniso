@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MicroGestor</title>
+    <script src="../assets/js/loadUser.js"></script>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div id="dc" class="dashboard-container">
+        <div class="card">
+            <!-- Alert Icon -->
+            <button class="alert-button" onclick="showAlert()">
+                <i class="bi bi-exclamation-circle"></i>
+            </button>
+
+            <div class="card-header">
+                <h1 class="card-title">Bem-vindo "<span id="userName">USER</span>"</h1>
+                <p class="card-subtitle">O que deseja gerenciar?</p>
+            </div>
+
+            <div class="card-body">
+                <!-- Menu Options -->
+                <div class="menu-options">
+                    <a href="../relatorios/Relatorios.html" class="menu-button">
+                        <i class="bi bi-file-text"></i>
+                        Finanças
+                    </a>
+                    <a href="/Calculadora.html" class="menu-button">
+                        <i class="bi bi-calculator"></i>
+                        Calculadora de lucro
+                    </a>
+                    <a href="/portfolio" class="menu-button">
+                        <i class="bi bi-briefcase"></i>
+                        Incluir Portfólio
+                    </a>
+                    <a id="configBt" class="menu-button">
+                        <i class="bi bi-bell"></i>
+                        configurações
+                    </a>
+                </div>
+
+                <!-- Back Button -->
+                <div class="back-button-container">
+                    <a href="../login/login.html" class="btn-back">
+                        <i class="bi bi-arrow-left"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="config-container" style="display: none; ">
+        <div class="card" style="min-width: 800px;">
+
+            <div class="card-header">
+                <h1 class="card-title">configurações</h1>
+            </div>
+
+            <div class="card-body">
+
+                <div class="config-list">
+                    <div>
+                        <h2>Notificações</h2>
+
+                       <div class="config-list" 
+                                style="display: grid; grid-template-columns: repeat(1, 4fr); gap: 5px; align-items: center;">
+
+                            <div>
+                                <input type="checkbox" id="limpar" name="limpar">
+                                <label for="limpar">Limpar notificações</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="ativar" name="ativar">
+                                <label for="ativar">Ativar notificações</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="falta" name="falta">
+                                <label for="falta">Falta de produtos</label>
+                            </div>
+
+                            <div>
+                                <input type="checkbox" id="vencimento" name="vencimento">
+                                <label for="vencimento">Vencimento de produtos</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div id="back-bt" class="back-button-container">
+                    <a class="btn-back">
+                        <i class="bi bi-arrow-left"></i>
+                        Voltar
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="dashboard.js"></script>
+    <script>
+        const dashboard = document.querySelector("#dc");
+        const configs = document.querySelector(".config-container");
+        const configBt = document.getElementById("configBt");
+
+        configBt.addEventListener("click",()=>{
+            dashboard.style.display = "none";
+            configs.style.display = "flex";
+        });
+        document.getElementById("back-bt").addEventListener("click",()=>{
+            console.log("foi")
+            dashboard.style.display = "block";
+            configs.style.display = "none";
+        })
+
+        function showAlert() {
+            alert('Alertas e notificações importantes aparecerão aqui!');
+        }
+        // You can dynamically set the user name
+        // document.getElementById('userName').textContent = 'Seu Nome';
+    </script>
+</body>
+</html>
+

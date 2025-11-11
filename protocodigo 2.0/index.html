@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MicroGestor — Gerencie seu microempreendimento</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="images/logo.png" type="image/png">
+
+  <script type="module" src="assets/js/Repository.js"></script>
+  <script type="module" src="devKit.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="flex justify-between items-center px-8 py-5 bg-white shadow-md fixed w-full top-0 z-50">
+    <img src="images/logo.png" alt="logo gerenciador de microempresas" width="50px">
+    <div class="text-2xl font-bold text-blue-600">Gerenciador de microempresas</div>
+    <nav class="space-x-6 hidden md:block">
+      <a href="login/login.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Entrar</a>
+      <a href="cadastro/cadastro.html" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">Criar Conta</a>
+    </nav>
+    <button class="md:hidden text-blue-600 text-2xl">☰</button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-20 px-8 text-center bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6">Simplifique a gestão do seu negócio</h1>
+    <p class="text-lg mb-8 max-w-2xl mx-auto">
+      Organize suas finanças, controle seu estoque e acompanhe o crescimento do seu microempreendimento — tudo em um só lugar.
+    </p>
+    <div class="space-x-4">
+      <a href="cadastro/cadastro.html" class="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Começar agora</a>
+      <a href="login/login.html" class="border border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-700 transition">Entrar</a>
+    </div>
+  </section>
+
+  <section id="recursos" class="py-20 px-8 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Recursos poderosos para o seu negócio</h2>
+
+    <div class="grid gap-10 md:grid-cols-2 max-w-6xl mx-auto text-center">
+      <div class="p-6 border rounded-2xl shadow-sm hover:shadow-lg transition">
+        <div class="text-blue-600 text-4xl mb-4">💰</div>
+        <h3 class="font-semibold text-xl mb-2">Controle Financeiro</h3>
+        <p>Monitore suas receitas e despesas com gráficos claros e relatórios automáticos.</p>
+      </div>
+      <div class="p-6 border rounded-2xl shadow-sm hover:shadow-lg transition">
+        <div class="text-blue-600 text-4xl mb-4">📊</div>
+        <h3 class="font-semibold text-xl mb-2">Relatórios Inteligentes</h3>
+        <p>Visualize o desempenho do seu negócio com dashboards interativos e personalizáveis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-20 px-8 bg-blue-600 text-white text-center">
+    <h2 class="text-3xl font-bold mb-4">Pronto para simplificar sua gestão?</h2>
+    <p class="mb-8">Crie sua conta gratuitamente e comece agora mesmo.</p>
+    <a href="cadastro/cadastro.html" class="bg-white text-blue-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">Criar Conta</a>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contato" class="bg-gray-900 text-gray-400 py-10 px-8 text-center">
+    <p>© 2025 Gerenciador de Microempresas. Todos os direitos reservados.</p>
+    <div class="mt-4 space-x-4">
+      <a href="#" class="hover:text-white">Política de Privacidade</a>
+      <a href="#" class="hover:text-white">Termos de Uso</a>
+      <a href="#" class="hover:text-white">Contato</a>
+    </div>
+  </footer>
+  <script>
+    const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
+
+    if (userInfo) {
+      window.location.href = "dashboard/dashboard.html";
+    }
+  </script>
+</body>
+</html>
