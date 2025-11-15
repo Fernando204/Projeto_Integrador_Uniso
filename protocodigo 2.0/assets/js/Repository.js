@@ -3,8 +3,76 @@ import {User} from "./User.js";
 export class Repository{
     constructor(){}
 
+    #getDb(){
+        let db = JSON.parse(localStorage.getItem("microgestor"));
+        if(db === null){
+            db = {
+                users: []
+            }
+            localStorage.setItem("microgestor", JSON.stringify(db));
+        }
+
+        return db;
+    }
+    #saveDb(db){
+        localStorage.setItem("microgestor", JSON.stringify(db));
+    }
+
+    getEntries(){
+        let db = this.#getDb();
+        return db.entries;
+    }
+    #setEntries(entries){
+        if(!Array.isArray(entries)){
+            throw new Error("Entries deve ser um array");
+        }
+        let db = this.#getDb();
+        db.entries = entries;
+        this.#saveDb(db);
+    }
+
+    getAllGoals(){
+        let db = this.#getDb();
+        return db.goals;
+    }
+    #setGoals(goals){
+        if(!Array.isArray(goals)){
+            throw new Error("Goals deve ser um array");
+        }
+        let db = this.#getDb();
+        db.goals = goals;
+        this.#saveDb(db);
+    }
+
+
+    getAllUsers(){
+        let db = this.#getDb();
+        return db.users;
+    }
+    #setUsers(users){
+        if(!Array.isArray(users)){
+            throw new Error("Users deve ser um array");
+        }
+        let db = this.#getDb();
+        db.users = users;
+        this.#saveDb(db);
+    }
+
+    getLoggedUser(){
+        let db = this.#getDb();
+        return db.loggedUser;
+    }
+    setLoggedUser(user){
+        if(user === null){
+            throw new Error("LoggedUser não pode ser nulo");
+        }
+        let db = this.#getDb();
+        db.loggedUser = user;
+        this.#saveDb(db);
+    }
+
     saveUser(user){
-        let users = JSON.parse(localStorage.getItem("users"));
+        let users = this.getAllUsers();
         if(!Array.isArray(users)){
             users = []
         }
@@ -12,11 +80,55 @@ export class Repository{
         users.push(user.toString());
          
         console.log("numero de usuários: "+users.length);
-        localStorage.setItem("users", JSON.stringify(users));
+
+        this.#setUsers(users);
+    }
+    saveEntry(entry){
+        let entries = this.getEntries();
+        if(!Array.isArray(entries)){
+            entries = []
+        }
+        entries.push(entry.toString());
+        this.#setEntries(entries);
+    }
+    saveGoal(goal){
+        let goals = this.getAllGoals();
+        if(!Array.isArray(goals)){
+            goals = []
+        }
+        goals.push(goal.toString());
+        this.#setGoals(goals);
+    }
+
+    getEntryByUserId(userId){
+        let entries = this.getEntries();
+        if(!Array.isArray(entries)){
+            throw new Error("Nenhuma entrada cadastrada")
+        }
+        let userEntries = [];
+        for(let i = 0;i<entries.length;i++){
+            if(entries[i].userId === userId){
+                userEntries.push(entries[i]);
+            }
+        }
+        return userEntries;
+    }
+    getGoalsByUserId(userId){
+        let goals = this.getAllGoals();
+        if(!Array.isArray(goals)){
+            throw new Error("Nenhum objetivo cadastrado")
+        }
+        let userGoals = [];
+        for(let i = 0;i<goals.length;i++){
+            if(goals[i].userId === userId){
+                userGoals.push(goals[i]);
+            }
+       }
+        return userGoals;
     }
 
     getUserByName(name){
-        let users = JSON.parse(localStorage.getItem("users"));
+        let users = this.getAllUsers();
         if(!Array.isArray(users)){
             throw new Error("Nenhum usuário cadastrado")
         }
@@ -40,7 +152,7 @@ export class Repository{
     }
     getUserByEmail(email){
         console.log("procurando usuário com email: "+email);
-        let users = JSON.parse(localStorage.getItem("users"));
+        let users = this.getAllUsers();
         if(!Array.isArray(users)){
             throw new Error("Nenhum usuário cadastrado")
         }
@@ -62,7 +174,7 @@ export class Repository{
     }
 
     existByName(name){
-        let users = JSON.parse(localStorage.getItem("users"));
+        let users = this.getAllUsers();
         if(!Array.isArray(users)){
             console.log("nenhum usuário cadastrado");
             return false;
@@ -85,7 +197,7 @@ export class Repository{
 
     existisByEmail(){
         console.log("procurando usuário com email: "+email);
-        let users = JSON.parse(localStorage.getItem("users"));
+        let users = this.getAllUsers();
         if(!Array.isArray(users)){
             return false;
         }
@@ -107,10 +219,10 @@ export class Repository{
     }
 
     autenticateUser(email, password){
-        localStorage.removeItem("loggedUser");
+        this.setLoggedUser(null);
         let user = this.getUserByEmail(email);
         if(user.password === password){
-            localStorage.setItem("loggedUser", JSON.stringify(user));
+            this.setLoggedUser(user);
             return true;
         }else{
             return false;

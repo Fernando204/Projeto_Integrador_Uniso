@@ -1,4 +1,5 @@
-const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
+const db = localStorage.getItem("microgestor");
+const userInfo = db ? JSON.parse(db).loggedUser : null;
 
 if(!userInfo){
     console.log("Nenhum usuário logado");

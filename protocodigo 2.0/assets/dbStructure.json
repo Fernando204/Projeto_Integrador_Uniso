@@ -1,0 +1,40 @@
+{
+    "microgestor":{
+        "users":{
+            "id": {
+                "username": "TEXT NOT NULL UNIQUE",
+                "password": "TEXT NOT NULL",
+                "email": "TEXT NOT NULL UNIQUE",
+                "security_questions": {
+                    "question1": "anwser1",
+                    "question2": "anwser2"
+                }
+            }
+        },
+        "goals":{
+            "id":{
+                "name": "goals",
+                "valor": "98743",
+                "data": "43/43/4343",
+                "userId": "id do usuário"
+            }
+        },
+        "entries":{
+            "id":{
+                "description": "TEXT NOT NULL",
+                "value": "FLOAT NOT NULL",
+                "type": "POSITIVE OR NEGATIVE",
+                "date": "DATE NOT NULL",
+                "userId": "id do usuário"
+            }
+        },
+        "loggedUser": "username",
+        "configs":{
+            "userId": "id do usuário",
+            "enable_notifications": "boolean",
+            "falta_de_produtos": "boolean",
+            "vencimento-de_produtos": "boolean"
+        }
+        
+    }
+}
