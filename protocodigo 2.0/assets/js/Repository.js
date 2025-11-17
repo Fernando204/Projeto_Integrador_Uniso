@@ -18,6 +18,17 @@ export class Repository{
         localStorage.setItem("microgestor", JSON.stringify(db));
     }
 
+    getConfigs(){
+        let db = this.#getDb();
+        return db.configs;
+    }
+    setConfigs(configs){
+        let db = this.#getDb();
+        db.configs = configs;
+        this.#saveDb(db);
+    }
+
+
     getEntries(){
         let db = this.#getDb();
         return db.entries;
@@ -71,6 +82,14 @@ export class Repository{
         this.#saveDb(db);
     }
 
+    saveUserConfig(config){
+        let configs = this.getConfigs();
+        if (!Array.isArray(configs)) {
+            configs = [];
+        }
+        configs.push(config);
+        this.setConfigs(configs);
+    }
     saveUser(user){
         let users = this.getAllUsers();
         if(!Array.isArray(users)){
@@ -83,6 +102,7 @@ export class Repository{
 
         this.#setUsers(users);
     }
+
     saveEntry(entry){
         let entries = this.getEntries();
         if(!Array.isArray(entries)){
@@ -100,31 +120,56 @@ export class Repository{
         this.#setGoals(goals);
     }
 
-    getEntryByUserId(userId){
-        let entries = this.getEntries();
-        if(!Array.isArray(entries)){
-            throw new Error("Nenhuma entrada cadastrada")
-        }
-        let userEntries = [];
-        for(let i = 0;i<entries.length;i++){
-            if(entries[i].userId === userId){
-                userEntries.push(entries[i]);
+    atualizeConfig(config){
+        let c = this.getConfigs();
+
+        let atualizado = false;
+
+        for(let i=0;i<c.length;i++){
+            if (c[i].user === config.user) {
+                c[i] = config; 
+                this.setConfigs(c);
+                atualizado = true;
             }
         }
-        return userEntries;
+
+        return atualizado;
     }
-    getGoalsByUserId(userId){
-        let goals = this.getAllGoals();
-        if(!Array.isArray(goals)){
-            throw new Error("Nenhum objetivo cadastrado")
+    getConfigsByUserName(userName){
+        let configs = this.getConfigs();
+        if(!Array.isArray(configs)){
+            throw new Error("Nenhuma configuração cadastrada")
         }
-        let userGoals = [];
-        for(let i = 0;i<goals.length;i++){
-            if(goals[i].userId === userId){
-                userGoals.push(goals[i]);
+        let userConfigs = null;
+        for(let i = 0;i<configs.length;i++){
+            if(configs[i].user === userName){
+                userConfigs = configs[i];
             }
-       }
-        return userGoals;
+        }
+        if(userConfigs === null){
+            throw new Error("Configuração do usuário não encontrada")
+        }
+        return userConfigs;
+    }
+   
+    updateUsers(user){
+        let users = this.getAllUsers();
+        for(let i=0;i<users.length;i++){
+            console.log(i);
+            console.log("comparando "+users[i].name+" com "+user.name);
+            if(users[i].name === user.name){
+                users[i] = user;
+                try{
+                    this.#setUsers(users);
+
+                }catch(error){
+                    console.error("Erro ao atualizar usuário: "+error);
+                    throw new Error("Erro ao atualizar usuário: "+error);
+                }
+                this.setLoggedUser(user);
+                console.log('Usuário '+ user.name +' atualizado com sucesso');
+            }
+        }
     }
 
     getUserByName(name){
@@ -202,7 +247,6 @@ export class Repository{
             return false;
         }
         let user = null;
-        console.log(users[0].email);
         for(let i = 0;i<users.length;i++){
             console.log("comparando "+users[i].email+" com "+email);
             console.log(users[i].email);
@@ -219,13 +263,28 @@ export class Repository{
     }
 
     autenticateUser(email, password){
-        this.setLoggedUser(null);
+        this.setLoggedUser("");
         let user = this.getUserByEmail(email);
         if(user.password === password){
+            console.log("Autenticação bem sucedida para o usuário: "+user.name);
             this.setLoggedUser(user);
             return true;
         }else{
             return false;
         }
+    }
+
+    deleteUserByName(name){
+        let users = this.getAllUsers();
+        let updatedUsers = users.filter(user => user.name !== name);
+        this.#setUsers(updatedUsers);
+        this.setLoggedUser("");
+    }
+    deleteAllUsers(){
+        this.#setUsers([]);
+        this.setLoggedUser("");
+    }
+    logoutUser(){
+        this.setLoggedUser("");
     }
 }

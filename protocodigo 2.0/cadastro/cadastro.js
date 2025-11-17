@@ -120,7 +120,15 @@ avanceBt[2].addEventListener('click', () => {
         securityAnswers.push(resposta2.value);
     
         const newUser = new User(nameValue, emailValue, passwordValue, securityQuestions, securityAnswers);
-        alert("foi")
+        
+        let configs = {
+            user: nameValue,
+            enableNotifications: true,
+            faltaProdutos: false,
+            vencimento: false
+        }
+        repository.saveUserConfig(configs);
+
         repository.saveUser(newUser);
     
         alert('Usuário cadastrado com sucesso!');

@@ -1,0 +1,94 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #fff;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  min-height: 100vh;    
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  padding: 32px 16px;
+  box-sizing: border-box;
+}
+
+/* card principal */
+.portfolio-card {
+  width: 92%;
+  max-width: 760px;
+  background: #f5f5f5;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  padding: 36px 28px 56px 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 18px 0;
+}
+
+.form-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-label {
+  width: 100%;
+  max-width: 420px;
+  font-size: 0.9rem;
+  color: #444;
+  margin: 6px 0 6px 0;
+}
+
+.form-input,
+#item, #quantidade, #quando {
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.form-input:focus,
+#item:focus, #quantidade:focus, #quando:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 6px rgba(99,102,241,0.06);
+}
+
+.btn-incluir {
+  margin-top: 12px;
+  width: 170px;
+  padding: 8px 0;
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-voltar {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+}
+@media (max-width: 520px) {
+  .portfolio-card {
+    padding: 22px 16px 40px 16px;
+  }
+  .title { font-size: 1.3rem; }
+  .form-input { max-width: 100%; }
+  .btn-incluir { width: 140px; }
+}

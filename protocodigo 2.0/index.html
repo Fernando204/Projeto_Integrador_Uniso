@@ -69,10 +69,10 @@
     </div>
   </footer>
   <script>
-    const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
+    const userInfo = JSON.parse(localStorage.getItem("microgestor")).loggedUser;
 
     if (userInfo) {
-      window.location.href = "dashboard/dashboard.html";
+      window.location.href = "dashboard/dashboard.html";s
     }
   </script>
 </body>

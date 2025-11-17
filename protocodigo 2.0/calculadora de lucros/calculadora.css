@@ -1,0 +1,70 @@
+body {
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: #fff;
+    color: #222;
+}
+
+.botaoCalculos {
+    width: 70px;
+    margin: 10px;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.campoDeDigitar {
+    display: block;
+    width: 320px;
+    max-width: 480px;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #d0d0d0;
+    outline: none;
+}
+
+.campoDeDigitar:focus {
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    border-color: #6366f1;
+}
+
+.titulo {
+    margin-bottom: 90px;
+    display: flex;
+    justify-content: center;
+}
+
+.botaoCalculos {
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    outline: none;
+    border: 1px solid #d0d0d0;
+    font-size: 1rem;
+}
+
+.botaoCalculos:focus {
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    border-color: #6366f1;
+}
+
+.botaoVoltar {
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    outline: none;
+    border: 1px solid #d0d0d0;
+    font-size: 1rem;
+}
+
+.botaoVoltar:focus {
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+    border-color: #6366f1;
+}
+fieldset{
+    padding: 30px;
+}

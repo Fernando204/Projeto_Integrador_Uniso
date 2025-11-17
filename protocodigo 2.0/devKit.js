@@ -1,17 +1,14 @@
-import { Repository } from "./assets/js/Repository.js"
+import { Repository } from "./assets/js/Repository.js";
 
-let users = JSON.parse(localStorage.getItem("users"));
-
-console.log(users);
-
-const repo = new Repository();
-try{
-    if(repo.getUserByName("teste")){
-        console.log("Usuário encontrado pelo nome");
-    }
-}catch(e){
-    console.log(e.message);
+const repository = new Repository();
+repository.setLoggedUser("");
+repository.deleteUserByName("teste")
+console.log("Carregando usuários do repositório...");
+try {
+    let users = repository.getAllUsers();
+    console.log(users);
+} catch (error) {
+    console.error("Erro ao carregar usuários:", error);
 }
 
-localStorage.removeItem("loggedUser");
-console.log(localStorage.getItem("loggedUser"));
+repository.deleteAllUsers();

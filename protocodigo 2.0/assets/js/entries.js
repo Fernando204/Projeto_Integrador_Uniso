@@ -1,9 +1,11 @@
 export class Entries {
-    contructor(descricao,valor,type,data){
+    constructor(descricao ,valor, type, data, user){
         this.descricao = descricao;
         this.valor = valor;
         this.data = data;
         this.type = type;
+        this.user = user;
+        console.log("Entry criado: "+ this.toString());
     }
 
     getDescricao() {
@@ -21,7 +23,8 @@ export class Entries {
             descricao: this.descricao,
             valor: this.valor,
             data: this.data,
-            type: this.type
+            type: this.type,
+            user: this.user
         };
     }
 }

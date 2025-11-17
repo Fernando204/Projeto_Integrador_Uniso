@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+p{
+    margin: 5px;
+}
 body{
     height: 100vh;
     width:  100vw;
@@ -82,7 +85,7 @@ input{
     flex-direction: column;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     border-radius: 20px;
-    width: 800px;
+    width: 900px;
     overflow-x: hidden;
     overflow-y: auto;
     height: 300px;
@@ -92,7 +95,7 @@ input{
     display: flex;
     flex-direction: row;
     min-height: 50px;
-    width: 800px;
+    width: 900px;
     height: 50px;
     margin: 0;
     z-index: 1;
@@ -110,7 +113,7 @@ input{
 .report{
     margin: 0;
     height: 50px;
-    width: 800px;
+    width: 900px;
     padding-left: 20px;
 }
 .report h4{
@@ -145,7 +148,7 @@ input{
     width: 40px;
     margin: 10px;
     margin-left: auto;
-    margin-right: 40px;
+    margin-right: 30px;
 }
 #welcome-container{
     position: absolute;
@@ -155,4 +158,10 @@ input{
     align-items: center;
     width: 100vw;
     height: 100px;
+}
+#entriesList, #goalsList{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
