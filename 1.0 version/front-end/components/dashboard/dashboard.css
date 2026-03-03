@@ -1,0 +1,18 @@
+.dashboard-section .cards-info-panel{
+    margin-left: 3vw;
+    margin-top: 3vh;
+
+    display: grid;
+    gap: 15px;
+
+    grid-template-rows: repeat(4, 4fr);
+    grid-template-columns: repeat(2,2fr);
+    padding: 20px;
+}
+.dashboard-section .card{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--sub-background);
+    display: flex;
+    flex-direction: row;
+}
