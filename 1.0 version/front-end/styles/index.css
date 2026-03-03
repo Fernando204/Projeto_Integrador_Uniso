@@ -4,8 +4,19 @@
     --button: #2563EB;
 
     --main-text: #0F172A;
+
+    --saldo: #3B82F6;
+    --receita: #16A34A;
+    --despesa: #F97316;
+    --lucro: #15803D;
+    --prejuizo: #DC2626;
 }
 
+.saldo{color: var(--saldo);}
+.receita{color: var(--receita);}
+.despesa{color: var(--despesa);}
+.lucro{color: var(--lucro);}
+.prejuizo{color: var(--prejuizo);}
 
 *{
     font-family: Arial, sans-serif;
