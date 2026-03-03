@@ -1,0 +1,157 @@
+:root{
+    --background: #F8FAFC;
+    --sub-background: #E2E8F0;
+    --button: #2563EB;
+
+    --main-text: #0F172A;
+}
+
+
+*{
+    font-family: Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --background: #0B1220;
+        --sub-background: #1E293B;
+        --button: #2563EB;
+        --main-text: #E2E8F0;
+    }
+}
+
+body{
+    background-color: var(--background);
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow: hidden;
+
+    color: var(--main-text);
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    height: 60px;
+    padding: 0 20px;
+}
+button{
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.header-div{
+    display: flex;
+    gap: 10px;
+}
+
+.content {
+    margin-left: 70px;
+    transition: margin-left 0.3s;
+}
+
+.spacer{
+    height: 100vh;
+    width: 80px;
+}
+.navBar{
+    background-color: var(--sub-background);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 100vh;
+    width: 80px;
+    padding-left: 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: 20px;
+    transition: width 0.3s;
+    z-index: 1000;
+
+    box-shadow: 0.1px 0.1px 10px 0.1px black;
+
+    overflow: hidden;
+
+}
+.navBar:hover{
+    width: 10vw;
+    box-shadow: 0.1px 0.1px 7px 0.1px black;
+
+}
+
+.navBar button{
+    background-color: var(--button);
+    height: 40px;
+    width: 40px;
+    border-radius: 10px;
+}
+
+.notification-button{
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 20px;
+    border-radius: 50%;
+    background-color: var(--sub-background);
+}
+.user-profile-button{
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 20px;
+    border-radius: 50%;
+    background-color: var(--button);
+}
+
+.user-profile-button:hover {
+    transform: scale(1.2);
+    box-shadow: 0.1px 0.1px 4px 0.1px black;
+}
+.notification-button:hover{
+    transform: scale(1.2);
+    box-shadow: 0.1px 0.1px 4px 0.1px black;
+}
+
+.navBar .button-box{
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+    
+}
+.navBar .button-box:hover{
+    background-color: rgba(0, 0, 0, 0.24);
+    padding: 10px;
+    border-radius: 10px;
+}
+.navBar .button-box h5{
+    opacity: 0;
+    margin-left: 10px;
+    transition: all 0.7s;
+}
+.navBar:hover h5{
+    opacity: 1;
+}
+.logo-image{
+    width: 60px;
+    position: fixed;
+    top: 20px;
+}

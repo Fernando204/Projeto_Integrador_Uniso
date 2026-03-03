@@ -63,6 +63,7 @@ document.querySelectorAll(".entryBt").forEach((button,index)=>{
 const loadEntries = ()=>{
     let saldo = 0;
     entriesContainer.innerHTML = "";
+    
     userEntries = userInfo.entries;
     if(!Array.isArray(userEntries) || userEntries.length === 0){
         entriesContainer.innerHTML = "<p>Nenhuma entrada ou saída cadastrada.</p>";
@@ -107,6 +108,7 @@ const loadGoals = ()=>{
     goals.innerHTML = "";
     userGoals = userInfo.goals;
     console.log(userGoals);
+
     if(!Array.isArray(userGoals) || userGoals.length === 0){
         console.log("Nenhuma meta cadastrada.");
         return;
