@@ -10,6 +10,9 @@
     --despesa: #F97316;
     --lucro: #15803D;
     --prejuizo: #DC2626;
+
+    --icon-color: #ffffff;
+    --notify-icon:  #000000;
 }
 
 .saldo{color: var(--saldo);}
@@ -28,9 +31,15 @@
         --sub-background: #1E293B;
         --button: #2563EB;
         --main-text: #E2E8F0;
+        --notify-icon: #ffffff
     }
 }
-
+.notification-bt{
+    color: var(--notify-icon);
+}
+button span{
+    color: var(--icon-color);
+}
 body{
     background-color: var(--background);
     height: 100vh;
