@@ -1,0 +1,184 @@
+:root{
+    --background: #F8FAFC;
+    --sub-background: #E2E8F0;
+    --button: #2563EB;
+
+    --main-text: #0F172A;
+    --oposite-text: #E2E8F0;
+
+    --saldo: #3B82F6;
+    --receita: #16A34A;
+    --despesa: #F97316;
+    --lucro: #15803D;
+    --prejuizo: #DC2626;
+
+    --icon-color: #ffffff;
+    --notify-icon:  #000000;
+
+    --input-bg: #F9FAFB;
+  --input-border: #D1D5DB;
+  --input-text: #111827;
+  --input-placeholder: #9CA3AF;
+  --input-focus-border: #2563EB;
+  --input-focus-shadow: rgba(37, 99, 235, 0.3);
+}
+
+.saldo{color: var(--saldo);}
+.receita{color: var(--receita);}
+.despesa{color: var(--despesa);}
+.lucro{color: var(--lucro);}
+.prejuizo{color: var(--prejuizo);}
+
+*{
+    font-family: Arial, sans-serif;
+}
+.logo-image{
+    filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --background: #0B1220;
+        --sub-background: #1E293B;
+        --button: #2563EB;
+        --main-text: #E2E8F0;
+        --notify-icon: #ffffff;
+
+        --input-bg: #2e2e3f;
+    --input-border: #44475a;
+    --input-text: #f8f8f2;
+    --input-placeholder: #888aa6;
+    --input-focus-border: #6272a4;
+    --input-focus-shadow: rgba(98, 114, 164, 0.5);
+    }
+
+    .logo-image {
+        filter: invert(100%) brightness(200%);
+    }
+}
+
+body{
+    margin: 0;
+    background-color: var(--background);
+    color: var(--main-text);
+
+    display: flex;
+    flex-direction: row;
+}
+.split-screen{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+.right-side {
+  flex: 1;            
+  display: flex;       
+  justify-content: center;  
+  align-items: center;      
+  padding: 2rem;
+}
+.lateral-container{
+    flex: 0 0 45%;
+    color: var(--oposite-text);
+    background-color: var(--button);
+    display: flex;       
+    justify-content: center;  
+    align-items: center; 
+    flex-direction: column;
+}   
+
+.card{
+    background-color: var(--sub-background);
+    border-radius: 20px;
+    padding: 15px;
+
+    box-shadow: 0.5px 0.5px 3px 0px var(--main-text);
+}
+.login-card{
+    width: 30vw;
+}
+
+.login-card h2 {
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--main-text);
+  letter-spacing: 0.05em;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--main-text);
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1.5px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card input::placeholder {
+  color: var(--input-placeholder);
+  font-weight: 400;
+}
+
+.login-card input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 8px var(--input-focus-shadow);
+  outline: none;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 14px 0;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #6272a4, #0056b3);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease, transform 0.2s ease;
+
+}
+
+.login-card button:hover {
+  background: linear-gradient(90deg, #0056b3, #6272a4);
+  transform: scale(1.03);
+}
+
+.login-card button:active {
+  transform: scale(0.98);
+}
+
+.login-card fieldset {
+    border: none;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.login-card label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
