@@ -184,3 +184,6 @@ button{
     position: fixed;
     top: 20px;
 }
+.pageButton{
+    cursor: pointer;
+}

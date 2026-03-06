@@ -1,5 +1,8 @@
-const contentBox = document.getElementById("site-content");
+import {ApiConnection} from "./classes/ApiConnection.js"
 
+const apiConnection = new ApiConnection();
+
+const contentBox = document.getElementById("site-content");
 const changeButtons = document.querySelectorAll(".pageButton");
 
 const changePage = (pageUrl)=>{
@@ -21,6 +24,16 @@ changeButtons.forEach((bt,index) =>{
             bt.addEventListener("click",()=>{
                 changePage("components/finanças/finance.html");
             })
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
             break;
     }
 })
