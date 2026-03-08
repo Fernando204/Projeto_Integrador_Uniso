@@ -10,10 +10,14 @@
     <link rel="icon" href="images/icon-logo.png" type="image/png">
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="components/dashboard/dashboard.css">
+    <link rel="stylesheet" href="components/finanças/finance.css">
+    <link rel="stylesheet" href="components/vendas/sales.css">
+    <link rel="stylesheet" href="components/clientes/clientes.css">
+
 </head>
 <body>
     <div class="navBar">
-        <img src="images/icon-logo.png" alt="logo-image" class="logo-image">
+        <img src="images/main-logo.png" alt="logo-image" class="logo-image">
 
         <div class="button-box pageButton">
             <button>
@@ -74,13 +78,21 @@
             <button class="user-profile-button">
                 <span class="material-icons">account_circle</span>
             </button>
+                <div class="profile-container right-modal-container">
+                    <h4>Faça login para acessar seu perfil</h4>
+                    <button id="gotoLoginBt">Entrar</button>
+                </div>
+                <div class="notify-container right-modal-container">
+                    <h4>Nenhuma notificação</h4>
+                </div>
         </div>
     </header>
 
     
-    <section id="site-content" ></section>
+    <section id="site-content"></section>
 
     <script type="module" src="scripts/index.js"></script>
     <script type="module" src="scripts/API.js"></script>
+
 </body>
 </html>

@@ -15,6 +15,10 @@
     --notify-icon:  #000000;
 }
 
+.logo-image{
+    filter: none;
+}
+
 .saldo{color: var(--saldo);}
 .receita{color: var(--receita);}
 .despesa{color: var(--despesa);}
@@ -32,6 +36,10 @@
         --button: #2563EB;
         --main-text: #E2E8F0;
         --notify-icon: #ffffff
+    }
+
+    .logo-image {
+        filter: invert(100%) brightness(200%);
     }
 }
 .notification-bt{
@@ -61,6 +69,8 @@ button{
     border: none;
     transition: all 0.3s;
     cursor: pointer;
+    background-color: var(--button);
+    color: var(--main-text);
 }
 .header-div{
     display: flex;
@@ -84,7 +94,7 @@ button{
     left: 0;
 
     height: 100vh;
-    width: 4vw;
+    width: 6vw;
     padding-left: 25px;
 
     display: flex;
@@ -102,28 +112,29 @@ button{
 
 }
 .navBar:hover{
-    width: 10vw;
+    width: 13vw;
     box-shadow: 0.1px 0.1px 7px 0.1px black;
 
 }
 
     #site-content{
         margin-top: -60px;
-        margin-left: 6vw;
+        margin-left: 10vw;
         transition: all 0.3s;
     }
     .navBar:hover ~ #site-content{
-        margin-left: 12vw;
+        margin-left: 16vw;
     }
 
 .navBar button{
     background-color: var(--button);
-    height: 40px;
-    width: 40px;
+    height: 5vh;
+    width: 5vh;
     border-radius: 10px;
 }
 
 .notification-button{
+    z-index: 1;
     width: 40px;
     height: 40px;
 
@@ -136,6 +147,7 @@ button{
     background-color: var(--sub-background);
 }
 .user-profile-button{
+    z-index: 1;
     width: 40px;
     height: 40px;
 
@@ -186,4 +198,56 @@ button{
 }
 .pageButton{
     cursor: pointer;
+}
+
+.right-modal-container{
+    z-index: 0;
+    width: 1px;
+    height: 1px;
+    background-color: var(--sub-background);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    transform-origin: top;
+    position: absolute;
+    border: 3px solid rgb(0, 52, 77);
+    opacity: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.notify-container{
+    margin-top: 50px;
+    margin-left: 120px;
+}
+.expand{
+    width: 300px;
+    height: 400px;
+    margin-top: 65px;
+    margin-left: -165px;
+    opacity: 1;
+}
+
+
+.profile-container{
+    margin-top: 50px;
+    margin-left: 120px;
+}
+.profile-container h3{
+    text-align: center;
+    text-indent: 10px;
+}
+.profile-container.expand{
+    width: 300px;
+    height: 400px;
+    margin-top: 65px;
+    margin-left: -165px;
+    opacity: 1;
+}
+.profile-container button{
+    background-color: var(--button);
+    height: 40px;
+    width: 100px;
+    border-radius: 10px;
 }
