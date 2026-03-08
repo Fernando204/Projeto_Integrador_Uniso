@@ -1,0 +1,63 @@
+.cardclientes {
+    gap: 20px;            
+    margin-top: 30px;
+    background-color: var(--sub-background);
+    padding: 10px;
+    border-radius: 10px;
+    width: 12vw;
+    height: 100px;   /* É o card escrito Clientes Registrados */
+}
+
+.cardclientes h1 {
+    font-size: 20px;
+    color: #cbd5e1;
+    margin-top: 0px;
+}
+
+.btn_clientes {
+    background-color: #2F6FED;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    align-self: flex-end; /* alinha o próprio item ao final do container flex */
+}
+
+.box-anything {
+    display: flex;
+    gap: 20px;            /* Caixa sem nada escrito, abaixo do botão de adicionar cliente */
+    margin-top: 10px;
+    background-color: var(--sub-background);
+    padding: 10px;
+    border-radius: 10px;
+    width: 75vw;
+    height: 100px;
+}
+
+.clientes-historicos {
+    background-color: var(--sub-background);
+    margin-top: 10px;
+    padding: 10px;                  /* É a parte de baixo da página, com 5 clientes e se estão devendo ou pagando */
+    border-radius: 10px;
+    width: 75vw;
+}
+
+.clientes-historico {
+    background-color: #0B1220;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-clientes{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;            /* É a parte de cima da página Clientes Registrados +  */
+    margin-top: 30px;
+    width: 76vw;
+    margin-left: 100px;
+}
