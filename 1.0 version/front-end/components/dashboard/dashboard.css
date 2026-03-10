@@ -1,13 +1,16 @@
-.dashboard-section .cards-info-panel{
+.dashboard-section .main-container{
     margin-left: 3vw;
-    margin-top: 3vh;
+    padding-right: 5vw;
+}
 
+.dashboard-section .cards-info-panel{
+    margin-top: 3vh;
     display: grid;
     gap: 15px;
 
-    grid-template-rows: repeat(4, 4fr);
+    grid-template-rows: repeat(2, 2fr);
     grid-template-columns: repeat(2,2fr);
-    padding: 20px;
+    margin-bottom: 20px;
 }
 .dashboard-section .card{
     padding: 10px;
@@ -18,4 +21,28 @@
 
     align-items: center;
     gap: 30px;
+}
+.dashboard-section .infosCard{
+    display: flex;
+    gap: 20px;
+    height: 50vh;
+}
+.dashboard-section .infosCard .card{
+    flex: 1;
+}
+.dashboard-section .resume-card{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.dashboard-section .list-container{
+    display: flex;
+    height: 100%;
+    flex: 1;
+}
+.dashboard-section .itens-list{
+    flex: 1;
+    background-color: aliceblue;
+
 }

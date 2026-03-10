@@ -86,6 +86,13 @@ button{
     height: 100vh;
     width: 80px;
 }
+.flex-half-main-container{
+    display: flex;
+
+}
+#site-content{
+    flex: 1;
+}
 .navBar{
     background-color: var(--sub-background);
 
