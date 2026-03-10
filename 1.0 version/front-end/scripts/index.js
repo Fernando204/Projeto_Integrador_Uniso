@@ -46,10 +46,19 @@ changeButtons.forEach((bt,index) =>{
             })
             break;
         case 4:
+            bt.addEventListener("click",()=>{
+                changePage("components/estoque/estoque.html");
+            })
             break;
         case 5:
+            bt.addEventListener("click",()=>{
+                changePage("components/relatorios/relatorios.html");
+            })
             break;
         case 6:
+            bt.addEventListener("click",()=>{
+                changePage("components/colaboradores/colaboradores.html");
+            })
             break;
     }
 });

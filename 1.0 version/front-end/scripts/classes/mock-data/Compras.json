@@ -1,0 +1,11 @@
+{
+    "1":{
+        "dateTime": "23/3/2026 11:99",
+        "cliente_id": 1,
+        "valor total": 24.4,
+        "total de itens": 4,
+        "status": "concluida",
+        "forma de pagamento": "cartão de debito"
+    }
+}
+

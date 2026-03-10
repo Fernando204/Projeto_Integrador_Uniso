@@ -1,0 +1,34 @@
+{
+    "1":{
+        "produto":"arroz",
+        "preço unitario": 12.10,
+        "quantidade": 1,
+        "id_produto": 4,
+        "id_compra": 1,
+        "company_id": 1
+    },
+    "2":{
+        "produto":"feijão",
+        "preço unitario": 12.10,
+        "quantidade": 1,
+        "id_produto": 7,
+        "id_compra": 1,
+        "company_id": 1
+    },
+    "3":{
+        "produto":"carne",
+        "preço unitario": 12.10,
+        "quantidade": 1,
+        "id_produto": 2,
+        "id_compra": 1,
+        "company_id": 1
+    },
+    "4":{
+        "produto":"queijo",
+        "preço unitario": 12.10,
+        "quantidade": 1,
+        "id_produto": 6,
+        "id_compra": 1,
+        "company_id": 1
+    }
+}

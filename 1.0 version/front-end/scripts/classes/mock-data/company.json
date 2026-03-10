@@ -1,0 +1,10 @@
+{
+    "1":{
+        "razao_socal": "comercio do jurandir",
+        "email": "jurandir@gmail.com",
+        "telefone": "15 980983638",
+        "endereco":"rua x bairro y",
+        "created_at": "23/45/2099 12:99",
+        "owner_id": 1 
+    }
+}
