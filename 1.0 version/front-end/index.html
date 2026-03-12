@@ -8,11 +8,13 @@
 
     <title>Microgestor</title>
     <link rel="icon" href="images/icon-logo.png" type="image/png">
+
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="components/dashboard/dashboard.css">
     <link rel="stylesheet" href="components/finanças/finance.css">
     <link rel="stylesheet" href="components/vendas/sales.css">
     <link rel="stylesheet" href="components/clientes/clientes.css">
+    <link rel="stylesheet" href="components/relatorios/relatorios.css">
 
 </head>
 <body>
@@ -94,7 +96,10 @@
     
 
     <script type="module" src="scripts/index.js"></script>
-    <script type="module" src="scripts/API.js"></script>
+    <script type="module" src="scripts/classes/ApiConnection.js"></script>
+
+    <script src="./components/finanças/finance.js"></script>
+    <script src="./components/relatorios/relatorios.js"></script>
 
 </body>
 </html>

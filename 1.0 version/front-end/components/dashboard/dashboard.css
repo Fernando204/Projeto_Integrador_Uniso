@@ -35,14 +35,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    height: 100%;
 }
 .dashboard-section .list-container{
     display: flex;
-    height: 100%;
     flex: 1;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--background);
+    border-radius: 20px;
+
 }
 .dashboard-section .itens-list{
-    flex: 1;
-    background-color: aliceblue;
-
+    flex: 0.9;
+    height: 50px;
+    background-color: var(--sub-background);
+    margin-top: 10px;
+    border-radius: 20px;
 }
