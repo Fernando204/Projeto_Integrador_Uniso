@@ -80,30 +80,15 @@
     margin-left: 100px;
 }
 
-/* Container dos botões para eles ficarem um ao lado do outro */
-.cliente-botoes {
-    display: flex;
-    gap: 10px;
-}
-
-/* Estilo base para os botões da lista */
-.cliente-botoes button {
+/* Botão Mais Informações */
+.btn-maisinfocliente {
     padding: 6px 12px;
     border-radius: 6px;
     border: none;
     cursor: pointer;
     font-size: 14px;
     white-space: nowrap; /* Impede que o texto do botão quebre linha */
-}
-
-.btn-editarcliente:hover {
-    background-color: #4b82ff;
-}
-
-/* Botão Mais Informações (#1E293B) */
-.btn-maisinfocliente {
     background-color: var(--sub-background);
-    color: #cbd5e1;
 }
 
 .btn-maisinfocliente:hover {
