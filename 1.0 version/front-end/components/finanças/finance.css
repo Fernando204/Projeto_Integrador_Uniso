@@ -35,7 +35,7 @@
 }
 
 .transaction {
-    background-color: #0B1220;
+    background-color: var(--background);
     padding: 12px 15px;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -45,12 +45,13 @@
 }
 
 .btn_finance {
-    background-color: #2F6FED;
-    color: white;
     padding: 8px 15px;
     border-radius: 8px;
     font-size: 18px;
-    cursor: pointer;
     margin-top: 30px;
+}
+
+.btn_finance:hover{
+    background-color: #4b82ff; /* azul mais claro no hover */
 }
 
