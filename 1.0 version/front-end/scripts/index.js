@@ -16,7 +16,7 @@ let profileCardOpened = false;
 let notifyCardOpened = false;
 
 const changePage = (pageUrl)=>{
-    fetch(pageUrl).then(res => res.text()).then((res) =>{
+    return fetch(pageUrl).then(res => res.text()).then((res) =>{
         contentBox.innerHTML = res;
     });
 }
@@ -52,8 +52,9 @@ changeButtons.forEach((bt,index) =>{
             break;
         case 5:
             bt.addEventListener("click",()=>{
-                changePage("components/relatorios/relatorios.html");
-                initialize();
+                changePage("components/relatorios/relatorios.html").then((res)=>{
+                    initialize();
+                })
             })
             break;
         case 6:

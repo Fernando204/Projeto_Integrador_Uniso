@@ -1,21 +1,48 @@
+let pagesButton;
+
+let activeButton;
+
 const active = (bt)=>{
-    bt.style.transform = "scale(1.1)";
-    activeButton.style.transform = "scale(1)";
+    if(bt === activeButton) return;
+    
+    bt.classList.add("active-button");
+    activeButton.classList.remove("active-button");
 
     activeButton = bt;
 }
 
+const changePage = (pageUrl,contentBox)=>{
+    return fetch(pageUrl).then(res => res.text()).then((res) =>{
+        contentBox.innerHTML = res;
+    });
+}
+
 const initialize = ()=>{
-    const pagesButton = document.querySelectorAll(".navigation-button");
-    let activeButton = pagesButton[0];
+
+    pagesButton = document.querySelectorAll(".navigation-button");
+    activeButton = pagesButton[0]
+    activeButton.classList.add("active-button");
 
     pagesButton.forEach((bt,index)=>{
         console.log("foi")
         bt.addEventListener("click",()=>{
             active(bt);
-            alert("foi")
+
+            switch(index){
+                case 0:
+                    changePage("./components/relatorios/specific/sale.html",container).then(()=>{});   
+                    break;
+                case 1:
+                    changePage("./components/relatorios/specific/finance.html",container).then(()=>{});
+                    break;
+                case 2:
+                    changePage("./components/relatorios/specific/products.html",container).then(()=>{});   
+                    break;
+            }
         })
     })
-}
 
-initialize();
+    const container = document.getElementById("contentContainer");
+    changePage("./components/relatorios/specific/sale.html",container).then(()=>{});   
+
+}
