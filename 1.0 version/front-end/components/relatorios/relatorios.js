@@ -1,5 +1,3 @@
-
-
 const active = (bt)=>{
     bt.style.transform = "scale(1.1)";
     activeButton.style.transform = "scale(1)";
@@ -7,8 +5,8 @@ const active = (bt)=>{
     activeButton = bt;
 }
 
-const initializa = ()=>{
-    const pagesButton = document.querySelectorAll(".navigation-button")
+const initialize = ()=>{
+    const pagesButton = document.querySelectorAll(".navigation-button");
     let activeButton = pagesButton[0];
 
     pagesButton.forEach((bt,index)=>{
@@ -19,3 +17,5 @@ const initializa = ()=>{
         })
     })
 }
+
+initialize();

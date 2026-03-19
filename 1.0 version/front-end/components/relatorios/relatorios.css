@@ -4,22 +4,23 @@
 }
 .relatórios-section .navigation-bar{
     gap: 0;
-    width: 300px;
+    width: auto;
 }
 .relatórios-section .navigation-button{
     height: 5vh;
     margin: 0;
+    margin-right: 10px;
     border: none;
     border-radius: 20px 20px 0px 0px        ;
 }
 .relatórios-section button{
-    background: var(--sub-background-2);
+    background: var(--sub-background);
     padding-left: 20px;
     padding-right: 20px;
 }
 .relatórios-section .content-container{
     height: 70vh;
-    background: var(--sub-background-2);
+    background: var(--sub-background);
     width: 80vw;
 
     border-radius: 0px 20px 20px 20px;

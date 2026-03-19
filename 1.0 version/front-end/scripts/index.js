@@ -53,6 +53,7 @@ changeButtons.forEach((bt,index) =>{
         case 5:
             bt.addEventListener("click",()=>{
                 changePage("components/relatorios/relatorios.html");
+                initialize();
             })
             break;
         case 6:
@@ -88,3 +89,4 @@ notifyButton.addEventListener("click",()=>{
         notifyCardOpened = false;
     }
 })
+
