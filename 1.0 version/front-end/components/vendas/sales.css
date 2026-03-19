@@ -1,104 +1,73 @@
-.vendas-container{
-    padding:30px;
-    color:white;
-}
-
-/* titulo */
-
-.titulo-vendas{
-    font-size:32px;
-    margin-bottom:20px;
-}
-
-
-/* resumo */
-
+/* caixa onde fica o resumo diário */
 .resumo-container{
-    background:#1c2a3d;
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:25px;
+    background-color: #1f2c42;
+    border-radius: 12px;
+    padding: 10px 20px 20px 20px;
+    margin-bottom: 30px;
+    width: 75vw;
 }
 
+/* texto "Resumo diario" */
 .resumo-titulo{
-    margin-bottom:15px;
-    font-size:14px;
-    color:#cbd5e1;
+    color: #ffffff; 
+    margin-bottom: 15px; 
+    margin-top: 0;
+    font-size: 20px;
 }
 
+/* container que segura os 4 cards */
 .resumo-cards{
-    display:grid;
-    grid-template-columns: repeat(4,1fr);
-    gap:15px;
+    display: flex; 
+    gap: 20px; 
 }
 
+/* estilo individual de cada card */
 .resumo-card{
-    background:#0f1c2e;
-    padding:15px 20px 50px;
-    border-radius:10px;
-    font-size:20px;
-    min-height:140px;
+    background-color: var(--background); 
+    border-radius: 10px; 
+    padding: 15px; 
+    width: 20vw; 
+    text-align: center; 
+    height: 15vh;
 }
 
-.resumo-card p{
-    margin:0;
-}
-
-/* paineis */
-
+/* container dos 3 paineis de vendas */
 .vendas-paineis{
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    gap:20px;
+    display: flex; /* coloca os paineis lado a lado */
+    gap: 30px; /* espaço entre eles */
+    width: 77vw;
 }
 
+/* painel individual */
 .painel{
-    background:#1c2a3d;
-    border-radius:12px;
-    height:260px;
-    padding:20px;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:440px;
+    background-color: #1f2c42; 
+    border-radius: 12px; 
+    padding: 0px; 
+    width: 30vw; 
+    height: 50vh; 
+    position: relative; /* permite posicionar elementos dentro dele */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
+
+/* título dentro do painel */
 .painel h3{
-    font-weight:500;
-    margin:0;
-    text-align:center;
+    text-align: center; /* centraliza o título */
+    margin-bottom: 20px;
 }
 
-
-/* botao azul */
-
+/* botão registrar */
 .botao-registrar{
-    all: unset;
-
-    min-width:100px;
-    height:35px;
-    padding:0 10px;
-
-    background:#3b82f6; /* FORÇA A COR */
-    color:#fff;
-
-    border-radius:10px;
-
-    font-size:13px;
-    font-weight:600;
-
-    position:absolute;
-    bottom:15px;
-    right:15px;
-
-    text-align:center;
-    line-height:35px;
-
-    cursor:pointer;
-
-    transition: all 0.3s ease;
+    position: absolute; /* posicionamento relativo ao painel */
+    bottom: 20px; /* distância do fundo */
+    width: 5vw; 
+    height: 3vh; 
+    border-radius: 20px;
 }
+
 .botao-registrar:hover{
-    transform: scale(1.1);
-    background:#2563eb;
+    background-color: #4b82ff;
 }
