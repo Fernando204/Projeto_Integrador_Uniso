@@ -21,13 +21,18 @@ const changePage = (pageUrl)=>{
     });
 }
 
-changePage("components/dashboard/dashboard.html");
+changePage("components/dashboard/dashboard.html").then((res)=>{
+    initializeDashboard();
+});
 
 changeButtons.forEach((bt,index) =>{
     switch(index){
         case 0:
             bt.addEventListener("click",()=>{
-                changePage("components/dashboard/dashboard.html");
+                changePage("components/dashboard/dashboard.html").then((res)=>{
+                    initializeDashboard();
+                });
+                
             })
             break;
         case 1:
@@ -53,7 +58,7 @@ changeButtons.forEach((bt,index) =>{
         case 5:
             bt.addEventListener("click",()=>{
                 changePage("components/relatorios/relatorios.html").then((res)=>{
-                    initialize();
+                    initializeRelatorios();
                 })
             })
             break;

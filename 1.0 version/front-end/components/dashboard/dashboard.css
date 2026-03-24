@@ -53,4 +53,24 @@
     background-color: var(--sub-background);
     margin-top: 10px;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+.dashboard-section .btContainter{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.dashboard-section .saleResumeBt{
+    background-color: var(--background);
+    flex: 1;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-radius: 20px;
+}
+.dashboard-section .active-bt{
+    border: 1px solid rgb(0, 156, 228);
 }

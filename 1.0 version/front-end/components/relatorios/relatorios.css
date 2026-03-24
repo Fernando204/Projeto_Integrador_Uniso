@@ -20,8 +20,7 @@
     padding-right: 20px;
 }
 .relatórios-section .content-container{
-    padding: 30px;
-    height: 70vh;
+    padding: 0px;
     background: var(--sub-background);
     width: 80vw;
 

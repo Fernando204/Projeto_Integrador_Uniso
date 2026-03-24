@@ -7,8 +7,23 @@
     <title>Document</title>
 </head>
 <body>
+    <button onclick="test()">iniciar</button>
+
     <script>
-        window.prompt("digite um numero")
+        let time;
+        let start = false;
+
+        function test() {
+            if (start) {
+                let dif = performance.now() - time;
+                alert("Passou: " + (dif / 1000).toFixed(4) + " segundos");
+                start = false;
+                return;
+            }
+
+            time = performance.now();
+            start = true;
+        }
     </script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 let pagesButton;
-
 let activeButton;
 
 const active = (bt)=>{
@@ -17,7 +16,7 @@ const changePage = (pageUrl,contentBox)=>{
     });
 }
 
-const initialize = ()=>{
+const initializeRelatorios = ()=>{
 
     pagesButton = document.querySelectorAll(".navigation-button");
     activeButton = pagesButton[0]
@@ -30,7 +29,7 @@ const initialize = ()=>{
 
             switch(index){
                 case 0:
-                    changePage("./components/relatorios/specific/sale.html",container).then(()=>{});   
+                    changePage("./components/vendas/sales.html",container).then(()=>{});   
                     break;
                 case 1:
                     changePage("./components/relatorios/specific/finance.html",container).then(()=>{});
@@ -38,6 +37,9 @@ const initialize = ()=>{
                 case 2:
                     changePage("./components/relatorios/specific/products.html",container).then(()=>{});   
                     break;
+                case 3:
+                    changePage("./components/relatorios/specific/estatisticas.html",container).then(()=>{});
+
             }
         })
     })
