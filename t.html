@@ -7,22 +7,41 @@
     <title>Document</title>
 </head>
 <body>
+    <input type="text" id="n1">
+    <input type="text" id="n2">
     <button onclick="test()">iniciar</button>
 
     <script>
-        let time;
-        let start = false;
+        const n1 = document.getElementById("n1");
+        const n2 = document.getElementById("n2");
 
         function test() {
-            if (start) {
-                let dif = performance.now() - time;
-                alert("Passou: " + (dif / 1000).toFixed(4) + " segundos");
-                start = false;
-                return;
+            const nome = n1.value;
+            const senha = n2.value;
+
+            const obj = {
+                nome: nome,
+                senha: senha
             }
 
-            time = performance.now();
-            start = true;
+            fetch("link do server",{
+                header: "",
+                method: "POST",
+                body: JSON.stringify(obj)
+            }).then(res =>{
+                if(res.ok){
+                    return res.json();
+                }
+                throw new Error("Erro inesperado")
+            }).then(res =>{
+                
+                console.log(res.id);
+                eleento.innerHtml id;
+
+            }).catch(e=>{
+                console.log(e)
+            })
+                
         }
     </script>
 </body>

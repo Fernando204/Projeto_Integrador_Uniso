@@ -1,73 +1,37 @@
-/* caixa onde fica o resumo diário */
-.resumo-container{
-    background-color: #1f2c42;
-    border-radius: 12px;
-    padding: 10px 20px 20px 20px;
-    margin-bottom: 30px;
-    width: 75vw;
-}
-
-/* texto "Resumo diario" */
-.resumo-titulo{
-    color: #ffffff; 
-    margin-bottom: 15px; 
-    margin-top: 0;
-    font-size: 20px;
-}
-
-/* container que segura os 4 cards */
-.resumo-cards{
-    display: flex; 
-    gap: 20px; 
-}
-
-/* estilo individual de cada card */
-.resumo-card{
-    background-color: var(--background); 
-    border-radius: 10px; 
-    padding: 15px; 
-    width: 20vw; 
-    text-align: center; 
-    height: 15vh;
-}
-
-/* container dos 3 paineis de vendas */
-.vendas-paineis{
-    display: flex; /* coloca os paineis lado a lado */
-    gap: 30px; /* espaço entre eles */
-    width: 77vw;
-}
-
-/* painel individual */
-.painel{
-    background-color: #1f2c42; 
-    border-radius: 12px; 
-    padding: 0px; 
-    width: 30vw; 
-    height: 50vh; 
-    position: relative; /* permite posicionar elementos dentro dele */
-    flex: 1;
+.sales-section header{
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
+    gap: 30px;
 }
+.sales-section #openButton{
+    width: 7vw;
+    height: 5vh;
+    border-radius: 10px;
+    font-size: 20px;
 
-/* título dentro do painel */
-.painel h3{
-    text-align: center; /* centraliza o título */
-    margin-bottom: 20px;
 }
-
-/* botão registrar */
-.botao-registrar{
-    position: absolute; /* posicionamento relativo ao painel */
-    bottom: 20px; /* distância do fundo */
-    width: 5vw; 
-    height: 3vh; 
+.sales-section .opened{
+    color: red;
+}
+.sales-section .block{
+    padding-left: 30px;
+    background-color: var(--sub-background);
+    height: auto;
+    min-height: 80vh;
+    flex: 1;
     border-radius: 20px;
-}
+    opacity: 0.5;
+    cursor:default;
 
-.botao-registrar:hover{
-    background-color: #4b82ff;
+}
+.sales-section .active{
+    opacity: 1;
+}
+.sales-section .main-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding-right: 30px;
+    margin-top: 30px;
 }
