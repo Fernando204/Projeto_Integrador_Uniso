@@ -1,6 +1,7 @@
 :root{
     --background: #F8FAFC;
     --sub-background: #E2E8F0;
+    --sub-background-2: #cadffa;
     --button: #2563EB;
 
     --main-text: #0F172A;
@@ -37,7 +38,8 @@
         --sub-background: #1E293B;
         --button: #2563EB;
         --main-text: #E2E8F0;
-        --notify-icon: #ffffff
+        --notify-icon: #ffffff;
+        --sub-background-2: #171e2e;
     }
 
     .logo-image {
