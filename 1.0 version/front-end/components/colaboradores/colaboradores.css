@@ -121,6 +121,8 @@
     box-shadow: 0 0 8px #f8717166;
 }
 
+/* Começo do css relacionado ao modal de cadastrar funcionário */
+
 .modal {
     display: none; /* Escondido por padrão */
     position: fixed;
@@ -149,8 +151,8 @@
 }
 
 .modal-content input {
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     border: none;
     background: #0B1220;
     color: white;
@@ -167,42 +169,50 @@
     color: #ff4d4d
 }
 
-#modal-info .modal-content {
+/* Final do css relacionado ao modal de cadastrar funcionário */
+
+/* Começo do css relacionado ao modal de mostrar informações do funcionário e do cliente */
+
+.modal .modal-content {
     padding: 30px;
     width: 400px;
 }
 
-#modal-info hr {
+.modal hr {
     border: 0;
     border-top: 1px solid #eee;
 }
 
-#modal-info .close-info { 
+.modal .close-info { 
     cursor: pointer;
     float: right;
     font-size: 28px;
     transition: 0.3s;
 }
 
-#modal-info .close-info:hover {
+.modal .close-info:hover {
     color: #ff4d4d;
 }
 
-#modal-info .info-corpo {
+.modal .info-corpo {
     margin-top: 20px;
     line-height: 2;
 }
 
-#modal-info .info-corpo p {
+.modal .info-corpo p {
     margin: 10px 0;
     font-size: 20px;
     color: white;
 }
 
-#modal-info .info-corpo strong {
+.modal .info-corpo strong {
     color: #3498db;
     margin-right: 5px;
 }
+
+/* Final do css relacionado ao modal de mostrar informações do funcionário e do cliente */
+
+/* Começo do css relacionado ao modal de editar funcionário */
 
 #modal-editar .modal-content {
     width: 450px; /* Um pouco mais largo que o de cadastro para caber tudo bem */
@@ -278,3 +288,5 @@
 #editar-status {
     color-scheme: dark; /* Deixar o fundo dark das opções Ativo, férias e licença */
 }
+
+/* Final do css relacionado ao modal de editar funcionário */

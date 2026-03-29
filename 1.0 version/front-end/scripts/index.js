@@ -47,7 +47,9 @@ changeButtons.forEach((bt,index) =>{
             break;
         case 3:
             bt.addEventListener("click",()=>{
-                changePage("components/clientes/clientes.html");
+                changePage("components/clientes/clientes.html").then((res)=>{
+                    initializeClientes(apiConnection);
+                })
             })
             break;
         case 4:

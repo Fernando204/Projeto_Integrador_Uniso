@@ -3,12 +3,12 @@ let cardSendoEditado = null;
 function initializeColaboradores(api) { 
     // Cadastrar Funcionário
     const btnAdd = document.getElementById("btn_add_funcionarios");
-    const modal = document.getElementById("modal-cadastro");
+    const modal = document.getElementById("modal-colaborador-cadastro");
     const closeBtn = document.querySelector(".close-button");
     const form = document.getElementById("form-cadastro");
 
     // Mais Informações Funcionários
-    const modalInfo = document.getElementById("modal-info");
+    const modalInfo = document.getElementById("modal-info-colaborador");
     const closeInfo = document.querySelector(".close-info");
     const botoesMaisInfo = document.querySelectorAll(".btn-maisinfo");
 
@@ -75,17 +75,6 @@ function initializeColaboradores(api) {
                 modalInfo.style.display = "block"; 
             });
         });
-
-            // Fecha ao clicar fora do modal de informações dos funcionários
-        window.addEventListener("click", (event) => {
-            if (event.target == modalInfo) {
-                modalInfo.style.display = "none";
-            }
-            // Fecha ao clicar fora do modal de cadastro do funcionário
-            if (event.target == modal) {
-                  modal.style.display = "none";
-            }
-        });
     }
 
     // Editar Funcionário
@@ -118,9 +107,11 @@ function initializeColaboradores(api) {
             });
         });
 
-        // 2. Fechar
+        // 2. Fechar modal de edição
         if (closeEdit) {
-            closeEdit.onclick = () => modalEditar.style.display = "none";
+            closeEdit.onclick = () => {
+                modalEditar.style.display = "none";
+            };
         }
 
         // 3. Salvar (Opcional por enquanto, para teste)
@@ -157,4 +148,9 @@ function initializeColaboradores(api) {
             };
         }
     }
+    window.addEventListener("click", (event) => { //fechar modal quando clickar fora dele
+        if (event.target === modal) modal.style.display = "none";
+        if (event.target === modalInfo) modalInfo.style.display = "none";
+        if (event.target === modalEditar) modalEditar.style.display = "none";
+    });
 }
