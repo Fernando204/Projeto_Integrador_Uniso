@@ -64,7 +64,9 @@ changeButtons.forEach((bt,index) =>{
             break;
         case 6:
             bt.addEventListener("click",()=>{
-                changePage("components/colaboradores/colaboradores.html");
+                changePage("components/colaboradores/colaboradores.html").then((res)=>{
+                    initializeColaboradores(apiConnection);
+                })
             })
             break;
     }

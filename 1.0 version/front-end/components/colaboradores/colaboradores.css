@@ -1,3 +1,7 @@
+.colaboradores-section .main {
+    margin-left: 100px;
+}
+
 .card-funcionarios {
     display: flex;
     flex-direction: column;
@@ -73,9 +77,15 @@
     border-radius: 8px;
     margin-bottom: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr auto;
     align-items: center;
     gap: 20px
+}
+
+.colaboradores-section .produto-botoes{
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
 }
 
 .top-funcionarios{
@@ -109,4 +119,162 @@
 .dot-licenca {
     background-color: #f87171;
     box-shadow: 0 0 8px #f8717166;
+}
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0; 
+    top: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); /* Fundo escuro */
+}
+
+.modal-content {
+    background-color: var(--sub-background);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    color: white;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-content input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #0B1220;
+    color: white;
+}
+
+.close-button {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.close-button:hover{
+    color: #ff4d4d
+}
+
+#modal-info .modal-content {
+    padding: 30px;
+    width: 400px;
+}
+
+#modal-info hr {
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+#modal-info .close-info { 
+    cursor: pointer;
+    float: right;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+#modal-info .close-info:hover {
+    color: #ff4d4d;
+}
+
+#modal-info .info-corpo {
+    margin-top: 20px;
+    line-height: 2;
+}
+
+#modal-info .info-corpo p {
+    margin: 10px 0;
+    font-size: 20px;
+    color: white;
+}
+
+#modal-info .info-corpo strong {
+    color: #3498db;
+    margin-right: 5px;
+}
+
+#modal-editar .modal-content {
+    width: 450px; /* Um pouco mais largo que o de cadastro para caber tudo bem */
+}
+
+#modal-editar .close-edit {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+#modal-editar .close-edit:hover{
+    color: #ff4d4d
+}
+
+#modal-editar .btn-save {
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+#modal-editar .btn-save:hover{
+    transform: scale(1.03);
+}
+
+#modal-editar h2 {
+    margin-bottom: 20px;
+}
+
+#modal-editar #editar-status {
+    appearance: none; /* Remove a seta padrão do navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    background-color: #0B1220; 
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    
+    /* Seta customizada */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+}
+
+/* Efeito de foco quando clicar */
+#modal-editar #editar-status:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Estilizando as opções dentro do select */
+#modal-editar #editar-status option {
+    background-color: #0B1220;
+    color: white;
+    padding: 10px;
+}
+
+#modal-editar #form-editar label {
+    font-size: 16px;
+    margin-bottom: -5px;
+    margin-top: 10px;
+}
+
+#editar-status {
+    color-scheme: dark; /* Deixar o fundo dark das opções Ativo, férias e licença */
 }

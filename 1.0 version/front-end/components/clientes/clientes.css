@@ -1,3 +1,7 @@
+.clientes-section .main {
+    margin-left: 100px;
+}
+
 .cardclientes {
     display: flex;
     flex-direction: column;
