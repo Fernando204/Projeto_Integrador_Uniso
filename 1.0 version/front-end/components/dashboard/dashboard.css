@@ -45,7 +45,7 @@
     justify-content: center;
     background-color: var(--background);
     border-radius: 20px;
-
+    text-align: center;
 }
 .dashboard-section .itens-list{
     flex: 0.9;
@@ -73,4 +73,38 @@
 }
 .dashboard-section .active-bt{
     border: 1px solid rgb(0, 156, 228);
+}
+
+.titulo-vendas{
+    margin:10px;
+    font-size:16px;
+}
+
+.vendas-lista{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:10px;
+    width:100%;
+}
+
+.venda-item{
+    background-color: var(--background);
+    border-radius:15px;
+    padding:20px 1px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+}
+
+.nome-item{
+    font-size:14px;
+    margin-left:10px;
+}
+
+.valor-item{
+    color:#22c55e;
+    font-weight:600;
+    margin-right:10px;
 }
