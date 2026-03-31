@@ -29,7 +29,7 @@ const initializeRelatorios = ()=>{
 
             switch(index){
                 case 0:
-                    changePage("./components/vendas/sales.html",container).then(()=>{});   
+                    changePage("./components/relatorios/specific/sale.html",container).then(()=>{});   
                     break;
                 case 1:
                     changePage("./components/relatorios/specific/finance.html",container).then(()=>{});

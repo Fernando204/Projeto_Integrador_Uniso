@@ -12,6 +12,9 @@
 
 }
 .sales-section .opened{
+    color: #00ff1a;
+}
+.sales-section .closed{
     color: red;
 }
 .sales-section .block{
@@ -34,4 +37,7 @@
     gap: 20px;
     padding-right: 30px;
     margin-top: 30px;
+}
+.sales-section .activate-item:hover{
+    transform: scale(1);
 }

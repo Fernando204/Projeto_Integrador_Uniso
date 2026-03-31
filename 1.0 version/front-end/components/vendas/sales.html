@@ -1,19 +1,28 @@
 <div class="sales-section">
     <header>
         <button  id="openButton">Abrir caixa</button>
-        <h1 class="opened" id="dataTitle">Caixa fechado</sh1>
+        <h1 class="closed" id="titleInfo">Caixa fechado</h1>
+        <h3 class="closed" id="dataTitle"></h3>
     </header>
 
     <div class="main-container">
-        <div class="block active">
+        <div class="block">
             <h1>Realizar venda</h1>
-            <select name="" id="">
+
+            <select name="" id="clientSelect" class="activate-item" disabled>
                 <option value="">cliente1</option>
                 <option value="">cliente2</option>
             </select>
 
             <p>Produto:</p>
-            <input type="text">
+            <input type="text" id="productInput" disabled class="activate-item">
+
+            <div>
+                <button class="activate-item">Cancelar Venda</button>
+                <button class="activate-item">Confirmar venda</button>
+            </div>
+
+        
         </div>
         <div class="block">
             <h1>Resumo</h1>

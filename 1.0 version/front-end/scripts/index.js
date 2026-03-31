@@ -42,7 +42,9 @@ changeButtons.forEach((bt,index) =>{
             break;
         case 2:
             bt.addEventListener("click",()=>{
-                changePage("components/vendas/sales.html");
+                changePage("components/vendas/sales.html").then((res)=>{
+                    initializeSales()
+                });
             })
             break;
         case 3:
