@@ -63,9 +63,13 @@
 .botao-registrar{
     position: absolute; /* posicionamento relativo ao painel */
     bottom: 20px; /* distância do fundo */
-    width: 5vw; 
-    height: 3vh; 
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 20px;
+    background-color: var(--button) !important; 
+    color: var(--main-text);
 }
 
 .botao-registrar:hover{

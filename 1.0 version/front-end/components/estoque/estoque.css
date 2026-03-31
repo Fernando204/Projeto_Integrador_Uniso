@@ -1,3 +1,7 @@
+.estoque-section .main {
+    margin-left: 100px;
+}
+
 .card-estoques {
     display: flex;
     flex-direction: column;

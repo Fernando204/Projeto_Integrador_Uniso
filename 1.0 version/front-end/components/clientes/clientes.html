@@ -1,79 +1,139 @@
-<div>
-    <h1 id="clientestitle">Clientes</h1>
-</div>
-
-<div class="top-clientes">
-    
-    <div class="cardclientes">
-        <h1>Clientes Registrados</h1>
-        <h3>70</h3>
+<div class="clientes-section">
+    <div>
+        <h1 id="clientestitle">Clientes</h1>
     </div>
 
-    <button class="btn_clientes" id="btn_add_cliente">
-        Adicionar cliente
-    </button>
-
-</div>
-
-<div class="main">
-        <div class="box-filter">
-            
+    <div class="top-clientes">
+        
+        <div class="cardclientes">
+            <h1>Clientes Registrados</h1>
+            <h3>70</h3>
         </div>
 
-        <div class="clientes-historicos">
-            <div class="clientes-historico">
-                <p>Carlos</p>
-                <span>20 compras</span>
-                <span>Prioridade: cartão de crédito</span>
-                <span>Total de 5000 reais gastos</span>
+        <button class="btn_clientes" id="btn_abrir-modal-cliente">
+            Adicionar cliente
+        </button>
+
+    </div>
+
+    <div class="main">
+            <div class="box-filter">
                 
-                <div class="cliente-botoes">
-                    <button class="btn-maisinfocliente">Mais informações</button>
-                </div>
             </div>
 
-            <div class="clientes-historico">
-                <p>Luan</p>
-                <span>14 compras</span>
-                <span>Prioridade: pix</span>
-                <span>Total de 7000 reais gastos</span>
+            <div class="clientes-historicos">
+                <div class="clientes-historico cliente-info">
+                    <p>Carlos</p>
+                    <span style="display:none">carlos@email.com</span> 
+                    <span style="display:none">123.456.789-00</span>    
+                    <span style="display:none">10/05/1995</span>
+                    <span>20 compras</span>
+                    <span>Prioridade: cartão de crédito</span>
+                    <span>Total de 5000 reais gastos</span>
+                    
+                    <div class="cliente-botoes">
+                        <button class="btn-maisinfocliente">Mais informações</button>
+                    </div>
+                </div>
 
-                <div class="cliente-botoes">
-                    <button class="btn-maisinfocliente">Mais informações</button>
+                <div class="clientes-historico cliente-info">
+                    <p>Luan</p>
+                    <span style="display:none">Luan@email.com</span> 
+                    <span style="display:none">123.456.789-00</span>    
+                    <span style="display:none">10/05/1998</span>
+                    <span>14 compras</span>
+                    <span>Prioridade: pix</span>
+                    <span>Total de 7000 reais gastos</span>
+
+                    <div class="cliente-botoes">
+                        <button class="btn-maisinfocliente">Mais informações</button>
+                    </div>
+                </div>
+
+                <div class="clientes-historico cliente-info">
+                    <p>Eduardo</p>
+                    <span style="display:none">Eduardo@email.com</span> 
+                    <span style="display:none">123.456.789-00</span>    
+                    <span style="display:none">10/05/2001</span>
+                    <span>30 compras</span>
+                    <span>Prioridade: pix</span>
+                    <span>Total de 12000 reais gastos</span>
+
+                    <div class="cliente-botoes">
+                        <button class="btn-maisinfocliente">Mais informações</button>
+                    </div>
+                </div>
+
+                <div class="clientes-historico cliente-info">
+                    <p>Laura</p>
+                    <span style="display:none">Laura@email.com</span> 
+                    <span style="display:none">123.456.789-00</span>    
+                    <span style="display:none">10/05/1993</span>
+                    <span>16 compras</span>
+                    <span>Prioridade: cartão de débito</span>
+                    <span>Total de 9000 reais gastos</span>
+
+                    <div class="cliente-botoes">
+                        <button class="btn-maisinfocliente">Mais informações</button>
+                    </div>
+                </div>
+
+                <div class="clientes-historico cliente-info">
+                    <p>Marcelo</p>
+                    <span style="display:none">Marcelo@email.com</span> 
+                    <span style="display:none">123.456.789-00</span>    
+                    <span style="display:none">10/05/1999</span>
+                    <span>25 compras</span>
+                    <span>Prioridade: cartão de crédito</span>
+                    <span>Total de 40000 reais gastos</span>
+
+                    <div class="cliente-botoes">
+                        <button class="btn-maisinfocliente">Mais informações</button>
+                    </div>
                 </div>
             </div>
+    </div>
 
-            <div class="clientes-historico">
-                <p>Eduardo</p>
-                <span>30 compras</span>
-                <span>Prioridade: pix</span>
-                <span>Total de 12000 reais gastos</span>
+    <div id="modal-cliente-cadastro" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Cadastrar Novo Cliente</h2>
+            <form id="form-cliente-cadastro">
+                <input type="text" id="cliente-nome" placeholder="Nome Completo" required>
+                <input type="email" id="cliente-email" placeholder="E-mail" required>
+                <input type="text" id="cliente-cpf" placeholder="CPF" required maxlength="11" pattern="\d{11}" title="Digite exatamente 11 números">
+                <input type="date" id="cliente-nascimento" required>
 
-                <div class="cliente-botoes">
-                    <button class="btn-maisinfocliente">Mais informações</button>
-                </div>
-            </div>
+                <label>Pagamento Preferido (Opcional):</label>
+                <select id="cliente-pagamento-pref">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                </select>
 
-            <div class="clientes-historico">
-                <p>Laura</p>
-                <span>16 compras</span>
-                <span>Prioridade: cartão de débito</span>
-                <span>Total de 9000 reais gastos</span>
+                <button type="submit" id="btn-confirmar-cadastro" class="btn_clientes">Finalizar Cadastro</button>
+            </form>
 
-                <div class="cliente-botoes">
-                    <button class="btn-maisinfocliente">Mais informações</button>
-                </div>
-            </div>
+        </div>
+    </div>
 
-            <div class="clientes-historico">
-                <p>Marcelo</p>
-                <span>25 compras</span>
-                <span>Prioridade: cartão de crédito</span>
-                <span>Total de 40000 reais gastos</span>
-
-                <div class="cliente-botoes">
-                    <button class="btn-maisinfocliente">Mais informações</button>
-                </div>
+    <div id="modal-info-cliente" class="modal">
+        <div class="modal-content">
+            <span class="close-info">&times;</span>
+            <h2>Detalhes do Cliente</h2>
+            <hr>
+            <div class="info-corpo">
+                <p><strong>Nome:</strong> <span id="info-cliente-nome"></span></p>
+                <p><strong>Email:</strong> <span id="info-cliente-email"></span></p>
+                <p><strong>CPF:</strong> <span id="info-cliente-cpf"></span></p>
+                <p><strong>Nascimento:</strong> <span id="info-cliente-nascimento"></span></p>
+                <p><strong>Pagamento Preferido:</strong> <span id="info-cliente-pagamento"></span></p>
+                <p><strong>Total de Compras:</strong> <span id="info-cliente-compras"></span></p>
+                <p><strong>Total Gasto:</strong> <span id="info-cliente-gastos"></span></p>
             </div>
         </div>
+    </div>
+
 </div>
