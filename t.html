@@ -15,6 +15,10 @@
         const n1 = document.getElementById("n1");
         const n2 = document.getElementById("n2");
 
+        function carregarLista(lista){
+
+        }
+
         function test() {
             const nome = n1.value;
             const senha = n2.value;
@@ -23,6 +27,10 @@
                 nome: nome,
                 senha: senha
             }
+
+            let response = apiConnectio.login(obj)
+
+            console.log(response.id)
 
             fetch("link do server",{
                 header: "",
@@ -34,9 +42,8 @@
                 }
                 throw new Error("Erro inesperado")
             }).then(res =>{
+                carregarLista(res.compras)
                 
-                console.log(res.id);
-                eleento.innerHtml id;
 
             }).catch(e=>{
                 console.log(e)
