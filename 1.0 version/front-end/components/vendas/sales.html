@@ -15,11 +15,25 @@
             </select>
 
             <p>Produto:</p>
-            <input type="text" id="productInput" disabled class="activate-item">
+            <div class="input-container">
+                <input type="text" id="productInput" class="activate-item" disabled>
+            </div>
+
+            <p>Quantidade:</p>
+            <input type="number" id="qtyInput" value="1" min="1" class="activate-item qty-field" disabled>
+
+            <p>Método de Pagamento:</p>
+            <select id="paymentMethod" class="activate-item" disabled>
+                <option value="">Selecione...</option>
+                <option value="pix">Pix</option>
+                <option value="credito">Crédito</option>
+                <option value="debito">Débito</option>
+                <option value="dinheiro">Dinheiro</option>
+            </select>
 
             <div>
-                <button class="activate-item">Cancelar Venda</button>
-                <button class="activate-item">Confirmar venda</button>
+                <button id="btnCancelar" class="activate-item" disabled>Cancelar Venda</button>
+                <button id="btnConfirmar" class="activate-item" disabled>Confirmar venda</button>
             </div>
 
         
