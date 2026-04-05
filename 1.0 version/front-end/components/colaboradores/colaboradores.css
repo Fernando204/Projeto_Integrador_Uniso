@@ -331,3 +331,49 @@
 .btn-excluir:hover {
     background-color: #ff4d4d; /* Fica mais forte no hover */
 }
+
+/* CSS para o histórico de ações dos colaboradores */
+
+.historico-container {
+    margin-top: 25px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.historico-container h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.historico-lista {
+    max-height: 150px; /* Altura máxima para não esticar o modal */
+    overflow-y: auto;  /* Cria o scroll se tiver muito texto */
+    background: var(--sub-background-2);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#lista-historico {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#lista-historico li {
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: white;
+}
+
+#lista-historico li:last-child {
+    border-bottom: none;
+}
+
+.data-log {
+    font-weight: bold;
+    color: #2c3e50;
+}

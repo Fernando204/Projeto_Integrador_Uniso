@@ -1,8 +1,47 @@
 {
-    "1":{
-        "nome": "roger",
-        "email": "roger@gmail.com",
-        "phone": "1533564845",
-        "company_id": 1
+    "1": {
+        "nome": "Carlos",
+        "email": "carlos@email.com",
+        "cpf": "123.456.789-00",
+        "nascimento": "10/05/1995",
+        "compras": "20 compras",
+        "pagamento": "Cartão de Crédito",
+        "gastos": "5000"
+    },
+    "2": {
+        "nome": "Luan",
+        "email": "Luan@email.com",
+        "cpf": "123.456.789-01",
+        "nascimento": "10/05/1998",
+        "compras": "14 compras",
+        "pagamento": "Pix",
+        "gastos": "7000"
+    },
+    "3": {
+        "nome": "Eduardo",
+        "email": "Eduardo@email.com",
+        "cpf": "123.456.789-02",
+        "nascimento": "10/05/2001",
+        "compras": "30 compras",
+        "pagamento": "Pix",
+        "gastos": "12000"
+    },
+    "4": {
+        "nome": "Laura",
+        "email": "Laura@email.com",
+        "cpf": "123.456.789-03",
+        "nascimento": "10/05/1993",
+        "compras": "16 compras",
+        "pagamento": "Cartão de Débito",
+        "gastos": "9000"
+    },
+    "5": {
+        "nome": "Marcelo",
+        "email": "Marcelo@email.com",
+        "cpf": "123.456.789-04",
+        "nascimento": "10/05/1999",
+        "compras": "25 compras",
+        "pagamento": "Cartão de Crédito",
+        "gastos": "40000"
     }
 }

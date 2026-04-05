@@ -1,8 +1,19 @@
 let cardSendoEditado = null;
 
 function initializeColaboradores(api) { 
-    // Gerar card ao cadastrar funcionário
 
+    // Função para atualizar o contador de colaboradores
+    function atualizarContador() {
+        const total = document.querySelectorAll(".funcionario-info").length; //Pega a quantidade de funcionários que possui na empresa
+        const displayContador = document.getElementById("contagem-total-funcionarios"); //Encontra o elemento que possua o id contagem-total-funcionarios, que é o número que mostra a quantidade de funcionários
+        if (displayContador) { //Se o displayContador existir, roda o código abaixo
+            displayContador.innerText = total; //Escreve o ''total'' da quantidade de funcionário no elemento que exibe a quantidade de funcionários (displayContador)
+        }
+    }
+
+
+
+    // Gerar card ao cadastrar funcionário
     function adicionarCardNaTela(dados) {
         const container = document.querySelector(".funcionarios-info");
         const novoCardHTML = `
@@ -54,7 +65,7 @@ function initializeColaboradores(api) {
         });
     }
 
-    if (containerCards) {
+    if (containerCards) { //Excluir Funcionário
     containerCards.addEventListener("click", (evento) => {
         if (evento.target.classList.contains("btn-excluir")) { // Verifica se o que foi clicado EXATAMENTE é o botão de excluir
             
@@ -65,6 +76,7 @@ function initializeColaboradores(api) {
 
             if (confirmar) {
                 card.remove(); // Remove o elemento do HTML na hora
+                atualizarContador();
                 alert("Colaborador removido com sucesso!");
                 
                 // Futuramente: aqui terá o api.delete(id)
@@ -101,7 +113,8 @@ function initializeColaboradores(api) {
 
             try {
                 await api.register(dadosParaEnviar); 
-                adicionarCardNaTela(dadosParaEnviar)
+                adicionarCardNaTela(dadosParaEnviar);
+                atualizarContador();
                 alert("Funcionário cadastrado com sucesso");
             } catch(error) {
                 console.error("Erro ao registrar:", error);
@@ -217,6 +230,8 @@ function initializeColaboradores(api) {
             };
         }
     }
+
+    atualizarContador(); //Ao carregar a página já carrega o número de funcionários
 
 
     window.addEventListener("click", (event) => { //fechar modal quando clickar fora dele
