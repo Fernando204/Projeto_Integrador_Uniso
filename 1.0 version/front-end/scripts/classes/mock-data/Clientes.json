@@ -43,5 +43,14 @@
         "compras": "25 compras",
         "pagamento": "Cartão de Crédito",
         "gastos": "40000"
+    },
+    "6": {
+        "nome": "Túlio",
+        "email": "Tulio@email.com",
+        "cpf": "123.456.789-05",
+        "nascimento": "15/07/2006",
+        "compras": "18 compras",
+        "pagamento": "Cartão de Débito",
+        "gastos": "1000000"
     }
 }

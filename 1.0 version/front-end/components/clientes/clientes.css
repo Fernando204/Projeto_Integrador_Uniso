@@ -137,3 +137,22 @@
 }
 
 /* Final do css relacionado ao modal de cadastrar cliente */
+
+
+.btn-excluir-cliente {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.btn-excluir-cliente:hover {
+    background-color: #ff4d4d;
+}
+
+.clientes-section .cliente-botoes{
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
