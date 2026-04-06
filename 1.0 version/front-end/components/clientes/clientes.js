@@ -9,10 +9,30 @@ function initializeClientes(api) {
     const modalInfo = document.getElementById("modal-info-cliente");
     const closeInfo = document.querySelector(".close-info");
 
-    const container = document.querySelector(".clientes-historicos");
-    const displayContador = document.getElementById("contagem-total-clientes");
+    const container = document.querySelector(".clientes-historicos"); // Usado para carregar clientes do JSON
 
-    // === 2. FUNÇÃO PARA CARREGAR OS ATORES (JSON) ===
+    const inputBusca = document.getElementById("inputBuscaCliente"); // Captura o campo de digitação para podermos ouvir o que o usuário escreve
+
+    if (inputBusca) { //O campo de busca existe?
+        inputBusca.addEventListener("input", () => { // O ouvinte é disparado toda vez que alguma letra é digitada ou apagada
+            const termoBusca = inputBusca.value.toLowerCase(); // Pega qualquer nome de cliente que o usuário digitou e coloca em letra minúscula
+            const todosOsCards = document.querySelectorAll(".clientes-historico"); // Encontra todos os clientes cadastrados 
+            todosOsCards.forEach(card => {
+                const nomeCliente = card.querySelector("p").innerText.toLowerCase(); // Pega o nome do cliente e escreve em minúsculo
+                card.style.display = nomeCliente.includes(termoBusca) ? "grid" : "none"; // "O nome que está neste cartão contém as letras que o usuário digitou no campo de busca?"
+            });
+        });
+    }
+
+    function atualizarContador() {
+        const total = document.querySelectorAll(".clientes-historico").length; //Pega a quantidade de clientes que possui na empresa
+        const displayContador = document.getElementById("contagem-total-clientes"); // Encontra o elemento que possua o id contagem-total-clientes, que é o número que mostra a quantidade de clientes
+        if (displayContador) { //Se o displayContador existir, roda o código abaixo
+            displayContador.innerText = total; //Escreve o ''total'' da quantidade de cliente no elemento que exibe a quantidade de clientes (displayContador)
+        }
+    }
+
+    // === FUNÇÃO PARA CARREGAR OS ATORES (JSON) ===
     async function carregarClientesDoJson() {
         try {
             const resposta = await fetch('./scripts/classes/mock-data/Clientes.json'); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
@@ -39,11 +59,7 @@ function initializeClientes(api) {
                         </div>`;
                     container.insertAdjacentHTML('beforeend', cardHTML); // Injeta o HTML criado no final da lista, dentro do container pai
                 });
-            }
-            
-            // Ligar o Placar (Contador)
-            if (displayContador) { 
-                displayContador.innerText = listaClientes.length; // Atualiza o placar de "Clientes Registrados" com o número total de itens da lista
+                atualizarContador();
             }
         } catch (error) {
             console.error("Erro ao carregar clientes do JSON:", error);
@@ -89,23 +105,17 @@ function initializeClientes(api) {
         console.error("Erro: Botão ou Modal não encontrados no HTML de Clientes!");
     }   
 
-    // MAIS INFORMAÇÕES DO CLIENTE    
-    // Fechar modal de info
-    if (closeInfo) {
-        closeInfo.onclick = () => {
-            modalInfo.style.display = "none";
-        };
-    }
-
+    // Delegação de Eventos para "mais info" e "excluir"
     if (container) {
         container.addEventListener("click", (evento) => { // Adiciona UM ÚNICO "ouvidor" de clique no container pai
+
             if (evento.target.classList.contains("btn-maisinfocliente")) { // Verifica se o que foi clicado exatamente foi o botão de informações
-                const card = evento.target.closest(".cliente-info"); // Sobe na árvore do HTML para encontrar o card (.cliente-info) correspondente ao botão
+                const card = evento.target.closest(".cliente-info"); // Sobe na árvore do HTML para encontrar o card (.cliente-info, linha 47) correspondente ao botão
                 const nome = card.querySelector("p").innerText; // Pega o nome que está dentro da tag <p> do card
-                const atributos = card.querySelectorAll("span");
+                const atributos = card.querySelectorAll("span"); //Vai na linha 47 de novo e pega todos os span
             
                 document.getElementById("info-cliente-nome").innerText = nome;
-                document.getElementById("info-cliente-email").innerText = atributos[0].innerText;
+                document.getElementById("info-cliente-email").innerText = atributos[0].innerText; // Pega as palavras dos span da linha 47 e reescreve no documento (modal do html) a partir do ID de cada elemento
                 document.getElementById("info-cliente-cpf").innerText = atributos[1].innerText;
                 document.getElementById("info-cliente-nascimento").innerText = atributos[2].innerText;
                 document.getElementById("info-cliente-compras").innerText = atributos[3].innerText;
@@ -121,21 +131,26 @@ function initializeClientes(api) {
 
                 if (confirm(`Tem certeza que deseja excluir o cliente ${nomeCliente}?`)) {
                     card.remove(); // Remove o elemento HTML do card da tela imediatamente
-                    
-                    if (displayContador) { // Se o display do contador existir, atualiza o número total de clientes
-                        const totalAtual = document.querySelectorAll(".clientes-historico").length; // Conta quantos cards com a classe ".clientes-historico" restaram no documento
-                        displayContador.innerText = totalAtual;
-                    }
-
+                    atualizarContador();
                     alert("Cliente removido da visualização!");
                 }
             }
         });
     };
+
+    // Fechar modais
+    if (closeInfo) {
+        closeInfo.onclick = () => {
+            modalInfo.style.display = "none";
+        };
+    }
+
     window.addEventListener("click", (event) => {
         if (event.target === modal) { modal.style.display = "none"; form.reset(); }
         if (event.target === modalInfo) { modalInfo.style.display = "none"; }
     });
 
     carregarClientesDoJson();
+    atualizarContador()
+
 }
