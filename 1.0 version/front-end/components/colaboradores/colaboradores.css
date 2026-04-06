@@ -59,9 +59,29 @@
     background-color: var(--sub-background);
     padding: 10px;
     border-radius: 10px;
+    border: none;
     width: 75vw;
     height: 100px;
 }
+
+/* Adicione este para o input ficar bonitão no seu padrão dark */
+.box-filter-funcionarios input {
+    width: 100%;
+    max-width: 400px; /* Para o campo não ficar gigante na tela toda */
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--background); /* Mesma cor dos cards de funcionários */
+    color: white;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #1e293b; /* Uma bordinha sutil */
+}
+
+.box-filter-funcionarios input:focus {
+    border-color: #3498db; /* Brilha azul quando você clica para digitar */
+}
+
 
 .funcionarios-info {
     background-color: var(--sub-background);
@@ -72,7 +92,7 @@
 }
 
 .funcionario-info {
-    background-color: #0B1220;
+    background-color: var(--background);
     padding: 12px 15px;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -154,7 +174,7 @@
     padding: 12px;
     border-radius: 8px;
     border: none;
-    background: #0B1220;
+    background: var(--background);
     color: white;
 }
 
@@ -244,12 +264,15 @@
     margin-bottom: 20px;
 }
 
-#modal-editar #editar-status {
+/* Daqui pra baixo é pra modificar os selects do editar e do cadastrar funcionário */
+
+#modal-editar #editar-status,
+#modal-colaborador-cadastro #turno {
     appearance: none; /* Remove a seta padrão do navegador */
     -webkit-appearance: none;
     -moz-appearance: none;
     
-    background-color: #0B1220; 
+    background-color: var(--background); 
     color: white;
     padding: 12px;
     border-radius: 8px;
@@ -266,27 +289,91 @@
 }
 
 /* Efeito de foco quando clicar */
-#modal-editar #editar-status:focus {
+#modal-editar #editar-status:focus,
+#modal-colaborador-cadastro #turno:focus {
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
 /* Estilizando as opções dentro do select */
-#modal-editar #editar-status option {
-    background-color: #0B1220;
+#modal-editar #editar-status option, 
+#modal-colaborador-cadastro #turno option {
+    background-color: var(--background);
     color: white;
     padding: 10px;
 }
 
-#modal-editar #form-editar label {
+#modal-editar #form-editar label,
+#modal-colaborador-cadastro #turno label {
     font-size: 16px;
     margin-bottom: -5px;
     margin-top: 10px;
 }
 
-#editar-status {
-    color-scheme: dark; /* Deixar o fundo dark das opções Ativo, férias e licença */
+#editar-status,
+#modal-colaborador-cadastro #turno {
+    color-scheme: dark; /* Deixar o fundo dark das opções Ativo, férias e licença, manhã, tarde e noite */
 }
 
+/* Daqui pra cima é pra modificar os selects do editar e do cadastrar funcionário */
+
 /* Final do css relacionado ao modal de editar funcionário */
+
+.btn-excluir {
+    background-color: #f87171; /* Um vermelho suave que combina com seu status de Licença */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.btn-excluir:hover {
+    background-color: #ff4d4d; /* Fica mais forte no hover */
+}
+
+/* CSS para o histórico de ações dos colaboradores */
+
+.historico-container {
+    margin-top: 25px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.historico-container h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.historico-lista {
+    max-height: 150px; /* Altura máxima para não esticar o modal */
+    overflow-y: auto;  /* Cria o scroll se tiver muito texto */
+    background: var(--sub-background-2);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#lista-historico {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#lista-historico li {
+    font-size: 0.85rem;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+    color: white;
+}
+
+#lista-historico li:last-child {
+    border-bottom: none;
+}
+
+.data-log {
+    font-weight: bold;
+    color: #2c3e50;
+}

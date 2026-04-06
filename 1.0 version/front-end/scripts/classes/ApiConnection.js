@@ -2,13 +2,13 @@
 export class ApiConnection{
     API_URL = "http://localhost:8080";
 
-    login(user){
-        response = this.sendPostRequest("/auth/login",user)
+    async login(user) {
+        const response = await this.sendPostRequest("/auth/login", user);
         return response;
     }
 
-    register(user){
-        response = this.sendPostRequest("/auth/register",user)
+    async register(user) {
+        const response = await this.sendPostRequest("/auth/register", user);
         return response;
     }
 
