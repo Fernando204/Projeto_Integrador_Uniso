@@ -1,5 +1,6 @@
 package com.example.backend.models;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.example.backend.enums.AccountStatus;
@@ -24,6 +25,8 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private String cnpjOrCpf;
+    private LocalDate admissionDate;
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
@@ -31,16 +34,63 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Long companyId;
+    private Company company;
 
     public User(){}
-    public User(String name,String email,String password,String role,AccountStatus status){
+    public User(//construtor para usuário normal
+            String name,
+            String email,
+            String password,
+            String role,
+            String cnpjOrCpf,
+            AccountStatus status){
+        this.name = name;
+        this.cnpjOrCpf = cnpjOrCpf;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+        this.admissionDate = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
+    }
+    public User(//construtor para usuários de  funcionarios
+            String name,
+            String email,
+            String password,
+            String role,
+            AccountStatus status,
+            LocalDate admissionDate){
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
         this.status = status;
+        this.admissionDate = admissionDate;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public LocalDate getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(LocalDate admissionDate) {
+        this.admissionDate = admissionDate;
+    }
+
+    public String getCnpjOrCpf() {
+        return cnpjOrCpf;
+    }
+
+    public void setCnpjOrCpf(String cnpjOrCpf) {
+        this.cnpjOrCpf = cnpjOrCpf;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public AccountStatus getStatus() {
@@ -49,10 +99,6 @@ public class User {
     
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
     }
 
     public Long getId() {
@@ -97,9 +143,5 @@ public class User {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
     }
 }

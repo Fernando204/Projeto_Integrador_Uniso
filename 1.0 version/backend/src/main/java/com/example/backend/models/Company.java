@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 @Entity(name = "company")
 public class Company {
 
@@ -13,19 +16,35 @@ public class Company {
     public Long id;
     
     public String razao;
-    public String cnpj;
+    public String cpfOrCnpj;
     public String email;
     public String telefone;
     public String endereco;
+    private BigDecimal balance = new BigDecimal(BigInteger.ZERO);
+
 
     public Company(){}
-    public Company(String razao,String cnpj,String email,String telefone,String endereco,Long id){
+    public Company(
+            String razao,
+            String cpfOrCnpj,
+            String email,
+            String telefone,
+            String endereco,
+            Long id){
         this.id = id;
         this.razao = razao;
-        this.cnpj = cnpj;
+        this.cpfOrCnpj = cpfOrCnpj;
         this.email = email;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public Long getId(){
@@ -35,8 +54,8 @@ public class Company {
         return razao;
     }
 
-    public String getCnpj(){
-        return cnpj;
+    public String getCpfOrCnpj(){
+        return cpfOrCnpj;
     }
 
     public String getEmail(){
@@ -55,8 +74,8 @@ public class Company {
         this.razao = razao;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpfOrCnpj(String cnpj) {
+        this.cpfOrCnpj = cnpj;
     }
 
     public void setEmail(String email) {

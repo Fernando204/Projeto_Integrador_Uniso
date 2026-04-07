@@ -1,4 +1,4 @@
-:root{
+ :root{
     --background: #F8FAFC;
     --sub-background: #E2E8F0;
     --button: #2563EB;
@@ -56,7 +56,7 @@
         filter: invert(100%) brightness(200%);
     }
 }
-
+/*
 body{
     margin: 0;
     background-color: var(--background);
@@ -89,10 +89,11 @@ body{
 
 .card{
     background-color: var(--sub-background);
-    border-radius: 20px;
-    padding: 15px;
-
-    box-shadow: 0.5px 0.5px 3px 0px var(--main-text);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 .login-card{
     width: 30vw;
@@ -197,4 +198,169 @@ body{
 
 .register-link a:hover{
     text-decoration: underline;
+}
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--background);
+    color: #fff;
+}
+
+/* Layout principal */
+.split-screen {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Lado esquerdo */
+.lateral-container {
+    flex: 1;
+    background: var(--button);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.lateral-container img {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.lateral-container h1 {
+    font-size: 1.8rem;
+    max-width: 300px;
+}
+
+/* Lado direito */
+.right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Card */
+.card {
+    background: var(--sub-background);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form */
+fieldset {
+    border: none;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.login-card input[type="text"],
+.login-card input[type="email"],
+.login-card input[type="password"]{
+     width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    outline: none;
+  border: 1.5px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card input::placeholder {
+  color: var(--input-placeholder);
+  font-weight: 400;
+}
+
+.login-card input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 8px var(--input-focus-shadow);
+  outline: none;
+}
+
+/* Botão */
+button {
+    width: 100%;
+    padding: 12px;
+    background: var(--button);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition:  0.3s linear;
+}
+
+button:hover {
+  font-weight: 900;
+}
+
+/* Link */
+.register-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.register-link a {
+    color: #90CAF9;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* 🔥 RESPONSIVIDADE */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .split-screen {
+        flex-direction: column;
+    }
+
+    .lateral-container {
+        padding: 20px;
+    }
+
+    .lateral-container h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Celular */
+@media (max-width: 500px) {
+    .card {
+        padding: 20px;
+    }
+
+    .lateral-container {
+        display: none; /* remove o lado esquerdo no mobile */
+    }
+
+    .right-side {
+        padding: 10px;
+    }
 }

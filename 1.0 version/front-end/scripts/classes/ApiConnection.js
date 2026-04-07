@@ -13,18 +13,32 @@ export class ApiConnection{
     }
 
     async sendPostRequest(endpoint, body){
-        let status = null;
-        let message = null;
-
         try{
+            const res = await fetch(this.API_URL+endpoint,{
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify(body),
+                method: "POST"
+            });
 
-        }catch(err){
+            const data = await res.json();
 
+            if(!res.ok){
+                const error = new Error(data.message || "erro na requisição");
+                error.status = res.status;
+                throw error;
+            }
+
+            return data;
+        }catch(error){
+            console.error("Error code: "+error.status);
+            console.error(error.message);
+
+            return {
+            error: true,
+            status: error.status || 500,
+            message: error.message
+        };
         }
 
-        return {
-            status: status,
-            message: message
-        }
     }
 }

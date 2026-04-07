@@ -6,11 +6,15 @@ import java.util.UUID;
 import com.example.backend.enums.TokenType;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity(name = "token")
 public class Token {
-    
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String token;
 
@@ -39,12 +43,8 @@ public class Token {
         this.expiresAt = expiresAt;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getToken() {

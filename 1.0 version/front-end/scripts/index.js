@@ -1,5 +1,15 @@
 import {ApiConnection} from "./classes/ApiConnection.js"
 
+/**
+ * 
+ * pagina principal ->
+ *  
+ * receita: tudo os entrou 
+ * lucro: receita - despesa
+ * saldo: total acumulado de todo o periodo;
+ * despesas: tudo oq saiu 
+ */
+
 const apiConnection = new ApiConnection();
 
 const loginBt = document.getElementById("gotoLoginBt");
