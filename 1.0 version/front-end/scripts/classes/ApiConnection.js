@@ -1,43 +1,78 @@
 
-export class ApiConnection{
+export class ApiConnection {
     API_URL = "http://localhost:8080";
+    //AVNS_-4ZCK4v9cDwE6VXx0Zn
 
-    login(user){
-        response = this.sendPostRequest("/auth/login",user)
+    login(user) {
+        response = this.sendPostRequest("/auth/login", user)
         return response;
     }
 
-    register(user){
-        response = this.sendPostRequest("/auth/register",user)
+    register(user) {
+        response = this.sendPostRequest("/auth/register", user)
         return response;
     }
 
-    async sendPostRequest(endpoint, body){
-        try{
-            const res = await fetch(this.API_URL+endpoint,{
-                headers: {"Content-Type":"application/json"},
+    async logout() {
+        await fetch("http://localhost:8080/auth/logout", {
+            method: "POST",
+            credentials: "include"
+        });
+
+        // window.location.href = "Pages/loginPage.html";
+        // location.href = "Pages/loginPage.html"
+    }
+
+    async sendGetRequest(endpoint) {
+        try {
+            const res = await fetch(this.API_URL + endpoint, {
+                credentials: "include"
+            });
+
+            if (!res.ok) {
+                throw new Error("Erro na requisição");
+            }
+
+            const data = await res.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.log(error);
+            return {
+                "error": true
+            }
+        };
+
+    }
+
+    async sendPostRequest(endpoint, body) {
+        try {
+            const res = await fetch(this.API_URL + endpoint, {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
-                method: "POST"
+
             });
 
             const data = await res.json();
 
-            if(!res.ok){
+            if (!res.ok) {
                 const error = new Error(data.message || "erro na requisição");
                 error.status = res.status;
                 throw error;
             }
 
             return data;
-        }catch(error){
-            console.error("Error code: "+error.status);
+        } catch (error) {
+            console.error("Error code: " + error.status);
             console.error(error.message);
 
             return {
-            error: true,
-            status: error.status || 500,
-            message: error.message
-        };
+                error: true,
+                status: error.status || 500,
+                message: error.message
+            };
         }
 
     }

@@ -8,6 +8,8 @@ const companyNameInput = document.getElementById("company-name");
 const cnpjInput = document.getElementById("cnpj");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirm-password");
+const phoneInput = document.getElementById("phone");
+const enderecoinput = document.getElementById("endereco");
 
 const confirmBt = document.getElementById("confirmBt");
 
@@ -16,6 +18,8 @@ confirmBt.addEventListener("click",()=>{
     const email = emailInput.value.trim();
     const companyName = companyNameInput.value.trim();
     const cnpj = cnpjInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const endereco = enderecoinput.value.trim();
     const password = passwordInput.value;
     const confirmPassword = confirmPasswordInput.value;
 
@@ -27,6 +31,18 @@ confirmBt.addEventListener("click",()=>{
     if (!name) {
         alert("Por favor, preencha o nome completo.");
         nameInput.focus();
+        return;
+    }
+
+    if(!endereco){
+        alert("Por favor, preencha o endereço");
+        enderecoinput.focus();
+        return;
+    }
+
+    if(!phone){
+        alert("Por favor, insira um numero de telefone");
+        phoneInput.focus();
         return;
     }
 
@@ -71,11 +87,17 @@ confirmBt.addEventListener("click",()=>{
         "email":email,
         "razaoSocial": companyName,
         "cpfOrCnpj": cnpj,
-        "password": password
+        "password": password,
+        "phone": phone,
+        "endereco": endereco
     }
 
-    api.sendPostRequest("/auth/register",obj).then(res =>{
-        console.log(res);
-    });
-    alert("Formulário válido! Enviando dados...");
+    api.sendPostRequest("/auth/register",obj).then(async res =>{
+        
+        if(res.error){
+            alert(res.message);
+            return;
+        }
+        location.href = "loginPage.html";
+    })
 });

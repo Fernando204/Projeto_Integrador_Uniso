@@ -1,27 +1,33 @@
 package com.example.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity(name = "company")
+@Entity
+@Table(name = "company")
 public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     
-    public String razao;
-    public String cpfOrCnpj;
-    public String email;
-    public String telefone;
-    public String endereco;
+    private String razao;
+    private String cpfOrCnpj;
+    private String email;
+    private String telefone;
+    private String endereco;
     private BigDecimal balance = new BigDecimal(BigInteger.ZERO);
 
+    @OneToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
+    @OneToMany(mappedBy = "company")
+    private List<User> membersList = new ArrayList<>();
 
     public Company(){}
     public Company(
@@ -30,8 +36,12 @@ public class Company {
             String email,
             String telefone,
             String endereco,
-            Long id){
-        this.id = id;
+            User owner
+    ){
+        this.owner = owner;
+        owner.setCompany(this);
+        this.membersList.add(owner);
+
         this.razao = razao;
         this.cpfOrCnpj = cpfOrCnpj;
         this.email = email;
@@ -88,5 +98,18 @@ public class Company {
 
     public void setEndereco(String endereco){
         this.endereco = endereco;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Company)) return false;
+        Company company = (Company) o;
+        return id != null && id.equals(company.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

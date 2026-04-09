@@ -1,4 +1,4 @@
-import { ApiConnection } from "../classes/ApiConnection";
+import { ApiConnection } from "../classes/ApiConnection.js";
 
 const apiConnection = new ApiConnection();
 
@@ -15,7 +15,15 @@ const login = ()=>{
         "password": password
     };
 
-    const response = apiConnection.sendPostRequest("/auth/login",obj);
+    apiConnection.sendPostRequest("/auth/login",obj).then(res =>{
+        if(res.error){
+            alert(res.message);
+            return;
+        }
+        alert("Ususário logado com sucesso");
+        location.href  = "./../index.html";
+
+    });
 }
 
 loginBt.addEventListener("click",login);

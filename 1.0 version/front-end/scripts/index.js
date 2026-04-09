@@ -12,6 +12,14 @@ import {ApiConnection} from "./classes/ApiConnection.js"
 
 const apiConnection = new ApiConnection();
 
+apiConnection.sendGetRequest("/auth/session").then(res =>{
+    if(res.error){
+        location.href = "Pages/loginPage.html";
+        return;
+    }
+    
+})
+
 const loginBt = document.getElementById("gotoLoginBt");
 const contentBox = document.getElementById("site-content");
 const changeButtons = document.querySelectorAll(".pageButton");
@@ -20,7 +28,10 @@ const notifyButton = document.querySelector(".notification-button");
 const notifyContainer = document.querySelector(".notify-container");
 const profileContainer = document.querySelector(".profile-container");
 
-loginBt.addEventListener("click",()=>{window.location.href = "./Pages/loginPage.html"})
+loginBt.addEventListener("click",()=>{
+    apiConnection.logout();
+
+})
 
 let profileCardOpened = false;
 let notifyCardOpened = false;

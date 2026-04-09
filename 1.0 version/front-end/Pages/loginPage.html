@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,10 +12,11 @@
     <link rel="stylesheet" href="../styles/authStyle.css">
 
 </head>
+
 <body>
     <div class="split-screen">
         <div class="lateral-container">
-            <img src="../images/main-logo.png"  alt="logo image">
+            <img src="../images/main-logo.png" alt="logo image">
             <h1>Controle sua empresa em um só lugar</h1>
         </div>
 
@@ -23,14 +25,26 @@
                 <h2>Login</h2>
 
                 <fieldset>
-                    <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email" placeholder="Digite seu e-mail">
 
-                    <label for="password">Senha</label>
-                    <input id="password" type="password" placeholder="Digite sua senha">
+                    <div class="field">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" placeholder="Digite seu e-mail">
+                    </div>
+
+
+                    <div class="field">
+                        <label for="password">Senha</label>
+                        <input id="password" type="password" placeholder="Digite sua senha">
+                    </div>
+
+
+
+
                     <div style="display: flex; flex-direction: row;">
+
                         <label for="change-password">mostrar senha</label>
-                        <input class="change-password" type="checkbox" name="change-password" id="changePasswordInput">
+                        <input style="margin-left: 10px;" class="change-password" type="checkbox" name="change-password"
+                            id="changePasswordInput">
                     </div>
                 </fieldset>
 
@@ -45,4 +59,5 @@
     <script type="module" src="../scripts/classes/ApiConnection.js"></script>
     <script type="module" src="../scripts/pages/login.js"></script>
 </body>
+
 </html>
