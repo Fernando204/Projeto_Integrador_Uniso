@@ -64,7 +64,7 @@ changeButtons.forEach((bt,index) =>{
         case 2:
             bt.addEventListener("click",()=>{
                 changePage("components/vendas/sales.html").then((res)=>{
-                    initializeSales()
+                    initializeSales(apiConnection);
                 });
             })
             break;

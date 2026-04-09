@@ -45,7 +45,7 @@
     background-color: #4b82ff; /* azul mais claro no hover */
 }
 
-.box-filter {
+.box-filter-clientes {
     display: flex;
     gap: 20px;            /* Caixa de filtro, abaixo do botão de adicionar cliente */
     margin-top: 10px;
@@ -54,6 +54,23 @@
     border-radius: 10px;
     width: 75vw;
     height: 100px;
+}
+
+.box-filter-clientes input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--background);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #1e293b;
+}
+
+.box-filter-clientes input:focus {
+    border-color: #3498db;
 }
 
 .clientes-historicos {
@@ -65,7 +82,7 @@
 }
 
 .clientes-historico {
-    background-color: #0B1220;
+    background-color: var(--background);
     padding: 12px 15px;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -137,3 +154,22 @@
 }
 
 /* Final do css relacionado ao modal de cadastrar cliente */
+
+
+.btn-excluir-cliente {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.btn-excluir-cliente:hover {
+    background-color: #ff4d4d;
+}
+
+.clientes-section .cliente-botoes{
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
