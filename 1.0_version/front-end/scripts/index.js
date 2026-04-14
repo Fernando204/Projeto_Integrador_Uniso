@@ -14,10 +14,11 @@ const apiConnection = new ApiConnection();
 
 apiConnection.sendGetRequest("/auth/session").then(res =>{
     if(res.error){
+        console.log(res)
         location.href = "Pages/loginPage.html";
         return;
     }
-    
+    console.log(res);
 })
 
 const loginBt = document.getElementById("gotoLoginBt");

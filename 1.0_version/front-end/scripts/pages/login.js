@@ -17,6 +17,7 @@ const login = ()=>{
 
     apiConnection.sendPostRequest("/auth/login",obj).then(res =>{
         if(res.error){
+            console.log(res)
             alert(res.message);
             return;
         }

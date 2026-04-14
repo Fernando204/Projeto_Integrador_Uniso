@@ -55,7 +55,7 @@ export class ApiConnection {
 
             });
 
-            
+            console.log(res)
             if (!res.ok) {
                 let err = await res.json();
                 const error = new Error(data.message || "erro na requisição");
