@@ -82,7 +82,7 @@ public class AuthController{
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/test")
+    @GetMapping("/test")
     public String test(){
         return "foi";
     }
