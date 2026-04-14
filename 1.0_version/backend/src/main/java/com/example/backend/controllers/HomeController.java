@@ -6,6 +6,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "index.html"; // sem .html
+        return "index"; // sem .html
     }
 }
