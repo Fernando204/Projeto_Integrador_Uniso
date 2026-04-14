@@ -260,8 +260,24 @@ button:hover{
     opacity: 1;
 }
 .profile-container button{
+    margin-bottom: 10px;
     background-color: var(--button);
-    height: 40px;
-    width: 100px;
+    width: 80%;
+    height: 5vh;
     border-radius: 10px;
+}
+.danger{
+    background-color: #DC2626;
+    color: white;
+}
+.profile-modal-top{
+    margin-bottom: 70%;
+}
+.profile-modal-top .title{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: -10px;
+}
+.profile-container .logout-btn{
+    background-color: #DC2626;
 }

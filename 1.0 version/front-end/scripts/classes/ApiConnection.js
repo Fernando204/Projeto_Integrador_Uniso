@@ -55,10 +55,41 @@ export class ApiConnection {
 
             });
 
-            const data = await res.json();
+            const text = await res.text();
+            const data = text ? JSON.parse(text) : null;
 
             if (!res.ok) {
-                const error = new Error(data.message || "erro na requisição");
+                const error = new Error(data?.message || "erro na requisição");
+                error.status = res.status;
+                throw error;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Error code: " + error.status);
+            console.error(error.message);
+
+            return {
+                error: true,
+                status: error.status || 500,
+                message: error.message
+            };
+        }
+    }
+    async sendPostRequestWithoutToken(endpoint, body) {
+        try {
+            const res = await fetch(this.API_URL + endpoint, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+
+            });
+
+            const text = await res.text();
+            const data = text ? JSON.parse(text) : null;
+
+            if (!res.ok) {
+                const error = new Error(data?.message || "erro na requisição");
                 error.status = res.status;
                 throw error;
             }

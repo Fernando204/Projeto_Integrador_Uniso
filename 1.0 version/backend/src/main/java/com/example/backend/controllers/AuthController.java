@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
 import com.example.backend.DTOs.LoginRequestDTO;
+import com.example.backend.DTOs.LoginResponseDTO;
 import com.example.backend.DTOs.RegisterRequestDTO;
 import com.example.backend.enums.AccountStatus;
 import com.example.backend.models.Company;
@@ -61,21 +62,15 @@ public class AuthController{
         response.addHeader("Set-Cookie", cookie.toString());
     }
 
-    @GetMapping("/session")
-    public ResponseEntity<?> sessionMethod(Authentication auth){
-        Logger.info(
-                "usuário se autenticando"
-        );
-        return ResponseEntity.ok(Map.of("username", auth.getName()));
-    }
+
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
 
         Cookie cookie = new Cookie("AUTH_TOKEN", "");
         cookie.setHttpOnly(true);
-        cookie.setSecure(false); // true em produção
+        cookie.setSecure(false);
         cookie.setPath("/");
-        cookie.setMaxAge(0); // 🔥 apaga
+        cookie.setMaxAge(0);
 
         response.addCookie(cookie);
 
@@ -87,7 +82,7 @@ public class AuthController{
         Optional<User> userOptional = userRepository.findByEmail(dto.email());
         if(userOptional.isEmpty()){
             Logger.warn("Usuário não existe");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message","Credenciais incorretas"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message","Credenciais invalidas"));
         }
         User user = userOptional.get();
 
@@ -97,7 +92,7 @@ public class AuthController{
         }
 
         Logger.warn("Senha incorreta");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message","Credenciais incorretas"));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message","Credenciais invalidas"));
     }
 
     @PostMapping("/register")

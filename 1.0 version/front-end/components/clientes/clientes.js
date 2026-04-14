@@ -1,4 +1,4 @@
-function initializeClientes(api) { 
+export function initializeClientes() { 
     // Cadastrar Cliente
     const btnAdd = document.getElementById("btn_abrir-modal-cliente");
     const modal = document.getElementById("modal-cliente-cadastro");

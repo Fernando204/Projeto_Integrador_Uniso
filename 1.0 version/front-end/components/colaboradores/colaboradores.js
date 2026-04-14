@@ -1,6 +1,6 @@
 let cardSendoEditado = null;
 
-function initializeColaboradores(api) { 
+export function initializeColaboradores(api) { 
 
     // Função para atualizar o contador de colaboradores
     function atualizarContador() {

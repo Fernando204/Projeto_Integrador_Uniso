@@ -16,7 +16,7 @@ const changePage = (pageUrl,contentBox)=>{
     });
 }
 
-const initializeRelatorios = ()=>{
+export const initializeRelatorios = ()=>{
 
     pagesButton = document.querySelectorAll(".navigation-button");
     activeButton = pagesButton[0]

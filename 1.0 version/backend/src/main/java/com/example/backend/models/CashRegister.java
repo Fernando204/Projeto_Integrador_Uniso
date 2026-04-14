@@ -4,12 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity(name = "cash_register")
 public class CashRegister {
@@ -19,19 +14,32 @@ public class CashRegister {
 
     private LocalDateTime openTime;//hora de abertura do caixa
     private LocalDateTime closeTime;//hora do fechamento do caixa
+    private boolean open = false;
 
-    private Long userId;//id do usuário responsavel pelo caixa
-    private Long companyId;//id da empresa onde esse caixa foi aberto
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;//id do usuário responsavel pelo caixa
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;//id da empresa onde esse caixa foi aberto
 
     @OneToMany(mappedBy = "cashRegister", cascade = CascadeType.ALL)
     private List<Sale> sales = new ArrayList<>();
 
-    public CashRegister(LocalDateTime closeTime, Long companyId, List<Sale> sales, Long userId) {
-        this.closeTime = closeTime;
-        this.companyId = companyId;
+    public CashRegister(Company company, User user) {
+        this.company = company;
         this.openTime = LocalDateTime.now();
-        this.sales = sales;
-        this.userId = userId;
+        this.user = user;
+        this.open = true;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 
     public void addSale(Sale sale){
@@ -53,12 +61,12 @@ public class CashRegister {
         this.id = id;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public LocalDateTime getOpenTime() {
@@ -77,11 +85,11 @@ public class CashRegister {
         this.sales = sales;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

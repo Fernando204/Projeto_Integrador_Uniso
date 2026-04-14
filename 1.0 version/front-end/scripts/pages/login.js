@@ -10,6 +10,8 @@ const login = ()=>{
     const password = passwordInput.value;
     const email = emailInput.value;
 
+    loginBt.innerHTML = "Carregando...";
+
     const obj = {
         "email":email,
         "password": password
@@ -18,9 +20,9 @@ const login = ()=>{
     apiConnection.sendPostRequest("/auth/login",obj).then(res =>{
         if(res.error){
             alert(res.message);
+            loginBt.innerHTML = "Entrar";
             return;
         }
-        alert("Ususário logado com sucesso");
         location.href  = "./../index.html";
 
     });

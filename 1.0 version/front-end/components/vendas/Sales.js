@@ -1,4 +1,7 @@
-const initializeSales = () => {
+import { ApiConnection } from "../../scripts/classes/ApiConnection.js";
+
+
+export const initializeSales = () => {
     // --- SELEÇÃO DE ELEMENTOS DO DOM ---
     const titleInfo = document.getElementById("titleInfo");
     const dataTitle = document.getElementById("dataTitle");
@@ -12,9 +15,15 @@ const initializeSales = () => {
     const paymentMethod = document.getElementById("paymentMethod");
     const clientSelect = document.getElementById("clientSelect");
 
+    const api = new ApiConnection();
+
+    let data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
+
     // --- VARIÁVEIS DE CONTROLE DE ESTADO ---
-    let vendasDoTurno = []; 
-    let opened = false;     
+    let caixaInfo = {}//variavel que guarda as informações sobre o caixa vindas do back-end
+    let vendasDoTurno = [];
+    let opened = false;
+
 
     // --- LOGICA DO FILTRO DINÂMICO ---
     productInput.addEventListener("input", async () => {
@@ -34,7 +43,7 @@ const initializeSales = () => {
             const response = await fetch('scripts/classes/mock-data/ListaDeVendas.json');
             if (!response.ok) throw new Error(`Erro: ${response.status}`);
             const dados = await response.json(); // O arquivo json chega como um texto bruto, mas o .json converte em objeto JavaScript que pode ser manipulado
-            
+
             // 2. Filtro (Inicia com) + Ordem Alfabética
             const produtosEncontrados = Object.values(dados) //Pega os valores dos produtos JSON e os transforma em uma Array (lista), agora pode usar ferramentas de lista como .filter e .sort.
                 .filter(item => item.produto && item.produto.toLowerCase().startsWith(termo))  //item.produto checa se o produto existe 
@@ -49,18 +58,18 @@ const initializeSales = () => {
 
             listaSugestoes.innerHTML = ""; //Limpa a lista antes de começar a procurar os produtos
 
-            if (produtosEncontrados.length > 0) { 
+            if (produtosEncontrados.length > 0) {
                 listaSugestoes.style.display = "block"; //Se encontrar algum produto exibe a lista na tela
-                produtosEncontrados.forEach(prod => { 
+                produtosEncontrados.forEach(prod => {
                     const li = document.createElement("li"); //Cria um item vazio da lista de produtos filtrados
                     li.innerText = prod.produto; //Escreve o nome do produto dentro do item que estava vazio, mas não coloca na listaSugestoes ainda. Esse .produto é o nome do produto que está guardado lá no JSON
-                    
+
                     li.addEventListener("click", () => {
                         productInput.value = prod.produto; //Preenche o input ao clicar no produto
                         listaSugestoes.innerHTML = ""; //Limpa o texto da lista após clicar no produto
                         listaSugestoes.style.display = "none"; //Some a lista da tela após clicar no produto
                     });
-                    
+
                     listaSugestoes.appendChild(li); //Coloca o li dentro da ul (basicamente escreve os elementos na lista) e ele aparece na tela
                 });
             } else {
@@ -73,7 +82,23 @@ const initializeSales = () => {
     });
 
     // --- LÓGICA DE ABRIR / FECHAR CAIXA ---
-    openBt.addEventListener("click", () => {
+    openBt.addEventListener("click", async () => {
+
+        let info ={
+            "userId": data.userId,
+            "companyId": data.comanyId
+        }
+        console.log(info)
+        const res = await api.sendPostRequest("/sales/cash-register/init", info);
+
+        if (res.error) {
+            alert("Erro ao abrir caixa: " + res.message);
+            return;
+        }
+
+        caixaInfo = res;
+
+        if (!caixaInfo.id) return;
         if (!opened) {
             const data = new Date();
             titleInfo.classList.replace("closed", "opened"); //Troca uma palavra pela outra quando o caixa abrir
@@ -102,18 +127,18 @@ const initializeSales = () => {
                 );
                 if (!confirma) return; //Se não confirmar que quer fechar o caixa, fecha a janela
             }
-            
-                titleInfo.classList.replace("opened", "closed"); //fechou o caixa troca as classes e cores
-                titleInfo.innerHTML = "Caixa Fechado"; //Troca a palavra
-                dataTitle.innerHTML = ""; //Retira a data
-                openBt.innerText = "Abrir caixa"; //Troca o texto do botão
 
-                activateItens.forEach((item) => item.disabled = true); //Os itens de classes disabled que estavam false agora são true
-                blocks.forEach(block => block.style.opacity = "0.5"); //Deixa os dois blocks mais transparentes pq o caixa está fechado
-                
-                vendasDoTurno = []; //Limpa a lista de vendas do turno
-                blocks[1].innerHTML = "<h1>Resumo</h1>"; //Escreve no segundo block "<h1>Resumo</h1>"
-                opened = false; //A variável opened volta a ser false para reabrir o caixa novamente
+            titleInfo.classList.replace("opened", "closed"); //fechou o caixa troca as classes e cores
+            titleInfo.innerHTML = "Caixa Fechado"; //Troca a palavra
+            dataTitle.innerHTML = ""; //Retira a data
+            openBt.innerText = "Abrir caixa"; //Troca o texto do botão
+
+            activateItens.forEach((item) => item.disabled = true); //Os itens de classes disabled que estavam false agora são true
+            blocks.forEach(block => block.style.opacity = "0.5"); //Deixa os dois blocks mais transparentes pq o caixa está fechado
+
+            vendasDoTurno = []; //Limpa a lista de vendas do turno
+            blocks[1].innerHTML = "<h1>Resumo</h1>"; //Escreve no segundo block "<h1>Resumo</h1>"
+            opened = false; //A variável opened volta a ser false para reabrir o caixa novamente
         }
     });
 
@@ -129,11 +154,11 @@ const initializeSales = () => {
             produto: productInput.value, //O JS lê o que está escrito no input e salva no objeto novaVenda
             quantidade: parseInt(qtyInput.value) || 1, //Converte texto em número
             metodo: paymentMethod.value || "Não definido",
-            valorTotal: 12.10 
+            valorTotal: 12.10
         };
 
         vendasDoTurno.push(novaVenda); //Pega o objeto e joga na lista que o reduce e o filter vão ler no fechamento do caixa (linhas 89 até 102)
-        
+
         const p = document.createElement("p"); //cria um parágrafo vazio na memória
         p.style.margin = "10px 0";  //Adiciona um espaço embaixo e em cima desse parágrafo para uma venda não ficar colada na outra
         p.innerHTML = `<strong>${novaVenda.quantidade}x</strong> ${novaVenda.produto} - <small>${novaVenda.metodo.toUpperCase()}</small>`; //Monta o conteúdo do parágrafo com os dados na novaVenda

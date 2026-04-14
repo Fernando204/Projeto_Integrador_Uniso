@@ -1,8 +1,5 @@
-let activeBt;
-let salesListContainer;
-
-const initializeDashboard = ()=>{
-    salesListContainer = document.getElementById("listContainer");
+export const initializeDashboard = ()=>{
+    const salesListContainer = document.getElementById("listContainer");
     const pendentBt = document.getElementById("pendentBt");
     const notFaturedBt = document.getElementById("notFaturedBt");
     const item = document.getElementById("item");
