@@ -82,9 +82,15 @@ public class AuthController{
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/test")
+    public String test(){
+        return "foi";
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> loginMethod(@RequestBody LoginRequestDTO dto, HttpServletResponse response, HttpServletRequest request){
         Optional<User> userOptional = userRepository.findByEmail(dto.email());
+
         if(userOptional.isEmpty()){
             Logger.warn("Usuário não existe");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message","Credenciais incorretas"));

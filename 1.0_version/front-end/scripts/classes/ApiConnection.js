@@ -1,6 +1,6 @@
 
 export class ApiConnection {
-    API_URL = "http://localhost:8080";
+    API_URL = "https://projeto-integrador-uniso.onrender.com";
     //AVNS_-4ZCK4v9cDwE6VXx0Zn
 
     async login(user) {
@@ -55,14 +55,15 @@ export class ApiConnection {
 
             });
 
-            const data = await res.json();
-
+            
             if (!res.ok) {
+                let err = await res.json();
                 const error = new Error(data.message || "erro na requisição");
                 error.status = res.status;
                 throw error;
             }
-
+            const data = await res.json();
+            
             return data;
         } catch (error) {
             console.error("Error code: " + error.status);

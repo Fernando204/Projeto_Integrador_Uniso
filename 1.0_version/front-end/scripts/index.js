@@ -14,7 +14,7 @@ const apiConnection = new ApiConnection();
 
 apiConnection.sendGetRequest("/auth/session").then(res =>{
     if(res.error){
-        //location.href = "Pages/loginPage.html";
+        location.href = "Pages/loginPage.html";
         return;
     }
     
