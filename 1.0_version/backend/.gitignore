@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+jdk-21.0.10+7

@@ -1,5 +1,4 @@
-import { ApiConnection } from "../../scripts/classes/ApiConnection.js";
-
+import { ApiConnection } from "/scripts/classes/ApiConnection.js";
 
 export const initializeSales = () => {
     // --- SELEÇÃO DE ELEMENTOS DO DOM ---
@@ -88,8 +87,9 @@ export const initializeSales = () => {
             "userId": data.userId,
             "companyId": data.comanyId
         }
+
         console.log(info)
-        const res = await api.sendPostRequest("/sales/cash-register/init", info);
+        const res = await ApiConnection.sendPostRequest("/sales/cash-register/init", info);
 
         if (res.error) {
             alert("Erro ao abrir caixa: " + res.message);

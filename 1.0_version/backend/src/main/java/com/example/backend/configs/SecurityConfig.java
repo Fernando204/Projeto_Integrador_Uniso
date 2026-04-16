@@ -32,6 +32,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**","/",
                                 "/images/**",
+                                "/index.html",
                                 "/components/**",
                                 "/assets/**",
                                 "/css/**",
@@ -39,6 +40,7 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/scripts/**",
                                 "/images",
+                                "/session",
                                 "/Pages/**",
                                 "/styles/**").permitAll()
                         .anyRequest().authenticated()

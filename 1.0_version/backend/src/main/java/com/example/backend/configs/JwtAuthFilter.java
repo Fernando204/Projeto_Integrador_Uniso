@@ -31,19 +31,54 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
     private static final List<String> PUBLIC_PATHS = List.of(
-            "/index.html",
+        "/index.html",
             "/",
+
             "/scripts/index.js",
-            "/components/vendas/Sales.js",
-            "/components/dashboard/dashboard.js",
-            "/components/clientes/clientes.js",
+            "/scripts/pages/login.js",
             "/scripts/classes/ApiConnection.js",
+            "/scripts/classes/ApiConnection",
+            
+            "/components/clientes/clientes.js",
+            "/components/clientes/clientes.html",
+            "/components/clientes/clientes.css",
+            
+            "/components/vendas/Sales.js",
+            "/components/vendas/sales.css",
+            "/components/vendas/sales.html",
+            
+            "/components/colaboradores/colaboradores.html",
             "/components/colaboradores/colaboradores.js",
+            "/components/colaboradores/colaboradores.css",
+
+            "/components/dashboard/dashboard.js",
+            "/components/dashboard/dashboard.html",
+            "/components/dashboard/dashboard.css",
+            
+            "/components/relatorios/relatorios.js",
+            "/components/relatorios/relatorios.html",
+            "/components/relatorios/relatorios.css",
+
+            "/components/finanças/finance.js",
+            "/components/finanças/finance.css",
+            "/components/finanças/finance.html",
+
+            "/components/estoque/estoque.css",
+            "/components/estoque/estoque.js",
+            "/components/estoque/estoque.html",
+
+            "/components/relatorios/relatorios.css",
+            "/components/relatorios/relatorios.js",
+            "/components/relatorios/relatorios.html",
+            "/components/relatorios/specific/sales.css",
+            
             "/images/main-logo.png",
             "/images/icon-logo.png",
-            "/scripts/pages/login.js",
             "/Pages/loginPage.html",
+            
             "/styles/authStyle.css",
+            "/styles/index.css",
+
             "/favicon.ico"
     );
 
@@ -52,6 +87,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         if (path.startsWith("/auth/")) {
+            return true;
+        }
+
+        if (path.startsWith("/.well-known/")) {
             return true;
         }
 

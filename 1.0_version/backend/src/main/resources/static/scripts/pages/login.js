@@ -25,7 +25,7 @@ const login = ()=>{
             return;
         }
         alert("Ususário logado com sucesso");
-        location.href  = "./../index.html";
+        location.href  = "http://localhost:8080";
 
     });
 }
