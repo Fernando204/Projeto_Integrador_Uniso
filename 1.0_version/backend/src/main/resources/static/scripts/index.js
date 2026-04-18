@@ -58,7 +58,7 @@ const renderUserModal = (user) => {
         .addEventListener("click", logout);
 };
 
-const checkSession = async () => {
+/* const checkSession = async () => {
     try {
         const res = await apiConnection.sendGetRequest("/session");
 
@@ -72,9 +72,9 @@ const checkSession = async () => {
     } catch {
         redirectToLogin();
     }
-};
+}; */
 
-checkSession();
+/* checkSession(); */
 
 let profileCardOpened = false;
 let notifyCardOpened = false;
@@ -93,7 +93,7 @@ changeButtons.forEach((bt, index) => {
     switch (index) {
         case 0:
             bt.addEventListener("click", () => {
-                changePage("components/dashboard/dashboard.html").then((res) => {
+                changePage("../static/components/dashboard/dashboard.html").then((res) => {
                     initializeDashboard();
                 });
 
@@ -101,38 +101,38 @@ changeButtons.forEach((bt, index) => {
             break;
         case 1:
             bt.addEventListener("click", () => {
-                changePage("components/finanças/finance.html");
+                changePage("../static/components/finanças/finance.html");
             })
             break;
         case 2:
             bt.addEventListener("click", () => {
-                changePage("components/vendas/sales.html").then((res) => {
+                changePage("../static/components/vendas/sales.html").then((res) => {
                     initializeSales(apiConnection);
                 });
             })
             break;
         case 3:
             bt.addEventListener("click", () => {
-                changePage("components/clientes/clientes.html").then((res) => {
+                changePage("../static/components/clientes/clientes.html").then((res) => {
                     initializeClientes(apiConnection);
                 })
             })
             break;
         case 4:
             bt.addEventListener("click", () => {
-                changePage("components/estoque/estoque.html");
+                changePage("../static/components/estoque/estoque.html");
             })
             break;
         case 5:
             bt.addEventListener("click", () => {
-                changePage("components/relatorios/relatorios.html").then((res) => {
+                changePage("../static/components/relatorios/relatorios.html").then((res) => {
                     initializeRelatorios();
                 })
             })
             break;
         case 6:
             bt.addEventListener("click", () => {
-                changePage("components/colaboradores/colaboradores.html").then((res) => {
+                changePage("../static/components/colaboradores/colaboradores.html").then((res) => {
                     initializeColaboradores(apiConnection);
                 })
             })

@@ -35,7 +35,7 @@ export function initializeClientes() {
     // === FUNÇÃO PARA CARREGAR OS ATORES (JSON) ===
     async function carregarClientesDoJson() {
         try {
-            const resposta = await fetch('./scripts/classes/mock-data/Clientes.json'); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
+            const resposta = await fetch('../../scripts/classes/mock-data/Clientes.json'); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
             const dadosBrutos = await resposta.json(); // Converte o texto bruto do arquivo em um objeto JavaScript utilizável
             const listaClientes = Object.values(dadosBrutos); // Transforma o objeto (que pode ter chaves "1", "2") em um Array para usarmos o .forEach
 

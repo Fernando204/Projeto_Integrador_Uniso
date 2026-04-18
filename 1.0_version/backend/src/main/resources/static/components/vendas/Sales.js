@@ -1,4 +1,4 @@
-import { ApiConnection } from "/scripts/classes/ApiConnection.js";
+import { ApiConnection } from "../../scripts/classes/ApiConnection.js";
 
 export const initializeSales = () => {
     // --- SELEÇÃO DE ELEMENTOS DO DOM ---
