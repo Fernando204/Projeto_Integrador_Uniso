@@ -10,10 +10,7 @@ import com.example.backend.repository.CompanyRepository;
 import com.example.backend.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -35,6 +32,19 @@ public class SalesController {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
         this.cashRegisterRepository = cashRegisterRepository;
+    }
+
+    @GetMapping("/cash-register/get")//função para verificar se o caixa está aberte e retornar as informações
+    public ResponseEntity<?> getCashRegister(@RequestParam Long id){
+        User user = userRepository.findById(id).orElse(null);
+        if(user == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message","Usuário inexistente!"));
+        }
+        CashRegister cashRegister = cashRegisterRepository.findByUserAndOpenTrue(user).orElse(null);
+        if(cashRegister == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message","Nenhum caixa aberto"));
+        }
+        return ResponseEntity.ok(cashRegister);
     }
 
     @PostMapping("/cash-register/init")

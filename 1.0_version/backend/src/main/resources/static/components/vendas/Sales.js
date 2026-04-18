@@ -1,6 +1,8 @@
 import { ApiConnection } from "/scripts/classes/ApiConnection.js";
 
-export const initializeSales = () => {
+
+
+export const initializeSales = (api) => {
     // --- SELEÇÃO DE ELEMENTOS DO DOM ---
     const titleInfo = document.getElementById("titleInfo");
     const dataTitle = document.getElementById("dataTitle");
@@ -14,15 +16,18 @@ export const initializeSales = () => {
     const paymentMethod = document.getElementById("paymentMethod");
     const clientSelect = document.getElementById("clientSelect");
 
-    const api = new ApiConnection();
-
-    let data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
     // --- VARIÁVEIS DE CONTROLE DE ESTADO ---
     let caixaInfo = {}//variavel que guarda as informações sobre o caixa vindas do back-end
     let vendasDoTurno = [];
     let opened = false;
 
+    let data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
+
+
+    function getOpenedCashRegister(){ //função que verifica se o caixa está aberto
+
+    }
 
     // --- LOGICA DO FILTRO DINÂMICO ---
     productInput.addEventListener("input", async () => {
@@ -83,13 +88,19 @@ export const initializeSales = () => {
     // --- LÓGICA DE ABRIR / FECHAR CAIXA ---
     openBt.addEventListener("click", async () => {
 
+        titleInfo.classList.replace("closed", "waiting");
+        titleInfo.innerHTML = "Abrindo caixa...";
+
+        openBt.innerText = "Abrindo";
+        openBt.disabled = true;
+
         let info ={
             "userId": data.userId,
             "companyId": data.comanyId
         }
 
         console.log(info)
-        const res = await ApiConnection.sendPostRequest("/sales/cash-register/init", info);
+        const res = await api.sendPostRequest("/sales/cash-register/init", info);
 
         if (res.error) {
             alert("Erro ao abrir caixa: " + res.message);
@@ -99,18 +110,23 @@ export const initializeSales = () => {
         caixaInfo = res;
 
         if (!caixaInfo.id) return;
+
+        //Aqui abre o caixa
         if (!opened) {
             const data = new Date();
-            titleInfo.classList.replace("closed", "opened"); //Troca uma palavra pela outra quando o caixa abrir
+            titleInfo.classList.replace("waiting", "opened"); //Troca uma palavra pela outra quando o caixa abrir
             dataTitle.classList.replace("closed", "opened");
             titleInfo.innerHTML = "Caixa Aberto"; //Escreve Caixa Aberto ao invés de Caixa Fechado
+
             dataTitle.innerHTML = data.toLocaleString('pt-BR');
             openBt.innerText = "Fechar caixa"; //Escreve Fechar caixa no botão ao invés de Abrir Caixa
+            openBt.disabled = false;//Reativa o botão
 
             activateItens.forEach((item) => item.disabled = false); //Habilita todos os inputs, selects e botoes que tinha classe disabled
             blocks.forEach(block => block.style.opacity = "1"); //As classes blocks não ficam mais transparentes, agora estão prontas pra uso com opacity = 1
             opened = true; //Agora o caixa está aberto
-        } else {
+
+        } else {//Aqui fecha o caixa
             if (vendasDoTurno.length > 0) { //O reduce serve para pegar uma lista cheia de itens e "espremê-la" até sobrar um único valor (o total). No início ele vale 0, mas a cada venda ele soma com a anterior
                 const total = vendasDoTurno.reduce((acc, v) => acc + v.valorTotal, 0);
                 const pix = vendasDoTurno.filter(v => v.metodo === "pix").length; //JS entra na lista de vendas e procura apenas as vendas de pix e conta quantos itens foram pix

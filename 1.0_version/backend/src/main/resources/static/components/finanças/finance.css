@@ -55,3 +55,50 @@
     background-color: #4b82ff;
 }
 
+/* Começo do css relacionado ao modal de cadastrar Movimentaçãoes */
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); /* Fundo escuro */
+}
+
+.modal-content {
+    background-color: var(--sub-background);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    color: white;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-content input {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--background);
+    color: white;
+}
+
+.close-button {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.close-button:hover{
+    color: #ff4d4d
+}

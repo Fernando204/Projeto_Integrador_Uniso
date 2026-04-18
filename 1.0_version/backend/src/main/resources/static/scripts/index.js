@@ -3,6 +3,7 @@ import { initializeColaboradores } from "../components/colaboradores/colaborador
 import { initializeDashboard } from "../components/dashboard/dashboard.js";
 import { initializeRelatorios } from "../components/relatorios/relatorios.js";
 import { initializeSales } from "../components/vendas/Sales.js";
+import {initializeFinances} from "../components/finanças/finance.js"
 import { ApiConnection } from "./classes/ApiConnection.js"
 /**
  * 
@@ -101,7 +102,9 @@ changeButtons.forEach((bt, index) => {
             break;
         case 1:
             bt.addEventListener("click", () => {
-                changePage("components/finanças/finance.html");
+                changePage("components/finanças/finance.html").then((res)=>{
+                    initializeFinances(apiConnection);
+                });
             })
             break;
         case 2:

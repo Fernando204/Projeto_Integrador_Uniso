@@ -80,4 +80,15 @@ public class Logger {
                 msg
         );
     }
+
+    public static void serverStarted(String url) {
+        System.out.println("===========================================================================================================================================================================================================================================================");
+        System.out.println(
+                BOLD + GREEN +
+                        "🌐 [SERVER ONLINE] " + RESET +
+                        CYAN + time() + RESET +
+                        " [" + caller() + "] ➜ " +
+                        "Servidor iniciado em: " + BOLD + url + RESET
+        );
+    }
 }

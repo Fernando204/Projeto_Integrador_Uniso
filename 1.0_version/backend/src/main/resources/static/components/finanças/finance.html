@@ -1,11 +1,13 @@
     
 <div class="finance-section">    
-    <div>
-        <h1 id="financetitle">Finanças</h1>
-    </div>
+
     
     <div class="main">
-        <button class="btn_finance" id="btn_add_mov" >Adicionar movimentação</button>
+        <div>
+            <h1>Finanças</h1>
+        </div>
+
+        <button class="btn_finance" id="btn_add_Movment" >Adicionar movimentação</button>
 
         <div class="cards-info-finanças">
         <div class="cardfinance">
@@ -46,6 +48,29 @@
             <div class="transaction">
                 <p>Pintar o piso</p>
                 <span>- R$ 1000,00</span>
+            </div>
+        </div>
+
+        <div id="modal-movment-register" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Registrar movimentação</h2>
+
+                <form id="form-cadastro">
+                    <input type="text" id="nome" placeholder="Nome da Movimentação" required>
+                    <input type="text" id="descricao" placeholder="Descrição (Ex: pagamento de boleto)" required>
+                    <input type="number" id="valor" placeholder="valor em R$ (00,00 R$)" required>
+                    <input type="date" id="data" required>
+
+                    <label>Tipo de movimentação: </label>
+                    <select id="turno">
+                        <option value="ENTRADA">Entrada</option>
+                        <option value="SAIDA">Saída</option>
+                    </select>
+
+                    <button type="submit" class="btn_funcionarios">Salvar Movimentação</button>
+                </form>
             </div>
         </div>
     </div>
