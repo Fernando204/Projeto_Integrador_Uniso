@@ -96,7 +96,7 @@ export const initializeSales = (api) => {
 
         let info ={
             "userId": data.userId,
-            "companyId": data.comanyId
+            "companyId": data.companyId
         }
 
         console.log(info)
@@ -142,6 +142,17 @@ export const initializeSales = (api) => {
                     `Confirmar fechamento e limpar lista?`
                 );
                 if (!confirma) return; //Se não confirmar que quer fechar o caixa, fecha a janela
+            }
+
+            // Usamos o ID que o back nos deu quando abrimos o caixa (caixaInfo.id)
+            const res = await api.sendPostRequest("/sales/cash-register/close", { //ESPERAR O ENDPOINT DE FECHAR CAIXA DO FERNANDO
+                "id": caixaInfo.id,
+                "userId": data.userId
+            });
+
+            if (res.error) {
+                alert("Erro ao fechar o caixa no servidor: " + res.message);
+                return; // Se der erro no back, não limpamos a tela ainda
             }
 
             titleInfo.classList.replace("opened", "closed"); //fechou o caixa troca as classes e cores

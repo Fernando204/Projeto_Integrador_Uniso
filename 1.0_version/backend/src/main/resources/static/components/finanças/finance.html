@@ -1,4 +1,3 @@
-    
 <div class="finance-section">    
 
     
@@ -10,44 +9,33 @@
         <button class="btn_finance" id="btn_add_Movment" >Adicionar movimentação</button>
 
         <div class="cards-info-finanças">
-        <div class="cardfinance">
-            <h1 >Saldo</h1>
-            <h2 class="saldo"> </h2>
-        </div>
-        <div class="cardfinance">
-            <h1 >Entradas</h1>
-            <h2 class="receita"> </h2>
-        </div>
-        <div class="cardfinance">
-            <h1 >Despesas</h1>
-            <h2 class="despesa"> </h2>
-        </div>
+            <div class="cardfinance">
+                <h1 >Saldo</h1>
+                <h2 class="saldo" id="valor-saldo">R$ 0,00</h2>
+            </div>
+            <div class="cardfinance">
+                <h1 >Entradas</h1>
+                <h2 class="entradas" id="valor-entradas">R$ 0,00</h2>
+            </div>
+            <div class="cardfinance">
+                <h1 >Despesas</h1>
+                <h2 class="despesas" id="valor-despesas">R$ 0,00</h2>
+            </div>
         </div>
 
         <div class="transactions">
             <div class="transaction">
-                <p>Pagamento funcionarios</p>
-                <span>- R$ 5000,00</span>
+                <p><strong>Pagamento funcionarios</strong></p>
+                <span>Pagamento mensal</span> 
+                <span>01/04/2026</span>        
+                <span class="valor-transacao">- R$ 5.000,00</span>
             </div>
 
             <div class="transaction">
-                <p>Salário</p>
-                <span>+ R$ 70000,00</span>
-            </div>
-
-            <div class="transaction">
-                <p>Luz</p>
-                <span>- R$ 1000,00</span>
-            </div>
-
-            <div class="transaction">
-                <p>Colocar janelas</p>
-                <span>- R$ 4000,00</span>
-            </div>
-
-            <div class="transaction">
-                <p>Pintar o piso</p>
-                <span>- R$ 1000,00</span>
+                <p><strong>Salário</strong></p>
+                <span>Recebimento</span>      
+                <span>05/04/2026</span>        
+                <span class="valor-transacao">+ R$ 70.000,00</span>
             </div>
         </div>
 
@@ -60,16 +48,16 @@
                 <form id="form-cadastro">
                     <input type="text" id="nome" placeholder="Nome da Movimentação" required>
                     <input type="text" id="descricao" placeholder="Descrição (Ex: pagamento de boleto)" required>
-                    <input type="number" id="valor" placeholder="valor em R$ (00,00 R$)" required>
+                    <input type="number" id="valor" step="0.01" placeholder="valor em R$ (00,00 R$)" required>
                     <input type="date" id="data" required>
 
                     <label>Tipo de movimentação: </label>
-                    <select id="turno">
+                    <select id="movmentType">
                         <option value="ENTRADA">Entrada</option>
                         <option value="SAIDA">Saída</option>
                     </select>
 
-                    <button type="submit" class="btn_funcionarios">Salvar Movimentação</button>
+                    <button type="submit" class="btn_finance">Salvar Movimentação</button>
                 </form>
             </div>
         </div>
