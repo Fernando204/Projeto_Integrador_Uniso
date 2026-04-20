@@ -80,13 +80,7 @@
 }
 
 /* Cor do botão de confirmar (é o segundo) */
-.sales-section .block button:last-child {
-    background-color: #00ff1a;
-}
 
-#btnCancelar:hover {
-    box-shadow: 0 0 15px 2px rgba(43, 110, 255, 0.5); 
-}
 
 #btnConfirmar:hover {
     box-shadow: 0 0 15px 2px rgba(0, 255, 26, 0.5);
@@ -136,4 +130,30 @@
 .activate-item:disabled {
     cursor: not-allowed; /* Muda o cursor para aquele símbolo de "proibido" */
     opacity: 0.5;        /* Deixa ele um pouco mais clarinho */
+}
+
+.sales-section .sale-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-section .client-card{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 2px solid #00155a;
+    border-radius: 10px;
+}
+.sales-section .client-card:hover{
+    background-color: #002ec744;
+}
+
+.sales-section .client-card .selected{
+    background-color: #254ed36b;
+    border: 2px solid #223a88;
+
+}
+
+.sales-section .client-card h4, .sales-section .client-card p{
+    margin: 0;
 }

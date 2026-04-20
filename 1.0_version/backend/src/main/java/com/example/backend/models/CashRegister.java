@@ -27,6 +27,7 @@ public class CashRegister {
     @OneToMany(mappedBy = "cashRegister", cascade = CascadeType.ALL)
     private List<Sale> sales = new ArrayList<>();
 
+    public CashRegister(){}
     public CashRegister(Company company, User user) {
         this.company = company;
         this.openTime = LocalDateTime.now();

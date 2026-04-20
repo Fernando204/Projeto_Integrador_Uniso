@@ -1,42 +1,34 @@
 <div class="sales-section">
     <header>
-        <button  id="openButton">Abrir caixa</button>
-        <h1 class="closed" id="titleInfo">Caixa fechado</h1>
+        <button  id="openButton">Carregando...</button>
+        <h1 class="waiting" id="titleInfo">Carregando...</h1>
         <h3 class="closed" id="dataTitle"></h3>
     </header>
 
     <div class="main-container">
         <div class="block">
-            <h1>Realizar venda</h1>
+            <div id="init-container" class="sale-container">
+                <h1>Selecione o cliente </h1>
 
-            <select name="" id="clientSelect" class="activate-item" disabled>
-                <option value="">cliente1</option>
-                <option value="">cliente2</option>
-            </select>
+                <input placeholder="Nome ou CPF" id="client-search">
 
-            <p>Produto:</p>
-            <div class="input-container">
-                <input type="text" id="productInput" class="activate-item" disabled>
+                <div class="client-list" id="client-list">
+                    <div class="client-card">
+                        <h4>Cliente indefinido</h4>
+                        <p>Venda sem cadastro</p>
+                    </div>
+                    <div class="client-card">
+                        <h4>Cliente indefinido</h4>
+                        <p>Venda sem cadastro</p>
+                    </div>
+                </div>
+                <div>
+                    <button id="btnConfirmar" class="activate-item" disabled>Proximo -></button>
+                </div>
             </div>
+            <div id="add-product-container">
 
-            <p>Quantidade:</p>
-            <input type="number" id="qtyInput" value="1" min="1" class="activate-item qty-field" disabled>
-
-            <p>Método de Pagamento:</p>
-            <select id="paymentMethod" class="activate-item" disabled>
-                <option value="">Selecione...</option>
-                <option value="pix">Pix</option>
-                <option value="credito">Crédito</option>
-                <option value="debito">Débito</option>
-                <option value="dinheiro">Dinheiro</option>
-            </select>
-
-            <div>
-                <button id="btnCancelar" class="activate-item" disabled>Cancelar Venda</button>
-                <button id="btnConfirmar" class="activate-item" disabled>Confirmar venda</button>
             </div>
-
-        
         </div>
         <div class="block">
             <h1>Resumo</h1>

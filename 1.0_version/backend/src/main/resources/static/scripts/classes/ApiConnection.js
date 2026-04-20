@@ -25,24 +25,55 @@ export class ApiConnection {
 
     async sendGetRequest(endpoint) {
         try {
-            const res = await fetch(this.API_URL + endpoint, {
+            const res = await fetch(endpoint, {
                 credentials: "include"
             });
 
+            const data = await res.json();
+
             if (!res.ok) {
-                throw new Error("Erro na requisição");
+                throw new Error(data.message || "Erro na requisição");
             }
 
-            const data = await res.json();
             console.log(data);
             return data;
         } catch (error) {
             console.log(error);
             return {
-                "error": true
+                "error": true,
+                "message": error.message
             }
         };
 
+    }
+
+    async sendPatchRequest(endpoint){
+        try {
+            const res = await fetch(this.API_URL + endpoint, {
+                method: "PATCH",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                const error = new Error(data.message || "erro na requisição");
+                error.status = res.status;
+                throw error;
+            }
+
+            return data;
+        } catch (error) {
+            console.error("Error code: " + error.status);
+            console.error(error.message);
+
+            return {
+                error: true,
+                status: error.status || 500,
+                message: error.message
+            };
+        }
     }
 
     async sendPostRequest(endpoint, body) {

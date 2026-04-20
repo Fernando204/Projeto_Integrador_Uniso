@@ -11,4 +11,6 @@ public interface CashRegisterRepository extends JpaRepository<CashRegister,Long>
     List<CashRegister> findByUser(User user);
     boolean existsByUserAndOpenTrue(User user);
     Optional<CashRegister> findByUserAndOpenTrue(User user);
+
+    Optional<CashRegister> findByUserIdAndOpenTrue(Long id);
 }

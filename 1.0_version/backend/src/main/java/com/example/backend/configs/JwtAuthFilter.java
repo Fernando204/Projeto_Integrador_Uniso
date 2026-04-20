@@ -108,6 +108,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     ) throws ServletException, IOException {
 
         if (request.getCookies() == null) {
+            Logger.error("Nenhum cookie encontrado");
             filterChain.doFilter(request, response);
             return;
         }
@@ -118,6 +119,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 .orElse(null);
 
         if (authCookie == null) {
+            Logger.error("Nenhum cookie encontrado");
             filterChain.doFilter(request, response);
             return;
         }
@@ -126,6 +128,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (!jwtService.isTokenValid(token)) {
             filterChain.doFilter(request, response);
+            Logger.error("Token invalido");
             return;
         }
 
@@ -145,9 +148,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             );
 
             SecurityContextHolder.getContext().setAuthentication(auth);
-        }catch (Exception e){
+        }catch (Exception e){}
 
-        }
         filterChain.doFilter(request, response);
     }
 }
