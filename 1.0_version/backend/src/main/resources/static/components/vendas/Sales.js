@@ -15,7 +15,7 @@ export const initializeSales = (api) => {
     const qtyInput = document.getElementById("qtyInput");
     const paymentMethod = document.getElementById("paymentMethod");
     const clientSelect = document.getElementById("clientSelect");
-    const clientCards = document.querySelectorAll(".client-card");
+
 
     // --- VARIÁVEIS DE CONTROLE DE ESTADO ---
     let caixaInfo = {}//variavel que guarda as informações sobre o caixa vindas do back-end
@@ -117,7 +117,7 @@ export const initializeSales = (api) => {
 
             // 2. Filtro (Inicia com) + Ordem Alfabética
             const produtosEncontrados = Object.values(dados) //Pega os valores dos produtos JSON e os transforma em uma Array (lista), agora pode usar ferramentas de lista como .filter e .sort.
-                .filter(item => item.produto && item.produto.toLowerCase().startsWith(termo))  //item.produto checa se o produto existe
+                .filter(item => item.produto && item.produto.toLowerCase().startsWith(termo))  //item.produto checa se o produto existe 
                 .sort((a, b) => a.produto.localeCompare(b.produto)); //
 
             // 3. Gerenciar a lista no DOM
@@ -192,8 +192,29 @@ export const initializeSales = (api) => {
             closeChasRegister();
         }
 
+            // Usamos o ID que o back nos deu quando abrimos o caixa (caixaInfo.id)
+            const res = await api.sendPostRequest("/sales/cash-register/close", { //ESPERAR O ENDPOINT DE FECHAR CAIXA DO FERNANDO
+                "id": caixaInfo.id,
+                "userId": data.userId
+            });
 
+            if (res.error) {
+                alert("Erro ao fechar o caixa no servidor: " + res.message);
+                return; // Se der erro no back, não limpamos a tela ainda
+            }
 
+            titleInfo.classList.replace("opened", "closed"); //fechou o caixa troca as classes e cores
+            titleInfo.innerHTML = "Caixa Fechado"; //Troca a palavra
+            dataTitle.innerHTML = ""; //Retira a data
+            openBt.innerText = "Abrir caixa"; //Troca o texto do botão
+
+            activateItens.forEach((item) => item.disabled = true); //Os itens de classes disabled que estavam false agora são true
+            blocks.forEach(block => block.style.opacity = "0.5"); //Deixa os dois blocks mais transparentes pq o caixa está fechado
+
+            vendasDoTurno = []; //Limpa a lista de vendas do turno
+            blocks[1].innerHTML = "<h1>Resumo</h1>"; //Escreve no segundo block "<h1>Resumo</h1>"
+            opened = false; //A variável opened volta a ser false para reabrir o caixa novamente
+        }
     });
 
     // --- LÓGICA DE CONFIRMAR VENDA ---
