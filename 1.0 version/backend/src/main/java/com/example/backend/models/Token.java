@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.example.backend.enums.TokenType;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "token")
 public class Token {
