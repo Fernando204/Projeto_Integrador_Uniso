@@ -19,7 +19,6 @@
     color: red;
 }
 .sales-section .block{
-    padding-left: 30px;
     background-color: var(--sub-background);
     height: auto;
     min-height: 80vh;
@@ -28,8 +27,10 @@
     opacity: 0.5;
     cursor:default;
 
+    padding: 0 2% 0 2%;
+
 }
-.sales-section .block div { /* São os botões de confirmar e cancelar venda */
+.sales-section .block div { 
     display: flex;
     gap: 20px;
     margin-top: 15px; 
@@ -136,16 +137,39 @@
     display: flex;
     flex-direction: column;
 }
+.sales-section .block .product-list,
+.sales-section .block .client-list{
+    align-items: start;
+    background: var(--background);
+    border-radius: 20px;
+    padding: 0px 20px 0px 20px;
+    width: 96%;
+    max-width: 96%;
+    height: 40vh; 
 
-.sales-section .client-card{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));;
+    grid-auto-rows: minmax(150px, auto);
+    gap: 10px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.sales-section .client-card,
+.sales-section .product-card{
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 15px;
+    background: var(--sub-background-2);
     border: 2px solid #00155a;
     border-radius: 10px;
 }
+.sales-section .product-card{ 
+    justify-content: space-between;
+    flex-direction: row;
+}
 .sales-section .client-card:hover{
-    background-color: #002ec744;
+    background-color: var(--sub-background);
 }
 
 .sales-section .client-card .selected{
@@ -156,4 +180,33 @@
 
 .sales-section .client-card h4, .sales-section .client-card p{
     margin: 0;
+}
+.sales-section .btnRetornar{
+    background-color: red;
+}
+.sales-section .vertical-align{
+    padding: 0;
+    margin: 0;
+    min-width: 5vw;
+}
+.vertical-align h4, .vertical-align p{
+    margin: 0;
+}
+.sales-section .product-amount button{
+    height: 2vw;
+    width: 2vw;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.sales-section .product-amount input{
+    width: 40%;
+    margin: 0;
+}
+.sales-section .product-amount{
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+
+    margin: 0;
+    width: fit-content;
 }

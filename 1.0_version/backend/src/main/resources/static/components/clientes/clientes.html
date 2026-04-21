@@ -34,15 +34,15 @@
                 <input type="text" id="cliente-nome" placeholder="Nome Completo" required>
                 <input type="email" id="cliente-email" placeholder="E-mail" required>
                 <input type="text" id="cliente-cpf" placeholder="CPF" required maxlength="11" pattern="\d{11}" title="Digite exatamente 11 números">
-                <input type="date" id="cliente-nascimento" required>
+                <input type="date" id="cliente-nascimento">
 
                 <label>Pagamento Preferido (Opcional):</label>
                 <select id="cliente-pagamento-pref">
                     <option value="" disabled selected>Selecione uma opção</option>
-                    <option value="Pix">Pix</option>
-                    <option value="Cartão de Crédito">Cartão de Crédito</option>
-                    <option value="Cartão de Débito">Cartão de Débito</option>
-                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="PIX">Pix</option>
+                    <option value="CARTÃO_DE_CREDITO">Cartão de Crédito</option>
+                    <option value="CARTAO_DE_DEBITO">Cartão de Débito</option>
+                    <option value="DINHEIRO">Dinheiro</option>
                 </select>
 
                 <button type="submit" id="btn-confirmar-cadastro" class="btn_clientes">Finalizar Cadastro</button>

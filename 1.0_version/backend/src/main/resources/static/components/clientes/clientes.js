@@ -1,4 +1,4 @@
-export function initializeClientes() { 
+export function initializeClientes(api) {
     // Cadastrar Cliente
     const btnAdd = document.getElementById("btn_abrir-modal-cliente");
     const modal = document.getElementById("modal-cliente-cadastro");
@@ -12,6 +12,8 @@ export function initializeClientes() {
     const container = document.querySelector(".clientes-historicos"); // Usado para carregar clientes do JSON
 
     const inputBusca = document.getElementById("inputBuscaCliente"); // Captura o campo de digitação para podermos ouvir o que o usuário escreve
+
+    let data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
     if (inputBusca) { //O campo de busca existe?
         inputBusca.addEventListener("input", () => { // O ouvinte é disparado toda vez que alguma letra é digitada ou apagada
@@ -35,9 +37,13 @@ export function initializeClientes() {
     // === FUNÇÃO PARA CARREGAR OS ATORES (JSON) ===
     async function carregarClientesDoJson() {
         try {
-            const resposta = await fetch('./scripts/classes/mock-data/Clientes.json'); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
-            const dadosBrutos = await resposta.json(); // Converte o texto bruto do arquivo em um objeto JavaScript utilizável
-            const listaClientes = Object.values(dadosBrutos); // Transforma o objeto (que pode ter chaves "1", "2") em um Array para usarmos o .forEach
+            const listaClientes = await api.sendGetRequest("/client/get/all?id="+data.companyId); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
+
+            if(listaClientes.error){
+                alert("Erro ao carregar a lista de CLientes!");
+                console.log(listaClientes);
+                return
+            }
 
             if (container) { // Verifica se a div "pai" existe no HTML antes de tentar mexer nela
                 container.innerHTML = ""; // Limpa o conteúdo atual da div (deleta cards antigos ou estáticos)
@@ -45,13 +51,15 @@ export function initializeClientes() {
                     // Template String: cria o HTML do card preenchendo os dados do JSON nos locais ${...}
                     const cardHTML = `
                         <div class="clientes-historico cliente-info">
-                            <p>${cliente.nome}</p>
+
+                            <p>${cliente.name}</p>
                             <span style="display:none">${cliente.email}</span> 
                             <span style="display:none">${cliente.cpf}</span>    
-                            <span style="display:none">${cliente.nascimento}</span>
-                            <span>${cliente.compras}</span>
-                            <span>Prioridade: ${cliente.pagamento}</span>
-                            <span>Total de ${cliente.gastos} reais gastos</span>
+                            <span style="display:none">${cliente.birthDate}</span>
+                            <span>${0}</span>
+                            <span>Prioridade: ${cliente.favoritePayment}</span>
+                            <span>Total de 00,00 reais gastos</span>
+
                             <div class="cliente-botoes">
                                 <button class="btn-maisinfocliente">Mais informações</button>
                                 <button class="btn-excluir-cliente">Excluir</button>
@@ -82,18 +90,27 @@ export function initializeClientes() {
             e.preventDefault(); 
 
             const dadosParaEnviar = {
-                nome: document.getElementById("cliente-nome").value,
+                companyId: data.companyId,
+                name: document.getElementById("cliente-nome").value,
                 email: document.getElementById("cliente-email").value,
                 cpf: document.getElementById("cliente-cpf").value,
-                nascimento: document.getElementById("cliente-nascimento").value,
-                pagamento_preferido: document.getElementById("cliente-pagamento-pref").value
+                birthDate: document.getElementById("cliente-nascimento").value,
+                favoritePayment: document.getElementById("cliente-pagamento-pref").value
             };
 
             try {
-                await api.registerCliente(dadosParaEnviar); 
+                console.log(dadosParaEnviar)
+                const res = await api.sendPostRequest("/client/create",dadosParaEnviar);
+
+                if(res.error){
+                    console.log("Erro ao registrar cliente!");
+                    throw new Error(res.message || "Erro ao cadastrar cliente!");
+                }
+
+                console.log(res);
                 alert("Cliente cadastrado com sucesso");
             } catch(error) {
-                alert("Erro ao registrar ou servidor offline");
+                alert("Erro ao registrar ou servidor offline: "+error);
             } finally {
                 await carregarClientesDoJson();
                 modal.style.display = "none";

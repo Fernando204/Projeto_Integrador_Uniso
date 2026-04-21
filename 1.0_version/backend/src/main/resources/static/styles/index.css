@@ -281,3 +281,8 @@ button:hover{
 .profile-container .logout-btn{
     background-color: #DC2626;
 }
+
+.vertical-align{
+    display: flex;
+    flex-direction: column;
+}
