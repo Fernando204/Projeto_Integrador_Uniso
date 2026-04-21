@@ -1,0 +1,188 @@
+<div class="colaboradores-section">
+    <div>
+        <h1 id="funcionariostitle">Colaboradores</h1>
+    </div>
+
+    <div class="top-funcionarios">
+        
+        <div class="card-funcionarios">
+            <h1>Funcionários:</h1>
+            <h3 id="contagem-total-funcionarios">15</h3>
+        </div>
+
+        <div class="card-funcionarios">
+            <h1>Custo da folha:</h1>
+            <h3>R$ 75.000</h3>
+        </div>
+
+        <button class="btn_funcionarios" id="btn_add_funcionarios">
+            <span class="icon_plus">+</span>
+            Cadastrar Funcionario
+        </button>
+
+    </div>
+
+    <div class="main">
+        <div class="box-filter-funcionarios">
+                <input type="text" id="inputBuscaColaborador" placeholder="Pesquisar por nome...">
+        </div>
+
+            <div class="funcionarios-info">
+                <div class="funcionario-info">
+                    <p>Luiz</p>
+                    <span class="info-nascimento-card" style="display:none;">Data: 2000-10-25</span>
+
+                    <span>Cargo: Vendedor</span>
+                    <span>Status: Ativo <span class="dot dot-ativo"></span></span>
+                    <span>Turno: Manhã</span>
+                    <span>Contato: (11) 90000-0000</span>
+
+                    <div class="produto-botoes">
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+                    
+                </div>
+
+                <div class="funcionario-info">
+                    <p>Pedro</p>
+                    <span class="info-nascimento-card" style="display:none;">Data: 2002-11-18</span>
+
+
+                    <span>Cargo: Caixa</span>
+                    <span>Status: Férias <span class="dot dot-ferias"></span></span>
+                    <span>Turno: Tarde</span>
+                    <span>Contato: (15) 93232-3213</span>
+
+                    <div class="produto-botoes">
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+
+                </div>
+
+                <div class="funcionario-info">
+                    <p>Yan</p>
+                    <span class="info-nascimento-card" style="display:none;">Data: 1998-06-18</span>
+
+
+                    <span>Cargo: Vendedor</span>
+                    <span>Status: Ativo <span class="dot dot-ativo"></span></span>
+                    <span>Turno: Tarde</span>
+                    <span>Contato: (15) 91234-9878</span>
+
+                    <div class="produto-botoes">
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+                    
+                </div>
+
+                <div class="funcionario-info">
+                    <p>Luiza</p>
+                    <span class="info-nascimento-card" style="display:none;">Data: 1995-04-10</span>
+
+                    <span>Cargo: Gerente</span>
+                    <span>Status: Ativo <span class="dot dot-ativo"></span></span>
+                    <span>Turno: Tarde</span>
+                    <span>Contato: (15) 95843-6677</span>
+
+                    <div class="produto-botoes">
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+                    
+                </div>
+
+                <div class="funcionario-info">
+                    <p>Gertrudes</p>
+                    <span class="info-nascimento-card" style="display:none;">Data: 2005-09-28</span>
+
+                    <span>Cargo: Caixa</span>
+                    <span>Status: Licença <span class="dot dot-licenca"></span></span>
+                    <span>Turno: Manhã</span>
+                    <span>Contato: (15) 95478-5798</span>
+
+                    <div class="produto-botoes">
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+                    
+                </div>
+            </div>
+    </div>
+
+    <div id="modal-colaborador-cadastro" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Cadastrar Novo Colaborador</h2>
+            <form id="form-cadastro">
+                <input type="text" id="nome" placeholder="Nome Completo" required>
+                <input type="text" id="cargo" placeholder="Cargo (Ex: Vendedor, Gerente)" required>
+                <input type="email" id="email" placeholder="E-mail (Login)" required>
+                <input type="text" id="cpf" placeholder="CPF (Senha)" required maxlength="11" pattern="\d{11}" title="Digite exatamente 11 números">
+                <input type="date" id="nascimento" required>
+                <label>Turno:</label>
+                    <select id="turno">
+                        <option value="Manhã">Manhã</option>
+                        <option value="Tarde">Tarde</option>
+                        <option value="Noite">Noite</option>
+                    </select>
+                <input type="text" id="contato" placeholder="Contato (15) 99999-9999" required>
+                <button type="submit" class="btn_funcionarios">Salvar Colaborador</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-info-colaborador" class="modal">
+        <div class="modal-content">
+            <span class="close-info">&times;</span>
+            <h2>Detalhes do Colaborador</h2>
+            <hr>
+            <div class="info-corpo">
+                <p><strong>Nome:</strong> <span id="info-nome"></span></p>
+                <p><strong>Data de nascimento:</strong> <span id="info-nascimento"></span></p>
+                <p><strong>Cargo:</strong> <span id="info-cargo"></span></p>
+                <p><strong>Status:</strong> <span id="info-status"></span></p>
+                <p><strong>Turno:</strong> <span id="info-turno"></span></p>
+                <p><strong>Contato:</strong> <span id="info-contato"></span></p>
+            </div>
+
+            <div class="historico-container">
+                <h3>Histórico de Ações</h3>
+                <div class="historico-lista">
+                    <ul id="lista-historico">
+                        <li><span class="data-log">05/04/2026</span> - Alterou turno para "Tarde"</li>
+                        <li><span class="data-log">01/04/2026</span> - Realizou venda #1020</li>
+                        <li><span class="data-log">28/03/2026</span> - Cadastro realizado no sistema</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-editar" class="modal">
+        <div class="modal-content">
+            <span class="close-edit">&times;</span>
+            <h2>Editar Colaborador</h2>
+            <form id="form-editar">
+                <input type="text" id="editar-nome" placeholder="Nome">
+                <input type="text" id="editar-cargo" placeholder="Cargo">
+                <label>Status Atual:</label>
+                    <select id="editar-status">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Férias">Férias</option>
+                        <option value="Licença">Licença</option>
+                    </select>
+                <input type="text" id="editar-turno" placeholder="Turno">
+                <input type="text" id="editar-contato" placeholder="Contato">
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+</div>    

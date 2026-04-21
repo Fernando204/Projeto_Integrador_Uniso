@@ -1,0 +1,236 @@
+ :root{
+    --background: #F8FAFC;
+    --sub-background: #E2E8F0;
+    --button: #2563EB;
+
+    --main-text: #0F172A;
+    --oposite-text: #E2E8F0;
+
+    --saldo: #3B82F6;
+    --receita: #16A34A;
+    --despesa: #F97316;
+    --lucro: #15803D;
+    --prejuizo: #DC2626;
+
+    --icon-color: #ffffff;
+    --notify-icon:  #000000;
+
+    --input-bg: #F9FAFB;
+  --input-border: #D1D5DB;
+  --input-text: #111827;
+  --input-placeholder: #9CA3AF;
+  --input-focus-border: #2563EB;
+  --input-focus-shadow: rgba(37, 99, 235, 0.3);
+}
+
+.saldo{color: var(--saldo);}
+.receita{color: var(--receita);}
+.despesa{color: var(--despesa);}
+.lucro{color: var(--lucro);}
+.prejuizo{color: var(--prejuizo);}
+
+*{
+    font-family: Arial, sans-serif;
+}
+.logo-image{
+    filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --background: #0B1220;
+        --sub-background: #1E293B;
+        --button: #2563EB;
+        --main-text: #E2E8F0;
+        --notify-icon: #ffffff;
+
+        --input-bg: #2e2e3f;
+    --input-border: #44475a;
+    --input-text: #f8f8f2;
+    --input-placeholder: #888aa6;
+    --input-focus-border: #6272a4;
+    --input-focus-shadow: rgba(98, 114, 164, 0.5);
+    }
+
+    .logo-image {
+        filter: invert(100%) brightness(200%);
+    }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: var(--background);
+    color: #fff;
+}
+
+/* Layout principal */
+.split-screen {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Lado esquerdo */
+.lateral-container {
+    flex: 1;
+    background: var(--button);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.lateral-container img {
+    max-width: 200px;
+    margin-bottom: 20px;
+}
+
+.lateral-container h1 {
+    font-size: 1.8rem;
+    max-width: 300px;
+}
+
+/* Lado direito */
+.right-side {
+    flex: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+/* Card */
+.card {
+    background: var(--sub-background);
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 50vw;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form */
+fieldset {
+    border: none;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.login-card input[type="number"],
+.login-card input[type="text"],
+.login-card input[type="email"],
+.login-card input[type="password"]{
+    
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    outline: none;
+  border: 1.5px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card input::placeholder {
+  color: var(--input-placeholder);
+  font-weight: 400;
+}
+
+.login-card input:focus {
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 8px var(--input-focus-shadow);
+  outline: none;
+}
+
+/* Botão */
+button {
+    width: 100%;
+    padding: 12px;
+    background: var(--button);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition:  0.3s linear;
+}
+
+button:hover {
+  font-weight: 900;
+}
+
+/* Link */
+.register-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.register-link a {
+    color: #90CAF9;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* 🔥 RESPONSIVIDADE */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .split-screen {
+        flex-direction: column;
+    }
+
+    .lateral-container {
+        padding: 20px;
+    }
+
+    .lateral-container h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Celular */
+@media (max-width: 500px) {
+    .card {
+        padding: 20px;
+    }
+
+    .lateral-container {
+        display: none; /* remove o lado esquerdo no mobile */
+    }
+
+    .right-side {
+        padding: 10px;
+    }
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

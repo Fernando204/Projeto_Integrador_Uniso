@@ -1,0 +1,71 @@
+<div class="clientes-section">
+    <div>
+        <h1 id="clientestitle">Clientes</h1>
+    </div>
+
+    <div class="top-clientes">
+        
+        <div class="cardclientes">
+            <h1>Clientes Registrados</h1>
+            <h3 id="contagem-total-clientes">0</h3>
+        </div>
+
+        <button class="btn_clientes" id="btn_abrir-modal-cliente">
+            <span class="icon_plus">+</span>
+            Adicionar cliente
+        </button>
+
+    </div>
+
+    <div class="main">
+            <div class="box-filter-clientes">
+                <input type="text" id="inputBuscaCliente" placeholder="Pesquisar por nome...">
+                </div>
+
+            <div class="clientes-historicos">
+                </div>
+    </div>
+
+    <div id="modal-cliente-cadastro" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Cadastrar Novo Cliente</h2>
+            <form id="form-cliente-cadastro">
+                <input type="text" id="cliente-nome" placeholder="Nome Completo" required>
+                <input type="email" id="cliente-email" placeholder="E-mail" required>
+                <input type="text" id="cliente-cpf" placeholder="CPF" required maxlength="11" pattern="\d{11}" title="Digite exatamente 11 números">
+                <input type="date" id="cliente-nascimento" required>
+
+                <label>Pagamento Preferido (Opcional):</label>
+                <select id="cliente-pagamento-pref">
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                    <option value="Dinheiro">Dinheiro</option>
+                </select>
+
+                <button type="submit" id="btn-confirmar-cadastro" class="btn_clientes">Finalizar Cadastro</button>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="modal-info-cliente" class="modal">
+        <div class="modal-content">
+            <span class="close-info">&times;</span>
+            <h2>Detalhes do Cliente</h2>
+            <hr>
+            <div class="info-corpo">
+                <p><strong>Nome:</strong> <span id="info-cliente-nome"></span></p>
+                <p><strong>Email:</strong> <span id="info-cliente-email"></span></p>
+                <p><strong>CPF:</strong> <span id="info-cliente-cpf"></span></p>
+                <p><strong>Nascimento:</strong> <span id="info-cliente-nascimento"></span></p>
+                <p><strong>Pagamento Preferido:</strong> <span id="info-cliente-pagamento"></span></p>
+                <p><strong>Total de Compras:</strong> <span id="info-cliente-compras"></span></p>
+                <p><strong>Total Gasto:</strong> <span id="info-cliente-gastos"></span></p>
+            </div>
+        </div>
+    </div>
+
+</div>
