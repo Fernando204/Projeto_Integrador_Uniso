@@ -1,4 +1,4 @@
-export function initializeClientes() { 
+export async function initializeClientes(api) { 
     // Cadastrar Cliente
     const btnAdd = document.getElementById("btn_abrir-modal-cliente");
     const modal = document.getElementById("modal-cliente-cadastro");
@@ -33,37 +33,64 @@ export function initializeClientes() {
     }
 
     // === FUNÇÃO PARA CARREGAR OS ATORES (JSON) ===
-    async function carregarClientesDoJson() {
-        try {
-            const resposta = await fetch('./scripts/classes/mock-data/Clientes.json'); // 'fetch' faz a requisição para buscar o arquivo JSON no caminho especificado
-            const dadosBrutos = await resposta.json(); // Converte o texto bruto do arquivo em um objeto JavaScript utilizável
-            const listaClientes = Object.values(dadosBrutos); // Transforma o objeto (que pode ter chaves "1", "2") em um Array para usarmos o .forEach
+    async function carregarClientes() {
+        let listaClientes = [];
 
-            if (container) { // Verifica se a div "pai" existe no HTML antes de tentar mexer nela
-                container.innerHTML = ""; // Limpa o conteúdo atual da div (deleta cards antigos ou estáticos)
-                listaClientes.forEach(cliente => { // Percorre cada cliente da lista para criar seu card individual
-                    // Template String: cria o HTML do card preenchendo os dados do JSON nos locais ${...}
-                    const cardHTML = `
-                        <div class="clientes-historico cliente-info">
-                            <p>${cliente.nome}</p>
-                            <span style="display:none">${cliente.email}</span> 
-                            <span style="display:none">${cliente.cpf}</span>    
-                            <span style="display:none">${cliente.nascimento}</span>
-                            <span>${cliente.compras}</span>
-                            <span>Prioridade: ${cliente.pagamento}</span>
-                            <span>Total de ${cliente.gastos} reais gastos</span>
-                            <div class="cliente-botoes">
-                                <button class="btn-maisinfocliente">Mais informações</button>
-                                <button class="btn-excluir-cliente">Excluir</button>
-                            </div>
-                        </div>`;
-                    container.insertAdjacentHTML('beforeend', cardHTML); // Injeta o HTML criado no final da lista, dentro do container pai
-                });
-                atualizarContador();
+        try {
+            // 1. Tenta buscar da API Real
+            const responseAPI = await api.sendGetRequest("/clientes/all"); //ESPERAR O ENDPOINT CORRETO
+            
+            // Se a API retornar dados, usamos eles
+            if (responseAPI && responseAPI.length > 0) {
+                listaClientes = responseAPI;
+            } else {
+                // Se vier vazio ou erro oculto, força a ida para o catch (JSON)
+                throw new Error("API sem dados");
             }
         } catch (error) {
-            console.error("Erro ao carregar clientes do JSON:", error);
+            console.warn("API bloqueada (403) ou offline. Buscando dados do Clientes.json...");
+            try {
+                // 2. Tenta o caminho relativo subindo as pastas
+                const response = await fetch("../../scripts/classes/mock-data/Clientes.json");
+                
+                if (!response.ok) throw new Error(`Arquivo não encontrado: ${response.status}`);
+
+                const dadosJson = await response.json();
+                
+                // CONVERSÃO CRÍTICA: Transforma o seu JSON { "1": {...} } em uma lista [ {...} ]
+                listaClientes = Object.values(dadosJson);
+                
+                console.log("Sucesso! Clientes carregados do arquivo local.");
+            } catch (jsonError) {
+                console.error("Erro crítico: Não encontrou nem a API nem o JSON local.", jsonError);
+            }
         }
+
+        // 3. Renderiza na tela
+        if (container && listaClientes.length > 0) {
+            container.innerHTML = ""; 
+            listaClientes.forEach(cliente => {
+                const cardHTML = `
+                    <div class="clientes-historico cliente-info" data-id="${cliente.id || ''}">
+                        <p>${cliente.nome}</p>
+                        <span style="display:none">${cliente.email}</span> 
+                        <span style="display:none">${cliente.cpf}</span>    
+                        <span style="display:none">${cliente.nascimento}</span>
+                        <span>${cliente.compras || '0'}</span>
+                        <span>Prioridade: ${cliente.pagamento || 'N/A'}</span>
+                        <span>Total de ${cliente.gastos || '0'} reais gastos</span>
+                        <div class="cliente-botoes">
+                            <button class="btn-maisinfocliente">Mais informações</button>
+                            <button class="btn-excluir-cliente">Excluir</button>
+                        </div>
+                    </div>`;
+                container.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        } else {
+            console.warn("Nenhum cliente para exibir no container.");
+        }
+        
+        atualizarContador();
     }
 
     // CADASTRO DO CLIENTE
@@ -90,12 +117,12 @@ export function initializeClientes() {
             };
 
             try {
-                await api.registerCliente(dadosParaEnviar); 
+                await api.sendPostRequest("/clientes/cadastro", dadosParaEnviar); //ESPERAR O ENDPOINT CORRETO
                 alert("Cliente cadastrado com sucesso");
             } catch(error) {
                 alert("Erro ao registrar ou servidor offline");
             } finally {
-                await carregarClientesDoJson();
+                await carregarClientes();
                 modal.style.display = "none";
                 form.reset();
             }
@@ -107,7 +134,7 @@ export function initializeClientes() {
 
     // Delegação de Eventos para "mais info" e "excluir"
     if (container) {
-        container.addEventListener("click", (evento) => { // Adiciona UM ÚNICO "ouvidor" de clique no container pai
+        container.addEventListener("click", async (evento) => { // Adiciona UM ÚNICO "ouvidor" de clique no container pai
 
             if (evento.target.classList.contains("btn-maisinfocliente")) { // Verifica se o que foi clicado exatamente foi o botão de informações
                 const card = evento.target.closest(".cliente-info"); // Sobe na árvore do HTML para encontrar o card (.cliente-info, linha 47) correspondente ao botão
@@ -128,15 +155,21 @@ export function initializeClientes() {
             if (evento.target.classList.contains("btn-excluir-cliente")) { // Verifica se o clique ocorreu no botão de excluir
                 const card = evento.target.closest(".cliente-info"); // Identifica qual card deve ser removido
                 const nomeCliente = card.querySelector("p").innerText; // Pega o nome do cliente apenas para personalizar a mensagem de confirmação
+                const idCliente = card.getAttribute("data-id");
 
                 if (confirm(`Tem certeza que deseja excluir o cliente ${nomeCliente}?`)) {
-                    card.remove(); // Remove o elemento HTML do card da tela imediatamente
-                    atualizarContador();
-                    alert("Cliente removido da visualização!");
+                    try {
+                        // await api.sendDeleteRequest("/clientes/" + idCliente); //ESPERAR O ENDPOINT CORRETO
+                        card.remove(); 
+                        atualizarContador();
+                        alert("Cliente removido com sucesso!");
+                    } catch (error) {
+                        alert("Erro ao excluir no servidor.");
+                    }
                 }
             }
         });
-    };
+    }
 
     // Fechar modais
     if (closeInfo) {
@@ -150,7 +183,7 @@ export function initializeClientes() {
         if (event.target === modalInfo) { modalInfo.style.display = "none"; }
     });
 
-    carregarClientesDoJson();
+    await carregarClientes();
     atualizarContador()
 
 }

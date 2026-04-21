@@ -70,7 +70,7 @@ export function atualizarSaldos() {
     }
 }
 
-export function initializeFinances(api){
+export async function initializeFinances(api){
 
      const btnAdd = document.getElementById("btn_add_Movment");
      const modal = document.getElementById("modal-movment-register");
@@ -112,7 +112,7 @@ export function initializeFinances(api){
                  console.log("Enviando para o Java:", dadosParaEnviar);
 
                  try {
-                     await api.sendPostRequest("/finance/movment/new", dadosParaEnviar);
+                     await api.sendPostRequest("/finance/movment/new", dadosParaEnviar); //ESPERAR O ENDPOINT CORRETO
                      adicionarCardNaTela(dadosParaEnviar);
                      atualizarSaldos(); // Nome sugerido para a tela de finanças
                      alert("Movimentação registrada com sucesso!");
