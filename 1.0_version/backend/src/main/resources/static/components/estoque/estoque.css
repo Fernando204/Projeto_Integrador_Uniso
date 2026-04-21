@@ -107,3 +107,78 @@
 .btn-maisinfo:hover{
     background-color: #334155;
 }
+
+
+/* Aqui em diante é o css do dia 20-04 */
+
+/* Input de busca do estoque */
+.box-filter-estoque input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    background-color: var(--background);
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.box-filter-estoque input:focus {
+    border-color: #3498db;
+}
+
+/* Botão excluir */
+.estoque-section .btn-excluir {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.estoque-section .btn-excluir:hover {
+    background-color: #ff4d4d;
+}
+
+/* Botão salvar no modal de editar */
+.btn-save-produto {
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-save-produto:hover {
+    transform: scale(1.03);
+}
+
+/* Grid do produto-info com a coluna extra para o excluir */
+.produto-info {
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+}
+
+/* Close buttons dos modais do estoque */
+.close-button-estoque,
+.close-info-produto,
+.close-edit-produto {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+.close-button-estoque:hover,
+.close-info-produto:hover,
+.close-edit-produto:hover {
+    color: #ff4d4d;
+}
+
+/* Modal de editar produto um pouco mais largo */
+#modal-editar-produto .modal-content {
+    width: 450px;
+}

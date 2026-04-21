@@ -7,7 +7,7 @@
     
         <div class="card-estoques">
             <h1>Produtos registrados:</h1>
-            <h3>35</h3>
+            <h3 id="contagem-total-produtos">35</h3>
         </div>
 
         <div class="card-estoques">
@@ -23,13 +23,13 @@
 
     <div class="main">
             <div class="box-filter-estoque">
-            
+                <input type="text" id="inputBuscaProduto" placeholder="Pesquisar por nome...">
             </div>
 
             <div class="estoque-info">
                 <div class="produto-info">
                     <p>Macarrao</p>
-
+                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-01-10</span>
                     <span>Preco: R$ 20</span>
                     <span>Validade: 15/07/2026</span>
                     <span>Quantidade no estoque: 135</span>
@@ -37,12 +37,13 @@
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
                         <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
                     </div>
                 </div>
 
                 <div class="produto-info">
                     <p>Peito de frango</p>
-
+                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-02-05</span>
                     <span>Preco: R$ 45</span>
                     <span>Validade: 21/09/2026</span>
                     <span>Quantidade no estoque: 110</span>
@@ -50,12 +51,13 @@
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
                         <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
                     </div>
                 </div>
 
                 <div class="produto-info">
                     <p>Creatina</p>
-
+                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-03-15</span>
                     <span>Preco: R$ 100</span>
                     <span>Validade: 30/12/2027</span>
                     <span>Quantidade no estoque: 50</span>
@@ -63,12 +65,13 @@
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
                         <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
                     </div>
                 </div>
 
                 <div class="produto-info">
                     <p>Whey Protein Growth</p>
-
+                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-01-20</span>
                     <span>Preco: R$ 120</span>
                     <span>Validade: 05/02/2027</span>
                     <span>Quantidade no estoque: 70</span>
@@ -76,12 +79,13 @@
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
                         <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
                     </div>
                 </div>
 
                 <div class="produto-info">
                     <p>Whey Protein Dux</p>
-
+                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-02-28</span>
                     <span>Preco: R$ 140</span>
                     <span>Validade: 27/04/2027</span>
                     <span>Quantidade no estoque: 60</span>
@@ -89,8 +93,53 @@
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
                         <button class="btn-maisinfo">Mais informações</button>
+                        <button class="btn-excluir">Excluir</button>
                     </div>
                 </div>
             </div>
+    </div>
+    <!-- Modal Cadastrar Produto -->
+    <div id="modal-produto-cadastro" class="modal">
+        <div class="modal-content">
+            <span class="close-button-estoque">&times;</span>
+            <h2>Cadastrar Novo Produto</h2>
+            <form id="form-cadastro-produto">
+                <input type="text" id="produto-nome" placeholder="Nome do Produto" required>
+                <input type="number" id="produto-preco" step="0.01" placeholder="Preço (R$)" required>
+                <input type="date" id="produto-validade" required>
+                <input type="date" id="produto-data-adicao" required>
+                <input type="number" id="produto-quantidade" placeholder="Quantidade em estoque" required>
+                <button type="submit" class="btn_estoques">Salvar Produto</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modal Mais Informações -->
+    <div id="modal-info-produto" class="modal">
+        <div class="modal-content">
+            <span class="close-info-produto">&times;</span>
+            <h2>Detalhes do Produto</h2>
+            <hr>
+            <div class="info-corpo">
+                <p><strong>Nome:</strong> <span id="info-produto-nome"></span></p>
+                <p><strong>Preço:</strong> <span id="info-produto-preco"></span></p>
+                <p><strong>Validade:</strong> <span id="info-produto-validade"></span></p>
+                <p><strong>Data de Adição:</strong> <span id="info-produto-adicao"></span></p>
+                <p><strong>Quantidade em estoque:</strong> <span id="info-produto-quantidade"></span></p>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Editar Produto -->
+    <div id="modal-editar-produto" class="modal">
+        <div class="modal-content">
+            <span class="close-edit-produto">&times;</span>
+            <h2>Editar Produto</h2>
+            <form id="form-editar-produto">
+                <input type="text" id="editar-produto-nome" placeholder="Nome">
+                <input type="number" id="editar-produto-preco" step="0.01" placeholder="Preço (R$)">
+                <input type="date" id="editar-produto-validade">
+                <input type="number" id="editar-produto-quantidade" placeholder="Quantidade em estoque">
+                <button type="submit" class="btn-save-produto">Salvar Alterações</button>
+            </form>
+        </div>
     </div>
 </div>

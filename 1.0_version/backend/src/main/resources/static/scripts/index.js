@@ -3,7 +3,8 @@ import { initializeColaboradores } from "../components/colaboradores/colaborador
 import { initializeDashboard } from "../components/dashboard/dashboard.js";
 import { initializeRelatorios } from "../components/relatorios/relatorios.js";
 import { initializeSales } from "../components/vendas/Sales.js";
-import {initializeFinances} from "../components/finanças/finance.js"
+import { initializeFinances } from "../components/finanças/finance.js";
+import { initializeEstoque } from "../components/estoque/estoque.js";
 import { ApiConnection } from "./classes/ApiConnection.js"
 /**
  * 
@@ -123,7 +124,9 @@ changeButtons.forEach((bt, index) => {
             break;
         case 4:
             bt.addEventListener("click", () => {
-                changePage("components/estoque/estoque.html");
+                changePage("components/estoque/estoque.html").then((res) => {
+                    initializeEstoque(apiConnection);
+                })
             })
             break;
         case 5:

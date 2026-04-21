@@ -1,6 +1,41 @@
 let cardSendoEditado = null;
 
-export function initializeColaboradores(api) { 
+export async function initializeColaboradores(api) { 
+
+    const containerCards = document.querySelector(".funcionarios-info"); //Fica parado "ouvindo" qualquer clique que aconteça no card pai e depois filtra se foi no botão de excluir, mais-info ou editar
+
+    async function carregarColaboradores() {
+        try {
+            // Tenta buscar os dados da API
+            const lista = await api.sendGetRequest("/colaboradores/all"); //ESPERAR O ENDPOINT CORRETO
+
+            // Se a API respondeu com sucesso, aí sim limpamos os estáticos e usamos os do banco
+            if (containerCards && lista && lista.length > 0) {
+                containerCards.innerHTML = ""; // Limpa os nomes estáticos
+                lista.forEach(func => {
+                    const cardHTML = `
+                        <div class="funcionario-info" data-id="${func.id}">
+                            <p>${func.nome}</p>
+                            <span class="info-nascimento-card" style="display:none;">Data: ${func.nascimento}</span>
+                            <span>Cargo: ${func.cargo}</span>
+                            <span>Status: ${func.status} <span class="dot dot-${func.status.toLowerCase()}"></span></span>
+                            <span>Turno: ${func.turno}</span>
+                            <span>Contato: ${func.contato}</span>
+                            <div class="produto-botoes">
+                                <button class="btn-editar">Editar</button>
+                                <button class="btn-maisinfo">Mais informações</button>
+                                <button class="btn-excluir">Excluir</button>
+                            </div>
+                        </div>`;
+                    containerCards.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            }
+        } catch (error) {
+            console.warn("API offline. Mantendo colaboradores estáticos para teste.");
+        } finally {
+            atualizarContador(); // Atualiza o número (seja 5 estáticos ou X do banco)
+        }
+    }
 
     // Função para atualizar o contador de colaboradores
     function atualizarContador() {
@@ -9,32 +44,6 @@ export function initializeColaboradores(api) {
         if (displayContador) { //Se o displayContador existir, roda o código abaixo
             displayContador.innerText = total; //Escreve o ''total'' da quantidade de funcionário no elemento que exibe a quantidade de funcionários (displayContador)
         }
-    }
-
-
-
-    // Gerar card ao cadastrar funcionário
-    function adicionarCardNaTela(dados) {
-        const container = document.querySelector(".funcionarios-info");
-        const novoCardHTML = `
-            <div class="funcionario-info">
-                <p>${dados.nome}</p>
-                <span class="info-nascimento-card" style="display:none;">Data: ${dados.nascimento}</span>
-                
-                <span>Cargo: ${dados.cargo}</span>
-
-                <span>Status: Ativo <span class="dot dot-ativo"></span></span>
-                <span>Turno: ${dados.turno}</span>
-                <span>Contato: ${dados.contato}</span>
-
-                <div class="produto-botoes">
-                    <button class="btn-editar">Editar</button>
-                    <button class="btn-maisinfo">Mais informações</button>
-                    <button class="btn-excluir">Excluir</button>
-                </div>
-            </div>
-        `;
-        container.innerHTML += novoCardHTML;
     }
 
 
@@ -50,15 +59,14 @@ export function initializeColaboradores(api) {
 
     // --- Filtro no input e excluír funcionário ---
     const inputBusca = document.getElementById("inputBuscaColaborador"); //Captura o campo de digitação para podermos ouvir o que o usuário escreve
-    const containerCards = document.querySelector(".funcionarios-info"); //Fica parado "ouvindo" qualquer clique que aconteça no card pai e depois filtra se foi no botão de excluir, mais-info ou editar
+    
 
     if (inputBusca) { //O campo de busca existe?
         inputBusca.addEventListener("input", () => { //O ouvinte é disparado toda vez que alguma letra é digitada ou apagada
             const termoBusca = inputBusca.value.toLowerCase(); //Pega qualquer nome de funcionário que o usuário digitou e coloca em letra minúscula
+            const todosOsCards = document.querySelectorAll(".funcionario-info") //Encontra todos os funcionários cadastrados 
 
-            const todosOsCardsAtualizados = document.querySelectorAll(".funcionario-info") //Encontra todos os funcionários cadastrados 
-
-            todosOsCardsAtualizados.forEach(card => {
+            todosOsCards.forEach(card => {
                 const nomeFuncionario = card.querySelector("p").innerText.toLowerCase(); //Pega o nome do funcionário e escreve em minúsculo
                 card.style.display = nomeFuncionario.includes(termoBusca) ? "grid" : "none"; //"O nome que está neste cartão contém as letras que o usuário digitou no campo de busca?"
             });
@@ -66,26 +74,27 @@ export function initializeColaboradores(api) {
     }
 
     if (containerCards) { //Excluir Funcionário
-    containerCards.addEventListener("click", (evento) => {
-        if (evento.target.classList.contains("btn-excluir")) { // Verifica se o que foi clicado EXATAMENTE é o botão de excluir
-            
-            const card = evento.target.closest(".funcionario-info"); //Subir do botão até achar o card (.funcionario-info)
-            const nomeFuncionario = card.querySelector("p").innerText; //Pega o nome do funcionário e guarda numa constante
-
-            const confirmar = confirm(`Tem certeza que deseja excluir o colaborador ${nomeFuncionario}?`); //Exibe o nome do funcionário na constante para confirmar exclusão
-
-            if (confirmar) {
-                card.remove(); // Remove o elemento do HTML na hora
-                atualizarContador();
-                alert("Colaborador removido com sucesso!");
+        containerCards.addEventListener("click", async (evento) => {
+            if (evento.target.classList.contains("btn-excluir")) { // Verifica se o que foi clicado EXATAMENTE é o botão de excluir
                 
-                // Futuramente: aqui terá o api.delete(id)
-            }};
+                const card = evento.target.closest(".funcionario-info"); //Subir do botão até achar o card (.funcionario-info)
+                const nomeFuncionario = card.querySelector("p").innerText; //Pega o nome do funcionário e guarda numa constante
+                const idColaborador = card.getAttribute("data-id"); // Pega o ID do banco, PERGUNTAR AO FERNANDO SOBRE ISSO
+
+                if (confirm(`Tem certeza que deseja excluir o colaborador ${nomeFuncionario}?`)) {
+                    try {
+                        await api.sendDeleteRequest(`/colaboradores/${idColaborador}`); //ESPERAR O ENDPOINT CORRETO
+                        card.remove();
+                        atualizarContador();
+                        alert("Colaborador removido com sucesso!");
+                    } catch (error) {
+                        alert("Erro ao excluir no servidor.");
+                    }
+                }
+            }
         });
     }
-
-
-
+    
     // Cadastro do funcionário
     if (btnAdd && modal && form) {
 
@@ -112,13 +121,12 @@ export function initializeColaboradores(api) {
             };
 
             try {
-                await api.register(dadosParaEnviar); 
-                adicionarCardNaTela(dadosParaEnviar);
-                atualizarContador();
+                await api.sendPostRequest("/colaboradores/save", dadosParaEnviar); //ESPERAR O ENDPOINT CORRETO
                 alert("Funcionário cadastrado com sucesso");
+                await carregarColaboradores(); // Recarrega a lista do banco
             } catch(error) {
                 console.error("Erro ao registrar:", error);
-                alert("O servidor não respondeu, mas a janela será fechada");
+                alert("Erro ao salvar no servidor.");
             } finally {
                 modal.style.display = "none";
                 form.reset();
@@ -198,7 +206,7 @@ export function initializeColaboradores(api) {
 
         // 3. Salvar (Opcional por enquanto, para teste)
         if (formEditar) {
-            formEditar.onsubmit = (e) => {
+            formEditar.onsubmit = async (e) => {
                 e.preventDefault();
 
                 const novoNome = document.getElementById("editar-nome").value; //teste
@@ -225,13 +233,21 @@ export function initializeColaboradores(api) {
                     bolinha.classList.add("dot-licenca"); //teste
                 }
 
-                alert("Dados prontos para enviar para a API!");
-                modalEditar.style.display = "none";
+                try {
+                    // Quando o Fernando liberar, descomento a linha abaixo:
+                    const id = cardSendoEditado.getAttribute("data-id");
+                    // await api.sendPutRequest(`/colaboradores/${id}`, { nome: novoNome, ... }); ESPERAR O ENDPOINT CORRETO
+
+                    alert("Dados atualizados (Teste Local)!");
+                    modalEditar.style.display = "none";
+                } catch (error) {
+                    alert("Erro ao salvar no servidor");
+                }
             };
         }
     }
 
-    atualizarContador(); //Ao carregar a página já carrega o número de funcionários
+    await carregarColaboradores(); //Ao carregar a página já carrega o número de funcionários
 
 
     window.addEventListener("click", (event) => { //fechar modal quando clickar fora dele
