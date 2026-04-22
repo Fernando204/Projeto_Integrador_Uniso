@@ -194,7 +194,7 @@ export function initializeClientes() {
         if (event.target === modalInfo) { modalInfo.style.display = "none"; }
     });
 
-    await carregarClientes();
+    carregarClientes();
     atualizarContador()
 
 }

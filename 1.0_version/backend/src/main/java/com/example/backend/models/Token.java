@@ -6,13 +6,9 @@ import java.util.UUID;
 import com.example.backend.enums.TokenType;
 
 import jakarta.persistence.Entity;
-<<<<<<< HEAD:1.0 version/backend/src/main/java/com/example/backend/models/Token.java
-import jakarta.persistence.ManyToOne;
-=======
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
->>>>>>> 22745e93f55bdf24c297e556cea75eca4387b630:1.0_version/backend/src/main/java/com/example/backend/models/Token.java
 
 @Entity(name = "token")
 public class Token {
