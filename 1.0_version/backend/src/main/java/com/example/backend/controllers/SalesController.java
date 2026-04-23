@@ -124,8 +124,8 @@ public class SalesController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addSale(){
+    @PostMapping("/new")
+    public ResponseEntity<?> addNewSale(){
 
         return ResponseEntity.ok("");
     }

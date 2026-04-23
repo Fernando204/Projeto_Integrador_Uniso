@@ -88,7 +88,7 @@ const changePage = (pageUrl) => {
 }
 
 changePage("components/dashboard/dashboard.html").then((res) => {
-    initializeDashboard();
+    initializeDashboard(apiConnection);
 });
 
 changeButtons.forEach((bt, index) => {
@@ -96,7 +96,7 @@ changeButtons.forEach((bt, index) => {
         case 0:
             bt.addEventListener("click", () => {
                 changePage("components/dashboard/dashboard.html").then((res) => {
-                    initializeDashboard();
+                    initializeDashboard(apiConnection);
                 });
 
             })

@@ -19,6 +19,9 @@ public class Sale {
     @ManyToOne
     private CashRegister cashRegister;
 
+    @ManyToOne
+    private Company company;
+
     private BigDecimal value;
     private SaleStatus status;
     private PaymentWay payment;
@@ -41,6 +44,22 @@ public class Sale {
         this.client = client;
         this.value = value;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public void addItem(Product product, int quantity) {

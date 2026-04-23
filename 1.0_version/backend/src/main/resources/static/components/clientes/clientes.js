@@ -39,6 +39,7 @@ export function initializeClientes(api) {
         let listaClientes = [];
 
         try {
+            container.innerHTML = "Carregando..."
             // 1. Tenta buscar da API Real
             const responseAPI = await api.sendGetRequest("/client/get/all?id="+data.companyId); //ESPERAR O ENDPOINT CORRETO
 
@@ -89,6 +90,7 @@ export function initializeClientes(api) {
                 container.insertAdjacentHTML('beforeend', cardHTML);
             });
         } else {
+            container.innerHTML = "Nenhum cliente cadastrado :("
             console.warn("Nenhum cliente para exibir no container.");
         }
 

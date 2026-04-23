@@ -1,5 +1,7 @@
+let data = {};
+let container;
+
 function adicionarCardNaTela(dados) {
-    const container = document.querySelector(".transactions");
     const ehEntrada = dados.movmentType === "ENTRADA";
     const sinal = ehEntrada ? "+" : "-";
     
@@ -17,12 +19,16 @@ function adicionarCardNaTela(dados) {
     container.innerHTML += novoCardHTML;
 }
 
+
+
 export function atualizarSaldos() {
     // 1. Pega todas as transações que estão na tela
     const transacoes = document.querySelectorAll(".transaction");
-    
+
     let totalEntradas = 0;
     let totalDespesas = 0;
+
+
 
     // 2. Passa por cada uma delas somando
     transacoes.forEach(item => {
@@ -76,6 +82,22 @@ export async function initializeFinances(api){
      const modal = document.getElementById("modal-movment-register");
      const closeBtn = document.querySelector(".close-button");
      const form = document.getElementById("form-cadastro");
+     container = document.querySelector(".transactions");
+
+     data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
+
+     const movimentos = await api.sendGetRequest("/finance/movment/get?id="+data.companyId);
+
+     if(movimentos.error){
+        alert("Erro ao buscar dados!");
+        return;
+     }
+
+     container.innerHTML = "";
+     movimentos.forEach(mov =>{
+        adicionarCardNaTela(mov);
+        atualizarSaldos();
+     })
 
      if (btnAdd && modal && form) {
 
@@ -91,6 +113,11 @@ export async function initializeFinances(api){
              form.addEventListener("submit", async (e) => {
                  e.preventDefault();
 
+                 const btn = e.submitter;
+
+                 btn.disabled = true;
+                 btn.innerText = "Enviando...";
+
                 const valorRaw = document.getElementById("valor").value;
                 const valorNumerico = parseFloat(valorRaw);
 
@@ -98,10 +125,10 @@ export async function initializeFinances(api){
                     alert("Por favor, insira um valor numérico válido e maior que zero.");
                     return;
                 }
-
+                 //já está adaptado da forma certa para enviar os dados para o back-end
                  const dadosParaEnviar = {
-                    userId: 1, // Valor temporário para o Java não dar erro
-                    companyId: 1, // Valor temporário
+                    userId: data.userId,
+                    companyId: data.companyId,
                     name: document.getElementById("nome").value,
                     description: document.getElementById("descricao").value,
                     value: valorNumerico,
@@ -112,10 +139,10 @@ export async function initializeFinances(api){
                  console.log("Enviando para o Java:", dadosParaEnviar);
 
                  try {
-                     await api.sendPostRequest("/finance/movment/new", dadosParaEnviar); //ESPERAR O ENDPOINT CORRETO
+                     await api.sendPostRequest("/finance/movment/new", dadosParaEnviar); //ENDPOINT CORRETO!!
                      adicionarCardNaTela(dadosParaEnviar);
                      atualizarSaldos(); // Nome sugerido para a tela de finanças
-                     alert("Movimentação registrada com sucesso!");
+                     //alert("Movimentação registrada com sucesso!");
                  } catch(error) {
                      console.error("Erro ao registrar no backend:", error);
                      alert("O servidor não respondeu corretamente, verifique a conexão.");
