@@ -30,7 +30,7 @@ public class SaleItem {
 
     // Calcula o subtotal na hora, usando o preço atual do produto
     public BigDecimal getSubtotal() {
-        return product.getPrice().multiply(BigDecimal.valueOf(quantity));
+        return product.getSellingPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
     public Long getId() { return id; }

@@ -1,4 +1,4 @@
-export function initializeClientes() { 
+export function initializeClientes(api) { 
     // Cadastrar Cliente
     const btnAdd = document.getElementById("btn_abrir-modal-cliente");
     const modal = document.getElementById("modal-cliente-cadastro");
@@ -40,7 +40,7 @@ export function initializeClientes() {
 
         try {
             // 1. Tenta buscar da API Real
-            const responseAPI = await api.sendGetRequest("/clientes/all"); //ESPERAR O ENDPOINT CORRETO
+            const responseAPI = await api.sendGetRequest("/client/get/all?id="+data.companyId); //ESPERAR O ENDPOINT CORRETO
 
             // Se a API retornar dados, usamos eles
             if (responseAPI && responseAPI.length > 0) {
@@ -74,10 +74,10 @@ export function initializeClientes() {
             listaClientes.forEach(cliente => {
                 const cardHTML = `
                     <div class="clientes-historico cliente-info" data-id="${cliente.id || ''}">
-                        <p>${cliente.nome}</p>
+                        <p>${cliente.name}</p>
                         <span style="display:none">${cliente.email}</span>
                         <span style="display:none">${cliente.cpf}</span>
-                        <span style="display:none">${cliente.nascimento}</span>
+                        <span style="display:none">${cliente.birthDate}</span>
                         <span>${cliente.compras || '0'}</span>
                         <span>Prioridade: ${cliente.pagamento || 'N/A'}</span>
                         <span>Total de ${cliente.gastos || '0'} reais gastos</span>

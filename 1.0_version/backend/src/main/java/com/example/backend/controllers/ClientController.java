@@ -53,12 +53,14 @@ public class ClientController {
 
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllClients(@RequestParam long id){
+        Logger.debug("Retornando clientes");
         List<Client> clients = clientRepository.findByCompany_Id(id);
         List<ClientResponseDTO> responseDTOList = clients.stream().map(c -> new ClientResponseDTO(
                         c.getCompany().getId(), c.getName(), c.getEmail(),
                 c.getDocument(),c.getBirthDate(), c.getFavoritePayment().toString(),
                 c.getId(), c.getSaleList()
         )).toList();
+        Logger.debug("Retornando clientes");
         return ResponseEntity.status(HttpStatus.OK).body(responseDTOList);
     }
 }

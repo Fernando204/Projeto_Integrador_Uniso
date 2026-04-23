@@ -45,4 +45,12 @@ public class Product {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public BigDecimal getCostPrice(){
+        return costPrice;
+    }
+    public BigDecimal getSellingPrice(){
+        return sellingPrice;
+    }
+    
 }
