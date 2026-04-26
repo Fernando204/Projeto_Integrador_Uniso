@@ -164,6 +164,9 @@
     border: 2px solid #00155a;
     border-radius: 10px;
 }
+.sales-section .client-card {
+    cursor: pointer;
+}
 .sales-section .product-card{ 
     justify-content: space-between;
     flex-direction: row;
@@ -209,4 +212,150 @@
 
     margin: 0;
     width: fit-content;
+}
+.resumo-finalizacao {
+    padding: 15px;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-top: 0 !important;
+}
+
+.resumo-finalizacao h3 {
+    white-space: nowrap;
+    margin: 0;
+}
+
+.resumo-finalizacao hr {
+    border: none;
+    border-left: 1px solid #444;
+    height: auto;
+    align-self: stretch;
+    margin: 0;
+}
+
+.lista-produtos-finalizacao {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 150px;
+}
+
+.lista-produtos-finalizacao li {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 1px solid #333;
+    white-space: nowrap;
+}
+
+.lista-produtos-finalizacao li span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+}
+
+.total-finalizacao {
+    color: #00ff1a;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.forma-pagamento-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    margin-top: 0 !important;
+    width: fit-content !important;
+    align-items: flex-start !important;
+}
+
+.forma-pagamento-container label {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.forma-pagamento-container select {
+    all: unset;
+    background-color: var(--background);
+    color: white;
+    padding: 8px 30px 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    font-size: 14px;
+    cursor: pointer;
+    color-scheme: dark;
+    min-width: 150px;
+
+    /* Seta customizada — opcional, mas fica mais bonito */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 14px;
+}
+
+.forma-pagamento-container select:focus {
+    border-color: #00ff1a;
+    outline: none;
+}
+
+.sales-section .client-card.selected {
+    background-color: #254ed36b;
+    border: 2px solid #223a88;
+}
+
+.sales-section #btn-cancelar-venda {
+    background-color: #f87171; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+}
+
+.sales-section #cliente-selecionado-info {
+    color: #00ff1a; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.venda-resumo-card {
+    display: grid;
+    grid-template-columns: 160px 180px 200px 160px 200px;
+    gap: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sales-section .block .resumo-vendas-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100%;
+    margin-top: 0 !important;
+    gap: unset !important;
+}
+
+.venda-resumo-card span {
+    font-size: 13px;
+    color: #00ff1a;
+    align-self: start;
+}
+
+.venda-resumo-card span:nth-child(3) {
+    white-space: pre-line;
+}
+
+.venda-resumo-card span:nth-child(1),
+.venda-resumo-card span:nth-child(2),
+.venda-resumo-card span:nth-child(4),
+.venda-resumo-card span:nth-child(5) {
+    white-space: nowrap;
 }
