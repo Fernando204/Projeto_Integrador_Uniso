@@ -9,7 +9,7 @@
         <div class="block">
             <div id="init-container" class="sale-container step-container">
                 <h1>Selecione o cliente </h1>
-
+                <p id="cliente-selecionado-info"></p>
                 <input placeholder="Busca por Nome, CPF ou Id" id="client-search">
                 
                 <div class="client-list" id="client-list">
@@ -22,7 +22,6 @@
 
             <div class="sale-container step-container" style="display: none;">
                 <h1>Selecione os produtos</h1>
-
                 <input placeholder="Busca por Nome Id" id="product-search">
 
                 <div class="product-list" id="product-list">
@@ -106,23 +105,20 @@
                 </div>
 
                 <div>
-                    <button class="activate-item btnRetornar" disabled>← voltar </button>
+                    <button class="activate-item btnRetornar" disabled>← voltar</button>
                     <button class="activate-item btnConfirmar" disabled>Proximo →</button>
+                    <button id="btn-cancelar-venda">Cancelar venda</button>
                 </div>
             </div>
 
             <div class="sale-container step-container" style="display: none;">
                 <h1>Finalizar compra</h1>
-
                 <input placeholder="Busca por Nome Id" id="product-search">
-
-                <div class="product-list">
-                  
-                </div>
-
+                <div class="product-list"></div>
                 <div>
-                    <button class="activate-item btnRetornar" disabled>← voltar </button>
-                    <button class="activate-item btnConfirmar" disabled>Proximo →</button>
+                    <button class="activate-item btnRetornar" disabled>← voltar</button>
+                    <button class="activate-item btnConfirmar" disabled>Confirmar venda ✓</button>
+                    <button id="btn-cancelar-venda">Cancelar venda</button>
                 </div>
             </div>
         </div>
