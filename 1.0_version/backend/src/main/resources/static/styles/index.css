@@ -109,11 +109,10 @@ button:hover{
 
     height: 100vh;
     width: 6vw;
-    padding-left: 25px;
 
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 
     gap: 20px;
@@ -145,6 +144,47 @@ button:hover{
     height: 5vh;
     width: 5vh;
     border-radius: 10px;
+}
+
+.navBar .button-box{
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: calc(3vw - 2.5vh);
+    box-sizing: border-box;
+}
+.navBar .button-box:hover{
+    background-color: rgba(0, 0, 0, 0.24);
+    padding-left: calc(3vw - 2.5vh);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+.navBar .button-box h5{
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+    transition: all 0.7s;
+}
+.navBar:hover h5{
+    opacity: 1;
+    width: auto;
+    margin-left: 12px;
+}
+.logo-image{
+    width: 60px;
+    position: fixed;
+    top: 20px;
+}
+.pageButton{
+    cursor: pointer;
 }
 
 .notification-button{
@@ -183,36 +223,7 @@ button:hover{
     box-shadow: 0.1px 0.1px 4px 0.1px black;
 }
 
-.navBar .button-box{
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: row;
 
-    justify-content: center;
-    align-items: center;
-    
-}
-.navBar .button-box:hover{
-    background-color: rgba(0, 0, 0, 0.24);
-    padding: 10px;
-    border-radius: 10px;
-}
-.navBar .button-box h5{
-    opacity: 0;
-    margin-left: 10px;
-    transition: all 0.7s;
-}
-.navBar:hover h5{
-    opacity: 1;
-}
-.logo-image{
-    width: 60px;
-    position: fixed;
-    top: 20px;
-}
-.pageButton{
-    cursor: pointer;
-}
 
 .right-modal-container{
     z-index: 0;
