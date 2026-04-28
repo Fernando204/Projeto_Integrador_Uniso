@@ -18,6 +18,8 @@ public class SaleItem {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    private BigDecimal subTotal;
+
     private int quantity;
 
     public SaleItem() {}
@@ -30,7 +32,7 @@ public class SaleItem {
 
     // Calcula o subtotal na hora, usando o preço atual do produto
     public BigDecimal getSubtotal() {
-        return product.getSellingPrice().multiply(BigDecimal.valueOf(quantity));
+        return subTotal;
     }
 
     public Long getId() { return id; }
