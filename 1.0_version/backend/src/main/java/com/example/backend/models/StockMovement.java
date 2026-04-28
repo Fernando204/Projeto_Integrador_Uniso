@@ -5,8 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity(name = "stock_movment")
-public class StockMovment {
+@Entity(name = "stock_movement")
+public class StockMovement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //id da movimentação
@@ -15,7 +15,7 @@ public class StockMovment {
     public String type; //entrada ou saida
     public LocalDateTime criadoEm; //cria a data da movimentação
 
-    public StockMovment(Integer quantidade, MovementType type, LocalDateTime criadoEm){ 
+    public StockMovement(Integer quantidade, MovementType type, LocalDateTime criadoEm){ 
         this.id = id;
         this.quantidade = quantidade;
         this.type = type;
