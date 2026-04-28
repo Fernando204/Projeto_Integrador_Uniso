@@ -1,7 +1,7 @@
 package com.example.backend.repository;
 
-import com.example.backend.models.StockMovment;
+import com.example.backend.models.StockMovement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StockMovmentRepository extends JpaRepository<StockMovment,Long> {
+public interface StockMovmentRepository extends JpaRepository<StockMovement,Long> {
 }

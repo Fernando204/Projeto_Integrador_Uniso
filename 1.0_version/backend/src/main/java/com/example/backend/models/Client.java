@@ -1,6 +1,7 @@
 package com.example.backend.models;
 
 import com.example.backend.enums.PaymentWay;
+import com.example.backend.models.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ public class Client {
     private LocalDate birthDate;
     private PaymentWay favoritePayment;
 
+    private boolean active;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Sale> saleList = new ArrayList<>();
 
@@ -38,6 +41,7 @@ public class Client {
         this.favoritePayment = favoritePayment;
         this.name = name;
         this.createdAt = LocalDateTime.now();
+        this.active = true;
     }
 
     public void addSale(Sale sale){
@@ -114,5 +118,12 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

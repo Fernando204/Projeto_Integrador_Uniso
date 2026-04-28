@@ -2,6 +2,7 @@ package com.example.backend.models;
 
 import com.example.backend.enums.PaymentWay;
 import com.example.backend.enums.SaleStatus;
+import com.example.backend.models.*;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

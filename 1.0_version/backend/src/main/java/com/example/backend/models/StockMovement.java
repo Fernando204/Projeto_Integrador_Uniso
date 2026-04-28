@@ -1,5 +1,9 @@
 package com.example.backend.models;
 
+import java.time.LocalDateTime;
+
+import com.example.backend.enums.StockMovementType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,13 +14,12 @@ public class StockMovement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //id da movimentação
+
     private Integer quantidade; //quantidade de mercadoria movimentada de um certo tipo
+    private StockMovementType type; //entrada ou saida
+    private LocalDateTime criadoEm; //cria a data da movimentação
 
-    public String type; //entrada ou saida
-    public LocalDateTime criadoEm; //cria a data da movimentação
-
-    public StockMovement(Integer quantidade, MovementType type, LocalDateTime criadoEm){ 
-        this.id = id;
+    public StockMovement(Integer quantidade, StockMovementType type, LocalDateTime criadoEm){
         this.quantidade = quantidade;
         this.type = type;
         this.criadoEm = criadoEm;
@@ -25,20 +28,20 @@ public class StockMovement {
     public Long getId() {
         return id;
     }
-    public Integer quantidade {
+    public Integer getQuantidade(){
         return quantidade;
     }
-    public String type {
-        return type;
+    public StockMovementType getType(){
+        return type;  
     }
-    public LocalDateTime criadoEm {
-        return criadoEm
+    public LocalDateTime getCriadoEm(){
+        return criadoEm;
     }
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
-    public void setType(MovementType type) {
+    public void setType(StockMovementType type) {
         this.type = type;
     }
     public void setCriadoEm(LocalDateTime criadoEm) {

@@ -1,6 +1,7 @@
 package com.example.backend.models;
 
 import jakarta.persistence.*;
+import com.example.backend.models.*;
 import java.math.BigDecimal;
 
 @Entity(name = "sale_items")
