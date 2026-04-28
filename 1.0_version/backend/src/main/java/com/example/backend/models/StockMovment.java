@@ -9,8 +9,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity(name = "stock_movement")
-public class StockMovement {
+import com.example.backend.enums.StockMovmentType;
+import com.example.backend.enums.MovmentType;
+
+@Entity(name = "stock_movment")
+public class StockMovment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //id da movimentação
