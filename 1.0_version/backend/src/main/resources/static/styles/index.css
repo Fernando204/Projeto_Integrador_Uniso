@@ -297,3 +297,27 @@ button:hover{
     display: flex;
     flex-direction: column;
 }
+.loading{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.loading-icon{
+    height: 100px;
+    width: 100px;
+    border: 5px solid transparent;
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 0.5s infinite;
+}

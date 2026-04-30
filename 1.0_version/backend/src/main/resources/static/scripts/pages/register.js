@@ -91,11 +91,15 @@ confirmBt.addEventListener("click",()=>{
         "phone": phone,
         "endereco": endereco
     }
+    
+    confirmBt.innerText = "Registrando...";
+    confirmBt.disabled = true;
 
     api.sendPostRequest("/auth/register",obj).then(async res =>{
         
         if(res.error){
             alert(res.message);
+            console.log(res);
             return;
         }
         location.href = "loginPage.html";
