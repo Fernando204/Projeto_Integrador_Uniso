@@ -1,5 +1,6 @@
 package com.example.backend.controllers;
 
+import com.example.backend.DTOs.estoque.NewProductDTO;
 import com.example.backend.services.StockService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class StockController {
     }
 
     @PostMapping("/product/add")
-    public ResponseEntity<?> addProduct(){
+    public ResponseEntity<?> addProduct(@RequestParam NewProductDTO dto){
         return ResponseEntity.ok("");
     }
 

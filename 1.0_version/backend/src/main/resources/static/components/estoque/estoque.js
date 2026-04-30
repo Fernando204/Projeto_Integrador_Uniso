@@ -49,6 +49,9 @@ export function initializeEstoque(api) {
     // Container dos cards
     const containerCards = document.querySelector(".estoque-info");
 
+    const data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
+
+
     // --- Filtro de busca ---
     const inputBusca = document.getElementById("inputBuscaProduto");
     if (inputBusca) {
@@ -82,6 +85,25 @@ export function initializeEstoque(api) {
     // --- Cadastrar produto ---
     if (btnAdd && modal && form) {
 
+        document.getElementById("produto-preco-venda").addEventListener("input",(e)=>{
+            const costPrice = document.getElementById("produto-preco-custo").value;
+
+            if(costPrice){
+                const sellingPrice = e.target.value;
+                const rate = ((sellingPrice/costPrice) - 1) *100 ;
+                document.getElementById("lucro-desejado").value = rate.toFixed(2);
+            }
+        });
+
+        document.getElementById("lucro-desejado").addEventListener("input",(e)=>{
+            const costPrice = document.getElementById("produto-preco-custo").value;
+
+            if(costPrice){
+                const rate = e.target.value/100 + 1;
+                document.getElementById("produto-preco-venda").value = (costPrice * rate).toFixed(2);
+            }
+        })
+
         btnAdd.addEventListener("click", () => {
             modal.style.display = "block";
         });
@@ -95,15 +117,19 @@ export function initializeEstoque(api) {
             e.preventDefault();
 
             const dadosParaEnviar = {
-                nome: document.getElementById("produto-nome").value,
-                preco: document.getElementById("produto-preco").value,
-                validade: document.getElementById("produto-validade").value,
-                dataAdicao: document.getElementById("produto-data-adicao").value,
-                quantidade: document.getElementById("produto-quantidade").value
+                companyId: data.companyId,
+                name: document.getElementById("produto-nome").value,
+                description: document.getElementById("produto-descricao").value,
+                costPrice: document.getElementById("produto-preco-custo").value,
+                sellingPrice: document.getElemntById("produto-preco-venda").value,
+                profitRate: document.getElementById("lucro-desejado").value,
+                minQuantity: document.getElementById("produto-min-quantidade").value,
+                unity: document.getElementById("unidade").value
             };
 
             try {
-                // TODO: quando tiver endpoint → await api.sendPostRequest("/estoque/produto/new", dadosParaEnviar) ESPERAR O ENDPOINT CORRETO
+                api.sendPostRequest("/stock/product/add", dadosParaEnviar);
+
                 adicionarCardNaTela(dadosParaEnviar);
                 atualizarContador();
                 alert("Produto cadastrado com sucesso!");

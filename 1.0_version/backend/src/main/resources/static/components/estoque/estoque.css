@@ -182,3 +182,46 @@
 #modal-editar-produto .modal-content {
     width: 450px;
 }
+
+.estoque-section select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+
+  background-color: #1e2433;
+  color: #e2e8f0;
+
+  border: 1px solid #2d3548;
+  border-radius: 8px;
+
+  padding: 12px 40px 12px 14px;
+  font-size: 15px;
+
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.estoque-section select:hover {
+  border-color: #3d4a6a;
+}
+
+.estoque-section select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.estoque-section select option {
+  background-color: #1e2433;
+  color: #e2e8f0;
+}
+
+.estoque-section select optgroup {
+  background-color: #151a28;
+  color: #64748b;
+  font-size: 12px;
+}

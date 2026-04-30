@@ -105,10 +105,34 @@
             <h2>Cadastrar Novo Produto</h2>
             <form id="form-cadastro-produto">
                 <input type="text" id="produto-nome" placeholder="Nome do Produto" required>
-                <input type="number" id="produto-preco" step="0.01" placeholder="Preço (R$)" required>
-                <p>Validade:</p>
-                <input type="date" id="produto-validade" required>
-                <input type="number" id="produto-quantidade" placeholder="Quantidade em estoque" required>
+                <input type="text" id="produto-descricao" placeholder="Descrição do Produto" required>
+                <input type="number" id="produto-min-quantidade" placeholder="Quantidade minima" required>
+                <input type="number" id="produto-preco-custo" step="0.01" placeholder="Preço (R$)" required>
+                <div>
+                    <input type="number" id="produto-preco-venda" step="0.01" placeholder="Preço (R$)" required>
+                    <input type="number" id="lucro-desejado" step="0.01" placeholder="Lucro desejado (%)" required>
+                </div>
+                <select id="unidade">
+                    <optgroup label="Peso">
+                        <option>Quilograma (kg)</option>
+                        <option>Grama (g)</option>
+                    </optgroup>
+                    <optgroup label="Volume">
+                        <option>Litros (L)</option>
+                        <option>Mililitros (ml)</option>
+                    </optgroup>
+                    <optgroup label="Contagem">
+                        <option>Unidade (un)</option>
+                        <option>Caixa (cx)</option>
+                        <option>Pacote (pct)</option>
+                        <option>Fardo</option>
+                        <option>DUzia</option>
+                    </optgroup>
+                    <optgroup label="Comprimento">
+                        <option>Metro (m)</option>
+                        <option>Centimetros (cm)</option>
+                    </optgroup>
+                </select>
                 <button type="submit" class="btn_estoques">Salvar Produto</button>
             </form>
         </div>

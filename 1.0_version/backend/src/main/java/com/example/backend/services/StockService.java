@@ -21,6 +21,8 @@ public class StockService {
         this.productRepository = productRepository;
     }
 
+    public
+
     public void newMovment(){
         
     }
