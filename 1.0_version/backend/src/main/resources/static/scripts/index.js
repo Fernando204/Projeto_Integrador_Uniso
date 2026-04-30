@@ -26,6 +26,8 @@ const notifyButton = document.querySelector(".notification-button");
 const notifyContainer = document.querySelector(".notify-container");
 const profileContainer = document.querySelector(".profile-container");
 
+let logged = false;
+
 const redirectToLogin = () => {
     location.href = "Pages/loginPage.html";
 };
@@ -69,125 +71,136 @@ const checkSession = async () => {
         }
 
         renderUserModal(res);
-        localStorage.setItem("user-data",JSON.stringify(res));
-
+        localStorage.setItem("user-data", JSON.stringify(res));
+        logged = true;
+        initializeMain();
     } catch {
-        redirectToLogin();
+        alert("sessão invalida")
+        //redirectToLogin();
     }
 };
-
 checkSession();
 
 let profileCardOpened = false;
 let notifyCardOpened = false;
 
-const changePage = (pageUrl) => {
-    return fetch(pageUrl).then(res => res.text()).then((res) => {
-        contentBox.innerHTML = res;
-    });
-}
+function initializeMain() {
+    if (logged) {
+        contentBox.classList.remove("loading");
+        const changePage = async (pageUrl) => {
+            const res = await fetch(pageUrl);
+            const res_1 = await res.text();
+            contentBox.innerHTML = res_1;
+        }
 
-changePage("components/dashboard/dashboard.html").then((res) => {
-    initializeDashboard(apiConnection);
-});
+        changePage("components/dashboard/dashboard.html").then(() => {
+            initializeDashboard(apiConnection);
+        }).catch(e => {
+            alert(e);
+        });
 
-changeButtons.forEach((bt, index) => {
-    switch (index) {
-        case 0:
-            bt.addEventListener("click", () => {
-                changePage("components/dashboard/dashboard.html").then((res) => {
-                    initializeDashboard(apiConnection);
-                });
+        changeButtons.forEach((bt, index) => {
+            switch (index) {
+                case 0:
+                    bt.addEventListener("click", () => {
+                        changePage("components/dashboard/dashboard.html").then((res) => {
+                            initializeDashboard(apiConnection);
+                        });
 
-            })
-            break;
-        case 1:
-            bt.addEventListener("click", () => {
-                changePage("components/finanças/finance.html").then((res)=>{
-                    initializeFinances(apiConnection);
-                });
-            })
-            break;
-        case 2:
-            bt.addEventListener("click", () => {
-                changePage("components/vendas/sales.html").then((res) => {
-                    initializeSales(apiConnection);
-                });
-            })
-            break;
-        case 3:
-            bt.addEventListener("click", () => {
-                changePage("components/clientes/clientes.html").then((res) => {
-                    initializeClientes(apiConnection);
-                })
-            })
-            break;
-        case 4:
-            bt.addEventListener("click", () => {
-                changePage("components/estoque/estoque.html").then((res) => {
-                    initializeEstoque(apiConnection);
-                })
-            })
-            break;
-        case 5:
-            bt.addEventListener("click", () => {
-                changePage("components/relatorios/relatorios.html").then((res) => {
-                    initializeRelatorios();
-                })
-            })
-            break;
-        case 6:
-            bt.addEventListener("click", () => {
-                changePage("components/colaboradores/colaboradores.html").then((res) => {
-                    initializeColaboradores(apiConnection);
-                })
-            })
-            break;
-    }
-});
+                    })
+                    break;
+                case 1:
+                    bt.addEventListener("click", () => {
+                        changePage("components/finanças/finance.html").then((res) => {
+                            initializeFinances(apiConnection);
+                        });
+                    })
+                    break;
+                case 2:
+                    bt.addEventListener("click", () => {
+                        changePage("components/vendas/sales.html").then((res) => {
+                            initializeSales(apiConnection);
+                        });
+                    })
+                    break;
+                case 3:
+                    bt.addEventListener("click", () => {
+                        changePage("components/clientes/clientes.html").then((res) => {
+                            initializeClientes(apiConnection);
+                        })
+                    })
+                    break;
+                case 4:
+                    bt.addEventListener("click", () => {
+                        changePage("components/estoque/estoque.html").then((res) => {
+                            initializeEstoque(apiConnection);
+                        })
+                    })
+                    break;
+                case 5:
+                    bt.addEventListener("click", () => {
+                        changePage("components/relatorios/relatorios.html").then((res) => {
+                            initializeRelatorios();
+                        })
+                    })
+                    break;
+                case 6:
+                    bt.addEventListener("click", () => {
+                        changePage("components/colaboradores/colaboradores.html").then((res) => {
+                            initializeColaboradores(apiConnection);
+                        })
+                    })
+                    break;
+            }
+        });
 
-userProfileButton.addEventListener("click", (e) => {
-    e.stopPropagation(); // impede o clique de subir pro document
+        userProfileButton.addEventListener("click", (e) => {
+            e.stopPropagation(); // impede o clique de subir pro document
 
-    if (!profileCardOpened) {
-        profileContainer.classList.add("expand");
-        profileCardOpened = true;
+            if (!profileCardOpened) {
+                profileContainer.classList.add("expand");
+                profileCardOpened = true;
+            } else {
+                closeProfile();
+            }
+        });
+
+        notifyButton.addEventListener("click", () => {
+            if (!notifyCardOpened && notifyContainer) {
+                notifyContainer.classList.add("expand");
+                notifyCardOpened = true;
+            } else {
+                closeNotifications();
+            }
+        })
+
+        document.addEventListener("click", (e) => {
+            if (
+                profileCardOpened &&
+                !profileContainer.contains(e.target) &&
+                !userProfileButton.contains(e.target)
+            ) {
+                closeProfile();
+            }
+
+            if (notifyCardOpened &&
+                !notifyContainer.contains(e.target) &&
+                !notifyButton.contains(e.target)
+            ) {
+                closeNotifications();
+            }
+        });
+
+        function closeNotifications() {
+            notifyContainer.classList.remove("expand");
+            notifyCardOpened = false;
+        }
+        function closeProfile() {
+            profileContainer.classList.remove("expand");
+            profileCardOpened = false;
+        }
     } else {
-        closeProfile();
+        console.log("Não logado!")
     }
-});
-
-notifyButton.addEventListener("click", () => {
-    if (!notifyCardOpened && notifyContainer) {
-        notifyContainer.classList.add("expand");
-        notifyCardOpened = true;
-    } else {
-        closeNotifications();
-    }
-})
-
-document.addEventListener("click", (e) => {
-    if (
-        profileCardOpened &&
-        !profileContainer.contains(e.target) &&
-        !userProfileButton.contains(e.target)
-    ) {
-        closeProfile();
-    }
-
-    if(notifyCardOpened &&
-        !notifyContainer.contains(e.target)&&
-        !notifyButton.contains(e.target)
-    ){
-        closeNotifications();
-    }
-});
-
-function closeNotifications(){
-    notifyContainer.classList.remove("expand");
-    notifyCardOpened = false;
 }
-function closeProfile() {
-    profileContainer.classList.remove("expand");
-    profileCardOpened = false;
-}
+

@@ -173,3 +173,6 @@
     gap: 10px;
     white-space: nowrap;
 }
+.clientes-section .list{
+    padding-bottom: 50px;
+}
