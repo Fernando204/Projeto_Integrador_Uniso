@@ -213,55 +213,6 @@
     margin: 0;
     width: fit-content;
 }
-.resumo-finalizacao {
-    padding: 15px;
-    width: 100%;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 30px;
-    margin-top: 0 !important;
-}
-
-.resumo-finalizacao h3 {
-    white-space: nowrap;
-    margin: 0;
-}
-
-.resumo-finalizacao hr {
-    border: none;
-    border-left: 1px solid #444;
-    height: auto;
-    align-self: stretch;
-    margin: 0;
-}
-
-.lista-produtos-finalizacao {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    min-width: 150px;
-}
-
-.lista-produtos-finalizacao li {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    font-size: 14px;
-    padding: 4px 0;
-    border-bottom: 1px solid #333;
-    white-space: nowrap;
-}
-
-.lista-produtos-finalizacao li span:first-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 120px;
-}
 
 .total-finalizacao {
     color: #00ff1a;
@@ -293,7 +244,7 @@
     font-size: 14px;
     cursor: pointer;
     color-scheme: dark;
-    min-width: 150px;
+    min-width: 200px;
 
     /* Seta customizada — opcional, mas fica mais bonito */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
@@ -358,4 +309,57 @@
 .venda-resumo-card span:nth-child(4),
 .venda-resumo-card span:nth-child(5) {
     white-space: nowrap;
+}
+
+#total-parcial {
+    color: #00ff1a; 
+    font-weight: bold; 
+    margin: 0;
+}
+
+.resumo-finalizacao-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    width: 100%;
+    color: white;
+    box-sizing: border-box;
+}
+
+.resumo-finalizacao-vertical h3 {
+    margin: 0;
+}
+
+.resumo-finalizacao-vertical hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 5px 0;
+}
+
+.resumo-finalizacao-vertical .produtos-label {
+    color: #cbd5e1;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.lista-produtos-finalizacao-scroll {
+    list-style: none;
+    padding: 0 15px 0 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lista-produtos-finalizacao-scroll li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 6px 0;
+    border-bottom: 1px solid #333;
+    color: white;
 }

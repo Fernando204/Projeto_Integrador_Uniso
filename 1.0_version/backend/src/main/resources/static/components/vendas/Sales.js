@@ -58,6 +58,7 @@ export const initializeSales = (api) => {
                 <div class="vertical-align">
                     <h4>${product.name}</h4>
                     <p>R$ ${parseFloat(product.price).toFixed(2).replace('.', ',')}</p>
+                    <small class="produto-subtotal" style="color: #00ff1a;"></small>
                 </div>
                 <div class="product-amount">
                     <button class="btn-diminuir">-</button>
@@ -114,6 +115,15 @@ export const initializeSales = (api) => {
         const cards = clientListDiv.querySelectorAll(".client-card");
         cards.forEach(card => {
             card.addEventListener("click", () => {
+                // Se clicar no card já selecionado, desmarca
+                if (card.classList.contains("selected")) {
+                    card.classList.remove("selected");
+                    clienteSelecionado = null;
+                    const clienteInfo = document.getElementById("cliente-selecionado-info");
+                    if (clienteInfo) clienteInfo.innerText = "";
+                    return;
+                }
+
                 cards.forEach(c => c.classList.remove("selected")); //Remove a seleção de todos os outros cards
                 card.classList.add("selected"); //Marca este card como selecionado visualmente
 
@@ -128,6 +138,22 @@ export const initializeSales = (api) => {
                 }
             });
         });
+    }
+
+    function atualizarSubtotal(card, price, qty) { //Calcula e exibe o subtotal de um produto específico no card
+        const subtotalEl = card.querySelector(".produto-subtotal");
+        if (!subtotalEl) return;
+        if (qty === 0) {
+            subtotalEl.innerText = ""; //Se a quantidade for 0, limpa o subtotal
+        } else {
+            subtotalEl.innerText = `= R$ ${(price * qty).toFixed(2).replace('.', ',')}`; //Exibe o subtotal
+        }
+    }
+
+    function atualizarTotalParcial() { //Calcula e exibe o total parcial de todos os produtos selecionados no topo do step 1
+        const total = Object.values(produtosDaCompra).reduce((acc, p) => acc + (p.price * p.qty), 0);
+        const totalEl = document.getElementById("total-parcial");
+        if (totalEl) totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`; //Atualiza o texto na tela
     }
 
     // --- CONTROLE DE QUANTIDADE DOS PRODUTOS ---
@@ -145,6 +171,8 @@ export const initializeSales = (api) => {
                 let qty = parseInt(input.value) + 1; //Incrementa a quantidade em 1
                 input.value = qty;
                 produtosDaCompra[id] = { name, price, qty }; //Salva ou atualiza o produto no objeto de estado
+                atualizarSubtotal(card, price, qty); //Atualiza o subtotal do produto
+                atualizarTotalParcial(); //Atualiza o total geral
             });
 
             btnMenos.addEventListener("click", () => {
@@ -155,6 +183,8 @@ export const initializeSales = (api) => {
                 } else {
                     produtosDaCompra[id] = { name, price, qty }; //Atualiza a quantidade no objeto de estado
                 }
+                atualizarSubtotal(card, price, qty); //Atualiza o subtotal do produto
+                atualizarTotalParcial(); //Atualiza o total geral
             });
 
             input.addEventListener("input", () => { //Ouvinte disparado quando o usuário digita diretamente no campo
@@ -166,6 +196,8 @@ export const initializeSales = (api) => {
                 } else {
                     produtosDaCompra[id] = { name, price, qty }; //Salva ou atualiza o produto no objeto de estado
                 }
+                atualizarSubtotal(card, price, qty); //Atualiza o subtotal do produto
+                atualizarTotalParcial(); //Atualiza o total geral
             });
         });
     }
@@ -198,14 +230,14 @@ export const initializeSales = (api) => {
     function montarFinalizacao() { //Monta o resumo da compra no step 2 com produtos, total e forma de pagamento
         const finalizacaoDiv = stepContainer[2].querySelector(".product-list");
         const produtos = Object.values(produtosDaCompra); //Converte o objeto de produtos em array para iterar
-
         const total = produtos.reduce((acc, p) => acc + (p.price * p.qty), 0); //Soma o valor total de todos os produtos
 
         finalizacaoDiv.innerHTML = `
-            <div class="resumo-finalizacao" onclick="void(0)">
-                <h3>Cliente:<br>${clienteSelecionado.name.replace(' ', '<br>')}</h3>
+            <div class="resumo-finalizacao-vertical" onclick="void(0)">
+                <h3>Cliente: ${clienteSelecionado.name}</h3>
                 <hr>
-                <ul class="lista-produtos-finalizacao">
+                <p class="produtos-label" style="color: #cbd5e1; margin: 5px 0;">Produtos:</p>
+                <ul class="lista-produtos-finalizacao-scroll">
                     ${produtos.map(p => `
                         <li>
                             <span>${p.qty}x ${p.name}</span>
@@ -420,6 +452,13 @@ export const initializeSales = (api) => {
             openCashRegister(caixaInfo);
 
         } else {
+
+            // Verifica se tem uma venda em andamento antes de fechar o caixa
+            if (step > 0) {
+                alert("Finalize ou cancele a venda atual antes de fechar o caixa.");
+                return;
+            }
+
             const res = await api.sendPatchRequest("/sales/cash-register/" + caixaInfo.id + "/close");
 
             if (res.error) {
