@@ -25,6 +25,41 @@ export const initializeSales = (api) => {
 
     let data = JSON.parse(localStorage.getItem("user-data")); //Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
+
+    function showAlert(message) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+    }
+
+    function showConfirm(message) {
+        return new Promise(resolve => {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            toast.className = "toast toast-confirm";
+            toast.innerHTML = `
+                <span>${message}</span>
+                <div class="toast-buttons">
+                    <button class="btn-sim">Sim</button>
+                    <button class="btn-nao">Não</button>
+                </div>
+            `;
+            container.appendChild(toast);
+
+            toast.querySelector(".btn-sim").onclick = () => {
+                toast.remove();
+                resolve(true);
+            };
+            toast.querySelector(".btn-nao").onclick = () => {
+                toast.remove();
+                resolve(false);
+            };
+        });
+    }
+
     // --- FUNÇÕES AUXILIARES ---
 
     function atualizarInfoCliente(nome) {
@@ -38,7 +73,7 @@ export const initializeSales = (api) => {
     async function getList(endpoint) { //Função para buscar os clientes e de produtos do back-end
         const res = await api.sendGetRequest(endpoint);
         if (res.error) {
-            alert("erro ao buscar lista, tente novamente!");
+            await showAlert("erro ao buscar lista, tente novamente!");
             return null;
         }
         return res;
@@ -283,11 +318,11 @@ export const initializeSales = (api) => {
 
     // Botões de avançar e confirmar venda
     btnConfirmar.forEach((bt, index) => {
-        bt.addEventListener("click", () => {
+        bt.addEventListener("click", async () => {
 
             if (index === 0) { //Step 0 → 1: verifica se um cliente foi selecionado antes de avançar
                 if (!clienteSelecionado) {
-                    alert("Por favor, selecione um cliente antes de continuar.");
+                    await showAlert("Por favor, selecione um cliente antes de continuar.");
                     return;
                 }
                 loadProductListStatic(); //Carrega os produtos ao entrar no step 1
@@ -298,7 +333,7 @@ export const initializeSales = (api) => {
             if (index === 1) { //Step 1 → 2: verifica se ao menos um produto foi selecionado antes de avançar
                 const temProduto = Object.values(produtosDaCompra).some(p => p.qty > 0);
                 if (!temProduto) {
-                    alert("Por favor, selecione ao menos um produto antes de continuar.");
+                    await showAlert("Por favor, selecione ao menos um produto antes de continuar.");
                     return;
                 }
                 montarFinalizacao(); //Monta o resumo antes de exibir o step de finalização
@@ -309,7 +344,7 @@ export const initializeSales = (api) => {
             if (index === 2) { //Step 2: confirma a venda verificando se a forma de pagamento foi escolhida
                 const formaPagamento = document.getElementById("forma-pagamento");
                 if (!formaPagamento || formaPagamento.value === "") {
-                    alert("Por favor, selecione a forma de pagamento.");
+                    await showAlert("Por favor, selecione a forma de pagamento.");
                     return;
                 }
 
@@ -340,12 +375,12 @@ export const initializeSales = (api) => {
 
                 // TODO: quando tiver endpoint → await api.sendPostRequest("/sales/new", novaVenda)
 
-                alert(`Venda finalizada! Total: R$ ${total.toFixed(2).replace('.', ',')}`);
+                await showAlert(`Venda finalizada! Total: R$ ${total.toFixed(2).replace('.', ',')}`);
 
                 //Reseta o estado para permitir uma nova venda
                 clienteSelecionado = null;
                 produtosDaCompra = {};
-
+                atualizarTotalParcial();
                 atualizarInfoCliente(null); // limpar o nome do cliente
 
                 mostrarStep(0); //Volta ao step inicial
@@ -362,11 +397,12 @@ export const initializeSales = (api) => {
     });
 
     // --- CANCELAR VENDA ---
-    document.addEventListener("click", (e) => { //Delegação de evento para pegar o botão cancelar dinamicamente
+    document.addEventListener("click", async (e) => { //Delegação de evento para pegar o botão cancelar dinamicamente
         if (e.target && e.target.id === "btn-cancelar-venda") {
-            if (confirm("Tem certeza que deseja cancelar a venda?")) {
+            if (await showConfirm("Tem certeza que deseja cancelar a venda?")) {
                 clienteSelecionado = null; //Limpa o cliente selecionado
                 produtosDaCompra = {}; //Limpa os produtos selecionados
+                atualizarTotalParcial(); //Limpa o total parcial
                 atualizarInfoCliente(null); // para limpar
                 mostrarStep(0); //Volta ao step inicial
                 loadClientList(); //Recarrega a lista de clientes
@@ -390,7 +426,7 @@ export const initializeSales = (api) => {
         }
     }
 
-    function closeCashRegister() {
+    async function closeCashRegister() {
         if (vendasDoTurno.length > 0) { //O reduce serve para pegar uma lista cheia de itens e "espremê-la" até sobrar um único valor (o total). No início ele vale 0, mas a cada venda ele soma com a anterior
             const total = vendasDoTurno.reduce((acc, v) => acc + v.valorTotal, 0);
             const pix = vendasDoTurno.filter(v => v.metodo === "pix").length; //JS entra na lista de vendas e procura apenas as vendas de pix e conta quantos itens foram pix
@@ -398,14 +434,14 @@ export const initializeSales = (api) => {
             const debito = vendasDoTurno.filter(v => v.metodo === "debito").length;
             const dinheiro = vendasDoTurno.filter(v => v.metodo === "dinheiro").length;
 
-            const confirma = confirm( //Janela para confirmar que quer fechar o caixa
+            const confirma = await showConfirm( //Janela para confirmar que quer fechar o caixa
                 `RESUMO DO DIA:\n` +
                 `Total de Vendas: ${vendasDoTurno.length}\n` +
                 `Valor em Caixa: R$ ${total.toFixed(2)}\n\n` +
                 `Pix: ${pix} | Crédito: ${credito} | Débito: ${debito} | Dinheiro: ${dinheiro}\n\n` +
                 `Confirmar fechamento e limpar lista?`
             );
-            if (!confirma) return; //Se não confirmar que quer fechar o caixa, fecha a janela
+            if (!confirma) return false; //Se não confirmar que quer fechar o caixa, fecha a janela
         }
 
         titleInfo.classList.replace("opened", "closed"); //Fechou o caixa, troca as classes e cores
@@ -416,7 +452,10 @@ export const initializeSales = (api) => {
         blocks.forEach(block => block.style.opacity = "0.5"); //Deixa os dois blocks mais transparentes pq o caixa está fechado
         vendasDoTurno = []; //Limpa a lista de vendas do turno
         blocks[1].innerHTML = "<h1>Resumo</h1>"; //Escreve no segundo block "<h1>Resumo</h1>"
+        produtosDaCompra = {};
+        atualizarTotalParcial();
         opened = false; //A variável opened volta a ser false para reabrir o caixa novamente
+        return true;
     }
 
     async function getOpenedCashRegister() { //Função que verifica se o caixa está aberto
@@ -457,7 +496,7 @@ export const initializeSales = (api) => {
             const res = await api.sendPostRequest("/sales/cash-register/init", info);
 
             if (res.error) {
-                alert("Erro ao abrir caixa: " + res.message);
+                await showAlert("Erro ao abrir caixa: " + res.message);
                 return;
             }
 
@@ -469,19 +508,20 @@ export const initializeSales = (api) => {
 
             // Verifica se tem uma venda em andamento antes de fechar o caixa
             if (step > 0) {
-                alert("Finalize ou cancele a venda atual antes de fechar o caixa.");
+                await showAlert("Finalize ou cancele a venda atual antes de fechar o caixa.");
                 return;
             }
+
+            const fechou = await closeCashRegister();
+            if (!fechou) return;
 
             const res = await api.sendPatchRequest("/sales/cash-register/" + caixaInfo.id + "/close");
 
             if (res.error) {
-                alert("erro ao fechar caixa");
+                await showAlert("erro ao fechar caixa");
                 console.log(res);
                 return;
             }
-
-            closeCashRegister();
         }
     });
 };
