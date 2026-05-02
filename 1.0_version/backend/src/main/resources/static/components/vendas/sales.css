@@ -80,9 +80,11 @@
     border-radius: 8px;
 }
 
+.sales-section .sale-container > div:last-child {
+    margin-bottom: 15px;
+}
+
 /* Cor do botão de confirmar (é o segundo) */
-
-
 #btnConfirmar:hover {
     box-shadow: 0 0 15px 2px rgba(0, 255, 26, 0.5);
 }
@@ -362,4 +364,25 @@
     padding: 6px 0;
     border-bottom: 1px solid #333;
     color: white;
+}
+
+#cliente-selecionado-info-step1 {
+    color: #00ff1a;
+    font-weight: bold;
+    margin: 0;
+}
+
+#btn-sem-cadastro {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+#btn-sem-cadastro:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
 }

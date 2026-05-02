@@ -26,6 +26,15 @@ export const initializeSales = (api) => {
     let data = JSON.parse(localStorage.getItem("user-data")); //Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
     // --- FUNÇÕES AUXILIARES ---
+
+    function atualizarInfoCliente(nome) {
+        const els = [
+            document.getElementById("cliente-selecionado-info"),
+            document.getElementById("cliente-selecionado-info-step1")
+        ];
+        els.forEach(el => { if (el) el.innerText = nome ? `Cliente: ${nome}` : ""; });
+    }
+
     async function getList(endpoint) { //Função para buscar os clientes e de produtos do back-end
         const res = await api.sendGetRequest(endpoint);
         if (res.error) {
@@ -119,8 +128,7 @@ export const initializeSales = (api) => {
                 if (card.classList.contains("selected")) {
                     card.classList.remove("selected");
                     clienteSelecionado = null;
-                    const clienteInfo = document.getElementById("cliente-selecionado-info");
-                    if (clienteInfo) clienteInfo.innerText = "";
+                    atualizarInfoCliente(null);
                     return;
                 }
 
@@ -132,10 +140,7 @@ export const initializeSales = (api) => {
                     name: card.dataset.name
                 };
 
-                const clienteInfo = document.getElementById("cliente-selecionado-info"); //Elemento que exibe o nome do cliente selecionado no topo do step
-                if (clienteInfo) {
-                    clienteInfo.innerText = `Cliente: ${clienteSelecionado.name}`; //Atualiza o texto na tela
-                }
+                atualizarInfoCliente(clienteSelecionado.name);
             });
         });
     }
@@ -211,6 +216,17 @@ export const initializeSales = (api) => {
                 const nome = card.dataset.name.toLowerCase();
                 card.style.display = nome.includes(termo) ? "flex" : "none"; //"O nome deste card contém o que foi digitado?"
             });
+        });
+    }
+
+    // --- BOTÃO SEM CADASTRO ---
+    const btnSemCadastro = document.getElementById("btn-sem-cadastro");
+    if (btnSemCadastro) {
+        btnSemCadastro.addEventListener("click", () => {
+            clientListDiv.querySelectorAll(".client-card")
+                .forEach(c => c.classList.remove("selected"));
+            clienteSelecionado = { id: null, name: "Sem cadastro" };
+            atualizarInfoCliente(clienteSelecionado.name);
         });
     }
 
@@ -330,8 +346,7 @@ export const initializeSales = (api) => {
                 clienteSelecionado = null;
                 produtosDaCompra = {};
 
-                const clienteInfo = document.getElementById("cliente-selecionado-info"); //Pega o elemento que exibe o nome do cliente
-                if (clienteInfo) clienteInfo.innerText = ""; //Limpa o texto do cliente selecionado
+                atualizarInfoCliente(null); // limpar o nome do cliente
 
                 mostrarStep(0); //Volta ao step inicial
                 loadClientList(); //Recarrega a lista de clientes
@@ -352,8 +367,7 @@ export const initializeSales = (api) => {
             if (confirm("Tem certeza que deseja cancelar a venda?")) {
                 clienteSelecionado = null; //Limpa o cliente selecionado
                 produtosDaCompra = {}; //Limpa os produtos selecionados
-                const clienteInfo = document.getElementById("cliente-selecionado-info"); //Pega o elemento que exibe o nome do cliente
-                if (clienteInfo) clienteInfo.innerText = ""; //Limpa o texto do cliente selecionado
+                atualizarInfoCliente(null); // para limpar
                 mostrarStep(0); //Volta ao step inicial
                 loadClientList(); //Recarrega a lista de clientes
             }
