@@ -1,6 +1,6 @@
 package com.example.backend.controllers;
 
-import com.example.backend.models.Client;
+import com.example.backend.models.Collaborators;
 import com.example.backend.models.Company;
 import com.example.backend.repository.CollaboratorRepository;
 import com.example.backend.repository.CompanyRepository;
