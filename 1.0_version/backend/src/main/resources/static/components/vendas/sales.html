@@ -11,17 +11,20 @@
                 <h1>Selecione o cliente </h1>
                 <p id="cliente-selecionado-info"></p>
                 <input placeholder="Busca por Nome, CPF ou Id" id="client-search">
+                <button id="btn-sem-cadastro">Vender sem cadastro</button>
                 
                 <div class="client-list" id="client-list">
                     <h1>Carregando...</h1>
                 </div>
                 <div>
-                    <button class="activate-item btnConfirmar" disabled>Proximo -></button>
+                    <button class="activate-item btnConfirmar" disabled>Proximo →</button>
                 </div>
             </div>
 
             <div class="sale-container step-container" style="display: none;">
                 <h1>Selecione os produtos</h1>
+                <p id="cliente-selecionado-info-step1"></p> 
+                <p id="total-parcial">Total: R$ 0,00</p>
                 <input placeholder="Busca por Nome Id" id="product-search">
 
                 <div class="product-list" id="product-list">
@@ -107,7 +110,7 @@
                 <div>
                     <button class="activate-item btnRetornar" disabled>← voltar</button>
                     <button class="activate-item btnConfirmar" disabled>Proximo →</button>
-                    <button id="btn-cancelar-venda">Cancelar venda</button>
+                    <button id="btn-cancelar-venda" class="activate-item">Cancelar venda</button>
                 </div>
             </div>
 
@@ -120,7 +123,7 @@
                 <div>
                     <button class="activate-item btnRetornar" disabled>← voltar</button>
                     <button class="activate-item btnConfirmar" disabled>Confirmar venda ✓</button>
-                    <button id="btn-cancelar-venda">Cancelar venda</button>
+                    <button id="btn-cancelar-venda" class="activate-item">Cancelar venda</button>
                 </div>
             </div>
         </div>
@@ -131,3 +134,4 @@
     </div>
 </div>
 
+<div id="toast-container"></div>

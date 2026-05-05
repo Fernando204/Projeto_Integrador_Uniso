@@ -76,7 +76,7 @@ const checkSession = async () => {
         initializeMain();
     } catch {
         alert("sessão invalida")
-        //redirectToLogin();
+        redirectToLogin();
     }
 };
 checkSession();
