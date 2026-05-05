@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.sales;
 
 public record InitCashRegisterDTO(
         long userId,

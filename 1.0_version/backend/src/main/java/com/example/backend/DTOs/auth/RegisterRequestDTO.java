@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.auth;
 
 public record RegisterRequestDTO(
         String name,
