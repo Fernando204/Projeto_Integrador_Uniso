@@ -30,7 +30,7 @@ public class ClientController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createClientMethod(@RequestBody ClientRegisterDTO dto){
-        Logger.info("Registrarndo cliente...");
+        Logger.info("Registrando cliente...");
         Company company = companyRepository.findById(dto.companyId()).orElse(null);
         if(company == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message","empresa não encontrada!"));

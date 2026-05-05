@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.estoque;
 
 import com.example.backend.enums.StockMovmentType;
 

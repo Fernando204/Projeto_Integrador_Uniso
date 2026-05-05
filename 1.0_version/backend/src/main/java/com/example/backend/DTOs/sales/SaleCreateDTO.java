@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.sales;
 
 import com.example.backend.enums.*;
 import com.example.backend.models.*;

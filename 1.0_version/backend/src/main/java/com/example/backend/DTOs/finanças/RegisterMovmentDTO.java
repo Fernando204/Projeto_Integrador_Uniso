@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.finanças;
 
 import com.example.backend.enums.MovmentType;
 

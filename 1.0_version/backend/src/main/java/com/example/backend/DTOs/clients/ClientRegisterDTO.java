@@ -1,4 +1,4 @@
-package com.example.backend.DTOs;
+package com.example.backend.DTOs.clients;
 
 import com.example.backend.enums.PaymentWay;
 
