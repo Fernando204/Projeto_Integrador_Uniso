@@ -1,6 +1,5 @@
 package com.example.backend.repository;
 
-;
 import com.example.backend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
