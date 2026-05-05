@@ -27,75 +27,7 @@
             </div>
 
             <div class="estoque-info">
-                <div class="produto-info">
-                    <p>Macarrao</p>
-                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-01-10</span>
-                    <span>Preco: R$ 20</span>
-                    <span>Validade: 15/07/2026</span>
-                    <span>Quantidade no estoque: 135</span>
 
-                    <div class="produto-botoes">
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-maisinfo">Mais informações</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </div>
-                </div>
-
-                <div class="produto-info">
-                    <p>Peito de frango</p>
-                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-02-05</span>
-                    <span>Preco: R$ 45</span>
-                    <span>Validade: 21/09/2026</span>
-                    <span>Quantidade no estoque: 110</span>
-
-                    <div class="produto-botoes">
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-maisinfo">Mais informações</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </div>
-                </div>
-
-                <div class="produto-info">
-                    <p>Creatina</p>
-                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-03-15</span>
-                    <span>Preco: R$ 100</span>
-                    <span>Validade: 30/12/2027</span>
-                    <span>Quantidade no estoque: 50</span>
-                
-                    <div class="produto-botoes">
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-maisinfo">Mais informações</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </div>
-                </div>
-
-                <div class="produto-info">
-                    <p>Whey Protein Growth</p>
-                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-01-20</span>
-                    <span>Preco: R$ 120</span>
-                    <span>Validade: 05/02/2027</span>
-                    <span>Quantidade no estoque: 70</span>
-                
-                    <div class="produto-botoes">
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-maisinfo">Mais informações</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </div>
-                </div>
-
-                <div class="produto-info">
-                    <p>Whey Protein Dux</p>
-                    <span class="info-adicao-card" style="display:none;">DataAdicao: 2026-02-28</span>
-                    <span>Preco: R$ 140</span>
-                    <span>Validade: 27/04/2027</span>
-                    <span>Quantidade no estoque: 60</span>
-                
-                    <div class="produto-botoes">
-                        <button class="btn-editar">Editar</button>
-                        <button class="btn-maisinfo">Mais informações</button>
-                        <button class="btn-excluir">Excluir</button>
-                    </div>
-                </div>
             </div>
     </div>
     <!-- Modal Cadastrar Produto -->
@@ -107,30 +39,30 @@
                 <input type="text" id="produto-nome" placeholder="Nome do Produto" required>
                 <input type="text" id="produto-descricao" placeholder="Descrição do Produto" required>
                 <input type="number" id="produto-min-quantidade" placeholder="Quantidade minima" required>
-                <input type="number" id="produto-preco-custo" step="0.01" placeholder="Preço (R$)" required>
+                <input type="number" id="produto-preco-custo" step="0.01" placeholder="Preço de custo (R$)" required>
                 <div>
-                    <input type="number" id="produto-preco-venda" step="0.01" placeholder="Preço (R$)" required>
+                    <input type="number" id="produto-preco-venda" step="0.01" placeholder="Preço de venda (R$)" required>
                     <input type="number" id="lucro-desejado" step="0.01" placeholder="Lucro desejado (%)" required>
                 </div>
                 <select id="unidade">
                     <optgroup label="Peso">
-                        <option>Quilograma (kg)</option>
-                        <option>Grama (g)</option>
+                        <option value="kg">Quilograma (kg)</option>
+                        <option value="g">Grama (g)</option>
                     </optgroup>
                     <optgroup label="Volume">
-                        <option>Litros (L)</option>
-                        <option>Mililitros (ml)</option>
+                        <option value="L">Litros (L)</option>
+                        <option value="ml">Mililitros (ml)</option>
                     </optgroup>
                     <optgroup label="Contagem">
-                        <option>Unidade (un)</option>
-                        <option>Caixa (cx)</option>
-                        <option>Pacote (pct)</option>
+                        <option value="un">Unidade (un)</option>
+                        <option value="cx">Caixa (cx)</option>
+                        <option value="pct">Pacote (pct)</option>
                         <option>Fardo</option>
                         <option>DUzia</option>
                     </optgroup>
                     <optgroup label="Comprimento">
-                        <option>Metro (m)</option>
-                        <option>Centimetros (cm)</option>
+                        <option value="m">Metro (m)</option>
+                        <option value="cm">Centimetros (cm)</option>
                     </optgroup>
                 </select>
                 <button type="submit" class="btn_estoques">Salvar Produto</button>
@@ -167,3 +99,4 @@
         </div>
     </div>
 </div>
+<div id="toast-container"></div>

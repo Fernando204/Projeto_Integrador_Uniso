@@ -38,6 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             "/scripts/pages/login.js",
             "/scripts/classes/ApiConnection.js",
             "/scripts/classes/ApiConnection",
+            "/stock/product/add",
             
             "/components/clientes/clientes.js",
             "/components/clientes/clientes.html",

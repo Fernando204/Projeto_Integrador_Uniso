@@ -1,27 +1,6 @@
 
 export class ApiConnection {
     API_URL = "http://localhost:8080";
-    //AVNS_-4ZCK4v9cDwE6VXx0Zn
-
-    async login(user) {
-        const response = await this.sendPostRequest("/auth/login", user);
-        return response;
-    }
-
-    async register(user) {
-        const response = await this.sendPostRequest("/auth/register", user);
-        return response;
-    }
-
-    async logout() {
-        await fetch("http://localhost:8080/auth/logout", {
-            method: "POST",
-            credentials: "include"
-        });
-
-        // window.location.href = "Pages/loginPage.html";
-        // location.href = "Pages/loginPage.html"
-    }
 
     async sendGetRequest(endpoint) {
         try {
@@ -44,10 +23,38 @@ export class ApiConnection {
                 "message": error.message
             }
         };
-
     }
 
-    async sendPatchRequest(endpoint){
+    async sendDeleteRequest(endpoint) {
+        try {
+            const res = await fetch(endpoint, {
+                credentials: "include",
+                method: "DELETE"
+            });
+
+            let data = null;
+
+            // só tenta ler JSON se tiver conteúdo
+            const text = await res.text();
+            if (text) {
+                data = JSON.parse(text);
+            }
+
+            if (!res.ok) {
+                throw new Error(data?.message || "Erro na requisição");
+            }
+
+            return data;
+        } catch (error) {
+            console.log(error);
+            return {
+                error: true,
+                message: error.message
+            };
+        }
+    }
+
+    async sendPatchRequest(endpoint) {
         try {
             const res = await fetch(this.API_URL + endpoint, {
                 method: "PATCH",

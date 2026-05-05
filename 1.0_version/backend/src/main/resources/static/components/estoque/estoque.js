@@ -1,6 +1,7 @@
 let produtoSendoEditado = null;
 
 export function initializeEstoque(api) {
+    const container = document.querySelector(".estoque-info");
 
     // Atualiza o contador de produtos
     function atualizarContador() {
@@ -11,16 +12,51 @@ export function initializeEstoque(api) {
         }
     }
 
+    function showAlert(message) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+    }
+    function showConfirm(message) {
+        return new Promise(resolve => {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            toast.className = "toast toast-confirm";
+            toast.innerHTML = `
+                <span>${message}</span>
+                <div class="toast-buttons">
+                    <button class="btn-sim">Sim</button>
+                    <button class="btn-nao">Não</button>
+                </div>
+            `;
+            container.appendChild(toast);
+
+            toast.querySelector(".btn-sim").onclick = () => {
+                toast.remove();
+                resolve(true);
+            };
+            toast.querySelector(".btn-nao").onclick = () => {
+                toast.remove();
+                resolve(false);
+            };
+        });
+    }
+
     // Adiciona card na tela após cadastro
     function adicionarCardNaTela(dados) {
-        const container = document.querySelector(".estoque-info");
+        let dataAdicao = new Date(dados.createdAt);
+        dataAdicao = dataAdicao.toLocaleDateString('pt-BR');
+        console.log(dados)
         const novoCardHTML = `
-            <div class="produto-info">
-                <p>${dados.nome}</p>
-                <span class="info-adicao-card" style="display:none;">DataAdicao: ${dados.dataAdicao}</span>
-                <span>Preco: R$ ${parseFloat(dados.preco).toFixed(2).replace('.', ',')}</span>
-                <span>Validade: ${dados.validade.split('-').reverse().join('/')}</span>
-                <span>Quantidade no estoque: ${dados.quantidade}</span>
+            <div class="produto-info" data-id="${dados.id}">
+                <p>${dados.name}</p>
+                <span class="info-adicao-card">DataAdicao: ${dataAdicao}</span>
+                <span>Preço: R$ ${parseFloat(dados.sellingPrice).toFixed(2).replace('.', ',')}</span>
+
+                <span>Quantidade no estoque: ${dados.quantity}</span>
                 <div class="produto-botoes">
                     <button class="btn-editar">Editar</button>
                     <button class="btn-maisinfo">Mais informações</button>
@@ -65,41 +101,66 @@ export function initializeEstoque(api) {
     }
 
     // --- Excluir produto ---
-    if (containerCards) {
-        containerCards.addEventListener("click", (evento) => {
-            if (evento.target.classList.contains("btn-excluir")) {
-                const card = evento.target.closest(".produto-info");
-                const nomeProduto = card.querySelector("p").innerText;
-                const confirmar = confirm(`Tem certeza que deseja excluir o produto "${nomeProduto}"?`);
+    containerCards.addEventListener("click", async (evento) => {
+        if (evento.target.classList.contains("btn-excluir")) {
+            const card = evento.target.closest(".produto-info");
+            const nomeProduto = card.querySelector("p").innerText;
 
-                if (confirmar) {
-                    // TODO: quando tiver endpoint → await api.sendDeleteRequest("/estoque/produto/" + id) ESPERAR O ENDPOINT CORRETO
-                    card.remove();
-                    atualizarContador();
-                    alert("Produto removido com sucesso!");
-                }
+            const confirmacao = await showConfirm(
+                `Tem certeza que deseja excluir o produto "${nomeProduto}"?`
+            );
+
+            if (!confirmacao) return;
+
+            const response = await api.sendDeleteRequest(
+                "/stock/product/" + card.dataset.id
+            );
+
+            if (response && response.error) {
+                showAlert("Erro ao excluir produto");
+                return;
             }
-        });
+
+            showAlert("Produto removido com sucesso!");
+            card.remove();
+        }
+    });
+
+
+    async function getAllProducts() {
+        container.innerHTML = "";
+        const products = await api.sendGetRequest("/stock/product/get?id=" + data.companyId);
+
+        if (products.error) {
+            container.innerHTML = "Erro ao carregar produtos";
+            return;
+        }
+
+        products.forEach(produto => {
+            adicionarCardNaTela(produto);
+        })
     }
+
+    getAllProducts();
 
     // --- Cadastrar produto ---
     if (btnAdd && modal && form) {
 
-        document.getElementById("produto-preco-venda").addEventListener("input",(e)=>{
+        document.getElementById("produto-preco-venda").addEventListener("input", (e) => {
             const costPrice = document.getElementById("produto-preco-custo").value;
 
-            if(costPrice){
+            if (costPrice) {
                 const sellingPrice = e.target.value;
-                const rate = ((sellingPrice/costPrice) - 1) *100 ;
+                const rate = ((sellingPrice / costPrice) - 1) * 100;
                 document.getElementById("lucro-desejado").value = rate.toFixed(2);
             }
         });
 
-        document.getElementById("lucro-desejado").addEventListener("input",(e)=>{
+        document.getElementById("lucro-desejado").addEventListener("input", (e) => {
             const costPrice = document.getElementById("produto-preco-custo").value;
 
-            if(costPrice){
-                const rate = e.target.value/100 + 1;
+            if (costPrice) {
+                const rate = e.target.value / 100 + 1;
                 document.getElementById("produto-preco-venda").value = (costPrice * rate).toFixed(2);
             }
         })
@@ -115,22 +176,30 @@ export function initializeEstoque(api) {
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
+            alert("Tentando salvar produto")
 
             const dadosParaEnviar = {
-                companyId: data.companyId,
+                companyId: Number(data.companyId),
                 name: document.getElementById("produto-nome").value,
                 description: document.getElementById("produto-descricao").value,
-                costPrice: document.getElementById("produto-preco-custo").value,
-                sellingPrice: document.getElemntById("produto-preco-venda").value,
-                profitRate: document.getElementById("lucro-desejado").value,
-                minQuantity: document.getElementById("produto-min-quantidade").value,
+                costPrice: parseFloat(document.getElementById("produto-preco-custo").value),
+                sellingPrice: parseFloat(document.getElementById("produto-preco-venda").value),
+                profitRate: parseFloat(document.getElementById("lucro-desejado").value),
+                minQuantity: parseInt(document.getElementById("produto-min-quantidade").value),
                 unity: document.getElementById("unidade").value
             };
+            alert("Dados coletados")
+            console.log(dadosParaEnviar);
 
             try {
-                api.sendPostRequest("/stock/product/add", dadosParaEnviar);
+                const product = await api.sendPostRequest("/stock/product/add", dadosParaEnviar);
 
-                adicionarCardNaTela(dadosParaEnviar);
+                if (product.error) {
+                    throw new Error(product.message);
+                }
+
+                container.innerHtml = "";
+                adicionarCardNaTela(product);
                 atualizarContador();
                 alert("Produto cadastrado com sucesso!");
             } catch (error) {

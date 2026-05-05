@@ -37,6 +37,15 @@ public class SalesController {
         this.cashRegisterRepository = cashRegisterRepository;
     }
 
+    /*
+    * usuário abre o caixa ->
+    * usuário inicia venda ->
+    * usuário seleciona o cliente ->
+    * adiciona produtos ->
+    * confirma ou cancela venda ->
+    * FIM
+    * */
+
     @GetMapping("/cash-register/get")
     public ResponseEntity<?> getCashRegister(@RequestParam Long id) {
         Logger.warn("verificando se há caixa aberto");

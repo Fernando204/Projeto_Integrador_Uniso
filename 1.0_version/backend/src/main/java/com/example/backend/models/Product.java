@@ -31,9 +31,8 @@ public class Product {
     private LocalDateTime createdAt;
 
     public Product(){}
-
     public Product(
-
+            Company company,
             BigDecimal costPrice,
             BigDecimal profitRate,
             UnityMeasurement unity,
@@ -42,6 +41,7 @@ public class Product {
             int minQuantity,
             String description
     ) {
+        this.company = company;
         this.costPrice = costPrice;
         this.profitRate = profitRate;
         this.unity = unity;
@@ -53,6 +53,7 @@ public class Product {
         this.updatedAt = LocalDateTime.now();
         this.createdAt = LocalDateTime.now();
     }
+
 
     public void addQuantity(int quantity){
         this.quantity += quantity;

@@ -41,6 +41,7 @@ public class SecurityConfig {
                                 "/favicon.ico",
                                 "/scripts/**",
                                 "/images",
+                                "/stock/**",
                                 "/session",
                                 "/Pages/**",
                                 "/styles/**").permitAll()

@@ -98,10 +98,10 @@ export const initializeSales = (api) => {
 
     function createProductCard(product) { //Cria o HTML de um card de produto com botões de quantidade no step 1
         return `
-            <div class="product-card" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">
+            <div class="product-card" data-id="${product.id}" data-name="${product.name}" data-price="${product.sellingPrice}">
                 <div class="vertical-align">
                     <h4>${product.name}</h4>
-                    <p>R$ ${parseFloat(product.price).toFixed(2).replace('.', ',')}</p>
+                    <p>R$ ${parseFloat(product.sellingPrice).toFixed(2).replace('.', ',')}</p>
                     <small class="produto-subtotal" style="color: #00ff1a;"></small>
                 </div>
                 <div class="product-amount">
@@ -125,28 +125,19 @@ export const initializeSales = (api) => {
         bindClientSelection(); //Após renderizar, ativa os eventos de clique nos cards
     }
 
-    /*async function loadProductList(){  FUNÇÃO QUE VAI SUBSTITUIR loadProductListStatic() quando tiver o endpoint e os produtos no banco de dados
-        productListDiv.innerHTML = "";
-        productList = await getList("products/get/all?id="+data.companyId);
-        if(!productList) return;
-        productList.forEach(product =>{
-            productListDiv.insertAdjacentHTML("beforeend",createProductCard(product));
-        })
-        bindProductAmounts();
-    }*/
-
-    function loadProductListStatic() { //Carrega lista estática de produtos enquanto o endpoint não está pronto
+    async function loadProductListStatic() { //Carrega lista estática de produtos enquanto o endpoint não está pronto
         // TODO: substituir por loadProductList() quando o endpoint estiver disponível
-        const produtos = [
-            { id: 1, name: "Arroz", price: 23.89 },
-            { id: 2, name: "Feijão Carioca", price: 13.89 },
-            { id: 3, name: "Macarrão", price: 8.50 },
-            { id: 4, name: "Frango", price: 45.00 },
-            { id: 5, name: "Whey Protein", price: 120.00 },
-            { id: 6, name: "Creatina", price: 100.00 },
-            { id: 7, name: "Azeite", price: 35.90 },
-            { id: 8, name: "Leite", price: 6.50 },
-        ];
+        const produtos = await api.sendGetRequest("stock/product/get?id="+data.companyId);
+        if(produtos.error){
+            productListDiv.innerHTML = "Erro ao carregar produtos, verifique sua conexão!!!!";
+            return;
+        }
+        if(produtos.length <1){
+            productListDiv.innerHTML = `
+                <h5>Nenhum produto cadastrado!</h5>
+            `;
+            return;
+        }
         productListDiv.innerHTML = ""; //Limpa o container antes de renderizar
         produtos.forEach(p => {
             productListDiv.insertAdjacentHTML('beforeend', createProductCard(p));
