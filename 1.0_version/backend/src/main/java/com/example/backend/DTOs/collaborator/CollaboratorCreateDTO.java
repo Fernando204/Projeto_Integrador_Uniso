@@ -1,4 +1,4 @@
-package com.example.backend.DTOs.sales;
+package com.example.backend.DTOs.collaborator;
 
 import com.example.backend.models.Collaborators;
 
