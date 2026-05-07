@@ -22,4 +22,8 @@ public class CollaboratorController {
         this.companyRepository = companyRepository;
         this.collaboratorRepository = collaboratorRepository;
 }
+
+    @PostMapping('/create'){
+        return ResponseEntity.status(HttpStatus.OK).body('');
+    }
 }
