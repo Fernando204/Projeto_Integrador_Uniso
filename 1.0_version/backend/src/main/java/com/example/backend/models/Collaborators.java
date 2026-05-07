@@ -4,14 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity(name = "collaborators")
 public class Collaborators {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
     
     public String nome;
     public String cpf;
@@ -29,6 +32,12 @@ public class Collaborators {
             this.role = role;
         }
 
+    public Company getCompany() {
+        return company;
+    }
+    public void setCompany(Company company) {
+        this.company = company;
+    }
     public long getId(){
         return id;
     }

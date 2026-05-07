@@ -2,11 +2,15 @@ package com.example.backend.controllers;
 
 import com.example.backend.models.Collaborators;
 import com.example.backend.models.Company;
+
 import com.example.backend.repository.CollaboratorRepository;
 import com.example.backend.repository.CompanyRepository;
+
 import com.example.backend.services.Logger;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,4 +26,10 @@ public class CollaboratorController {
         this.companyRepository = companyRepository;
         this.collaboratorRepository = collaboratorRepository;
 }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> createCollaborator(){
+        return  ResponseEntity.status(HttpStatus.OK).body("");
+    }
+
 }

@@ -56,7 +56,7 @@ export function initializeEstoque(api) {
                 <span class="info-adicao-card">DataAdicao: ${dataAdicao}</span>
                 <span>Preço: R$ ${parseFloat(dados.sellingPrice).toFixed(2).replace('.', ',')}</span>
 
-                <span>Quantidade no estoque: ${dados.quantity}</span>
+                <span>Quantidade no estoque: ${dados.qty}</span>
                 <div class="produto-botoes">
                     <button class="btn-editar">Editar</button>
                     <button class="btn-maisinfo">Mais informações</button>
@@ -81,6 +81,11 @@ export function initializeEstoque(api) {
     const modalEditar = document.getElementById("modal-editar-produto");
     const closeEdit = document.querySelector(".close-edit-produto");
     const formEditar = document.getElementById("form-editar-produto");
+
+    //Elementos Modal de movimentação
+    const modalMovimentar = document.getElementById("modal-movimentacao-estoque");
+    const closemovModal = document.querySelector(".close-move-estoque");
+    const abrirMovModalBt = document.getElementById("btn_move_estoque");
 
     // Container dos cards
     const containerCards = document.querySelector(".estoque-info");
@@ -176,7 +181,6 @@ export function initializeEstoque(api) {
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
-            alert("Tentando salvar produto")
 
             const dadosParaEnviar = {
                 companyId: Number(data.companyId),
@@ -188,12 +192,12 @@ export function initializeEstoque(api) {
                 minQuantity: parseInt(document.getElementById("produto-min-quantidade").value),
                 unity: document.getElementById("unidade").value
             };
-            alert("Dados coletados")
             console.log(dadosParaEnviar);
-
+            const bt = e.submitter;
+            bt.innerHTML = "Salvando...";
+            let saved = false;
             try {
                 const product = await api.sendPostRequest("/stock/product/add", dadosParaEnviar);
-
                 if (product.error) {
                     throw new Error(product.message);
                 }
@@ -201,14 +205,26 @@ export function initializeEstoque(api) {
                 container.innerHtml = "";
                 adicionarCardNaTela(product);
                 atualizarContador();
-                alert("Produto cadastrado com sucesso!");
+                saved = true;
             } catch (error) {
                 console.error("Erro ao cadastrar produto:", error);
                 alert("O servidor não respondeu corretamente.");
             } finally {
+                if(saved) showAlert("Produto salvo!");
+                bt.innerHTML = "Salvar Produto";
                 modal.style.display = "none";
                 form.reset();
             }
+        });
+    }
+
+    if(modalMovimentar && abrirMovModalBt && closemovModal){
+        abrirMovModalBt.addEventListener("click", ()=>{
+            modalMovimentar.style.display = "block";
+        });
+
+        closemovModal.addEventListener("click",()=>{
+            modalMovimentar.style.display = "none";
         });
     }
 

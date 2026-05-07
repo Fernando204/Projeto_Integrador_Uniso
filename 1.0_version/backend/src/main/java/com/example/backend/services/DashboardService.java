@@ -1,6 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.DTOs.DashboardDTO;
+import com.example.backend.DTOs.auth.DashboardDTO;
 import com.example.backend.enums.MovmentType;
 import com.example.backend.models.Company;
 import com.example.backend.models.Movment;

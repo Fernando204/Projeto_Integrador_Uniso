@@ -1,7 +1,8 @@
 package com.example.backend.controllers;
 
-import com.example.backend.DTOs.CashRegisterDTO;
-import com.example.backend.DTOs.InitCashRegisterDTO;
+import com.example.backend.DTOs.sales.CashRegisterDTO;
+import com.example.backend.DTOs.sales.InitCashRegisterDTO;
+
 import com.example.backend.models.CashRegister;
 import com.example.backend.models.Company;
 import com.example.backend.models.User;

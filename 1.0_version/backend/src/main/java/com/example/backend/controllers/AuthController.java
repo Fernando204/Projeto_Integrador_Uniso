@@ -1,23 +1,30 @@
 package com.example.backend.controllers;
 
-import com.example.backend.DTOs.LoginRequestDTO;
-import com.example.backend.DTOs.LoginResponseDTO;
-import com.example.backend.DTOs.RegisterRequestDTO;
+import com.example.backend.DTOs.auth.LoginRequestDTO;
+import com.example.backend.DTOs.auth.LoginResponseDTO;
+import com.example.backend.DTOs.auth.RegisterRequestDTO;
+
 import com.example.backend.enums.AccountStatus;
+
 import com.example.backend.models.Company;
 import com.example.backend.models.User;
+
 import com.example.backend.repository.CompanyRepository;
 import com.example.backend.repository.TokenRepository;
 import com.example.backend.repository.UserRepository;
+
 import com.example.backend.services.JwtService;
 import com.example.backend.services.Logger;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;

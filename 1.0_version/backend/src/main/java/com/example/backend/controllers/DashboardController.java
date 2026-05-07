@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
-import com.example.backend.DTOs.DashboardDTO;
+import com.example.backend.DTOs.auth.DashboardDTO;
+
 import com.example.backend.services.DashboardService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

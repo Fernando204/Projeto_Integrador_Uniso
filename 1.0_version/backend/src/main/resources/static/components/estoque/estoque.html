@@ -15,6 +15,10 @@
             <h3>Macarrao</h3>
         </div>
 
+        <button class="btn_estoques" id="btn_move_estoque">
+            Movimentar Estoque
+        </button>
+
         <button class="btn_estoques" id="btn_add_estoque">
             Adicionar Produto
         </button>
@@ -69,6 +73,34 @@
             </form>
         </div>
     </div>
+
+    <div id="modal-movimentacao-estoque" class="modal">
+        <div class="modal-content">
+            <span class="close-move-estoque">&times;</span>
+            <h2>Movimentar estoque</h2>
+            <form id="form-cadastro-produto">
+                <p>Selecione o Produto:</p>
+                <select id="product-select">
+
+                </select>
+                <p>Tipo de movimentação:</p>
+                <select id="tipo-de-movimento">
+                    <option value="">
+                        Adicionar
+                    </option>
+                    <option value="">
+                        Remover
+                    </option>
+                </select>
+                <p>Quantidade Movimentada:</p>
+                <input type="number">
+                <p>Descreva sua movimentação: </p>
+                <input type="text" placeholder="Descrição">
+                <button type="submit" class="btn_estoques">Salvar Movimentação</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal Mais Informações -->
     <div id="modal-info-produto" class="modal">
         <div class="modal-content">

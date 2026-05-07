@@ -2,6 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.DTOs.estoque.NewProductDTO;
 import com.example.backend.DTOs.estoque.ProductResponseDTO;
+
 import com.example.backend.models.Product;
 import com.example.backend.services.Logger;
 import com.example.backend.services.StockService;
@@ -69,7 +70,7 @@ public class StockController {
 
     @GetMapping("/product/get")
     public ResponseEntity<?> getProduct(@RequestParam Long id){
-        List<Product> productList = stockService.getAllByCompanyId(id);
+        List<ProductResponseDTO> productList = stockService.getAllByCompanyId(id);
         return ResponseEntity.ok(productList);
     }
 

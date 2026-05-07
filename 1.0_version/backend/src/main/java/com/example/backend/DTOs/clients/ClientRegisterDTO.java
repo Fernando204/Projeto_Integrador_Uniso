@@ -11,5 +11,4 @@ public record ClientRegisterDTO(
         String cpf,
         LocalDate birthDate,
         PaymentWay favoritePayment
-) {
-}
+){}

@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import com.example.backend.DTOs.estoque.NewProductDTO;
+import com.example.backend.DTOs.estoque.ProductResponseDTO;
 import com.example.backend.enums.UnityMeasurement;
 import com.example.backend.models.Company;
 import com.example.backend.models.Product;
@@ -27,6 +28,21 @@ public class StockService {
         this.productRepository = productRepository;
     }
 
+    public ProductResponseDTO createDTO(Product p){
+        return new ProductResponseDTO(
+            p.getId(),
+            p.getName(),
+            p.getDescription(),
+            p.getMinQuantity(),
+            p.getQuantity(),
+            p.getCostPrice(),
+            p.getSellingPrice(),
+            p.getProfitRate(),
+            p.getCreatedAt(),
+            p.getUpdatedAt()
+        );
+    }
+
     public Product saveProduct(NewProductDTO dto){
         Company company = companyRepository.findById(dto.companyId()).orElse(null);
 
@@ -48,9 +64,12 @@ public class StockService {
         return product;
     }
 
-    public List<Product> getAllByCompanyId(Long id){
+    public List<ProductResponseDTO> getAllByCompanyId(Long id){
         Logger.warn("Retornando lista dos produtos");
-        List<Product> productList = productRepository.findByCompany_id(id);
+        List<ProductResponseDTO> productList = productRepository.findByCompany_id(id)
+        .stream()
+        .map(this::createDTO)
+        .toList();
 
         return  productList;
     }

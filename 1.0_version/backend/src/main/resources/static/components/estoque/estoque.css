@@ -165,11 +165,17 @@
 /* Close buttons dos modais do estoque */
 .close-button-estoque,
 .close-info-produto,
+.close-move-estoque,
 .close-edit-produto {
     float: right;
     cursor: pointer;
     font-size: 28px;
     transition: 0.3s;
+}
+
+.modal p{
+    margin: 0;
+    margin-bottom: -10px;
 }
 
 .close-button-estoque:hover,

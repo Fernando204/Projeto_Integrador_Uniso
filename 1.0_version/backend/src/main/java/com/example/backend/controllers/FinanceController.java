@@ -1,6 +1,7 @@
 package com.example.backend.controllers;
 
-import com.example.backend.DTOs.RegisterMovmentDTO;
+import com.example.backend.DTOs.finanças.RegisterMovmentDTO;
+
 import com.example.backend.enums.MovmentType;
 import com.example.backend.repository.CompanyRepository;
 import com.example.backend.repository.MovmentRepository;
