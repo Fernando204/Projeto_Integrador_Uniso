@@ -2,24 +2,28 @@
     margin-left: 100px;
 }
 
+.clientes-section .list {
+    padding-bottom: 50px;
+}
+
+/* Cards de contagem */
 .cardclientes {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0px;            
     margin-top: 30px;
     background-color: var(--sub-background);
     padding: 10px;
     border-radius: 10px;
     width: 12vw;
-    height: 100px;   /* É o card escrito Clientes Registrados */
+    height: 100px;
 }
 
 .cardclientes h1 {
     font-size: 20px;
     color: #cbd5e1;
-    margin: 0px;
+    margin: 0;
     position: relative;
     top: -25px;
 }
@@ -31,130 +35,40 @@
     top: -5px;
 }
 
-.btn_clientes {
-    background-color: var(--button);
-    color: white;
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    align-self: flex-end; /* alinha o próprio item ao final do container flex */
-}
-
-.btn_clientes:hover{
-    background-color: #4b82ff; /* azul mais claro no hover */
-}
-
-.box-filter-clientes {
-    display: flex;
-    gap: 20px;            /* Caixa de filtro, abaixo do botão de adicionar cliente */
-    margin-top: 10px;
-    background-color: var(--sub-background);
-    padding: 10px;
-    border-radius: 10px;
-    width: 75vw;
-    height: 100px;
-}
-
-.box-filter-clientes input {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--background);
-    color: white;
-    font-size: 16px;
-    outline: none;
-    border: 1px solid #1e293b;
-}
-
-.box-filter-clientes input:focus {
-    border-color: #3498db;
-}
-
-.clientes-historicos {
-    background-color: var(--sub-background);
-    margin-top: 10px;
-    padding: 10px;                  /* É a parte de baixo da página, com 5 clientes e se estão devendo ou pagando */
-    border-radius: 10px;
-    width: 75vw;
-}
-
-.clientes-historico {
-    background-color: var(--background);
-    padding: 12px 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    align-items: center;
-    gap:20px
-}
-
-.top-clientes{
+/* Topo da página */
+.top-clientes {
     display: flex;
     justify-content: space-between;
-    align-items: center;            /* É a parte de cima da página Clientes Registrados +  */
+    align-items: center;
     margin-top: 30px;
     width: 76vw;
     margin-left: 100px;
 }
 
-/* Botão Mais Informações */
-.btn-maisinfocliente {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    white-space: nowrap; /* Impede que o texto do botão quebre linha */
-    background-color: var(--sub-background);
-}
-
-.btn-maisinfocliente:hover {
-    background-color: #334155;
-}
-
-/* Começo do css relacionado ao modal de cadastrar cliente */
-
-#modal-cliente-cadastro #cliente-pagamento-pref {
-    appearance: none; /* Remove a seta padrão do navegador */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    
-    background-color: #0B1220; 
+/* Botões — base compartilhada */
+.btn_clientes,
+.btn-editarcliente {
+    background-color: var(--button);
     color: white;
-    padding: 12px;
     border-radius: 8px;
-    border: 1px solid #1e293b;
-    font-size: 14px;
     cursor: pointer;
-    width: 100%;
-    
-    /* Seta customizada */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px;
 }
 
-#modal-cliente-cadastro #cliente-pagamento-pref option {
-    background-color: #0B1220;
-    color: white;
-    padding: 10px;
+.btn_clientes {
+    padding: 8px 15px;
+    font-size: 18px;
+    align-self: flex-end;
 }
 
-#cliente-pagamento-pref {
-    color-scheme: dark; /* Deixar o fundo dark das opções Ativo, férias e licença */
+.btn-editarcliente {
+    padding: 8px 15px;
+    font-size: 14px;
 }
 
-#modal-cliente-cadastro h2 {
-    margin-bottom: 20px;
+.btn_clientes:hover,
+.btn-editarcliente:hover {
+    background-color: #4b82ff;
 }
-
-/* Final do css relacionado ao modal de cadastrar cliente */
-
 
 .btn-excluir-cliente {
     background-color: #f87171;
@@ -168,11 +82,154 @@
     background-color: #ff4d4d;
 }
 
-.clientes-section .cliente-botoes{
+.btn-maisinfocliente {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    background-color: var(--sub-background);
+}
+
+.btn-maisinfocliente:hover {
+    background-color: #334155;
+}
+
+/* Botões dentro do card */
+.clientes-section .cliente-botoes {
     display: flex;
     gap: 10px;
     white-space: nowrap;
 }
-.clientes-section .list{
-    padding-bottom: 50px;
+
+/* Caixa de filtro */
+.box-filter-clientes {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    background-color: var(--sub-background);
+    padding: 10px;
+    border-radius: 10px;
+    width: 75vw;
+    height: 100px;
+}
+
+.box-filter-clientes input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--background);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #1e293b;
+}
+
+.box-filter-clientes input:focus {
+    border-color: #3498db;
+}
+
+/* Lista de clientes */
+.clientes-historicos {
+    background-color: var(--sub-background);
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 75vw;
+}
+
+.clientes-historico {
+    background-color: var(--background);
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Modais — selects de pagamento */
+#modal-cliente-cadastro #cliente-pagamento-pref,
+#modal-editar-cliente #editar-cliente-pagamento {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--background);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    color-scheme: dark;
+}
+
+#modal-cliente-cadastro #cliente-pagamento-pref:focus,
+#modal-editar-cliente #editar-cliente-pagamento:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+#modal-cliente-cadastro #cliente-pagamento-pref option,
+#modal-editar-cliente #editar-cliente-pagamento option {
+    background-color: var(--background);
+    color: white;
+    padding: 10px;
+}
+
+/* Modal editar — X de fechar */
+#modal-editar-cliente .close-edit-cliente {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
+}
+
+#modal-editar-cliente .close-edit-cliente:hover {
+    color: #ff4d4d;
+}
+
+/* Histórico de compras */
+.historico-compras-container {
+    margin-top: 25px;
+    border-top: 1px solid #444;
+    padding-top: 15px;
+}
+
+.historico-compras-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #cbd5e1;
+}
+
+#historico-compras-lista {
+    max-height: none;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.compra-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    gap: 10px;
+    background: var(--sub-background-2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: white;
+}
+
+.compra-atrasada {
+    border-left: 3px solid #f87171;
 }
