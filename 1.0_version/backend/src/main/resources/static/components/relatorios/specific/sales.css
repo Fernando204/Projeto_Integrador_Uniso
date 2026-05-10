@@ -1,51 +1,40 @@
-/*caixa onde fica o resumo diário*/
-.resumo-container{
-    background-color: #1f2c42;
+/* Resumo diário */
+.resumo-container {
+    background-color: var(--sub-background);
     border-radius: 12px;
     padding: 10px 20px 20px 20px;
     margin-bottom: 30px;
     width: 75vw;
 }
 
-/* texto "Resumo diario" */
-.resumo-titulo{
-    color: #ffffff; 
-    margin-bottom: 15px; 
+.resumo-titulo {
+    color: var(--main-text);
+    margin-bottom: 15px;
     margin-top: 0;
     font-size: 20px;
 }
 
-/* container que segura os 4 cards */
-.resumo-cards{
-    display: flex; 
-    gap: 20px; 
-}
+.resumo-cards { display: flex; gap: 20px; }
 
-/* estilo individual de cada card */
-.resumo-card{
-    background-color: var(--background); 
-    border-radius: 10px; 
-    padding: 15px; 
-    width: 20vw; 
-    text-align: center; 
+.resumo-card {
+    background-color: var(--background);
+    border-radius: 10px;
+    padding: 15px;
+    width: 20vw;
+    text-align: center;
     height: 15vh;
+    color: var(--main-text);
 }
 
-/* container dos 3 paineis de vendas */
-.vendas-paineis{
-    display: flex; /* coloca os paineis lado a lado */
-    gap: 30px; /* espaço entre eles */
-    width: 77vw;
-}
+.vendas-paineis { display: flex; gap: 30px; width: 77vw; }
 
-/* painel individual */
-.painel{
-    background-color: #1f2c42; 
-    border-radius: 12px; 
-    padding: 0px; 
-    width: 30vw; 
-    height: 50vh; 
-    position: relative; /* permite posicionar elementos dentro dele */
+.painel {
+    background-color: var(--sub-background);
+    border-radius: 12px;
+    padding: 0px;
+    width: 30vw;
+    height: 50vh;
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -53,25 +42,22 @@
     align-items: center;
 }
 
-/* título dentro do painel */
-.painel h3{
-    text-align: center; /* centraliza o título */
+.painel h3 {
+    text-align: center;
     margin-bottom: 20px;
+    color: var(--main-text);
 }
 
-/* botão registrar */
-.botao-registrar{
-    position: absolute; /* posicionamento relativo ao painel */
-    bottom: 20px; /* distância do fundo */
+.botao-registrar {
+    position: absolute;
+    bottom: 20px;
     padding: 8px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    background-color: var(--button) !important; 
-    color: var(--main-text);
+    background-color: var(--button) !important;
+    color: var(--icon-color);
 }
 
-.botao-registrar:hover{
-    background-color: #4b82ff;
-}
+.botao-registrar:hover { background-color: #4b82ff; }

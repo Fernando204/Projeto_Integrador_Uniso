@@ -7,13 +7,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0px;            
+    gap: 0px;
     margin-top: 30px;
     background-color: var(--sub-background);
     padding: 10px;
     border-radius: 10px;
     width: 12vw;
-    height: 100px; 
+    height: 100px;
 }
 
 .card-estoques h1 {
@@ -35,11 +35,11 @@
     padding: 8px 15px;
     border-radius: 8px;
     font-size: 18px;
-    align-self: flex-end; /* alinha o próprio item ao final do container flex */
+    align-self: flex-end;
     margin-left: auto;
 }
 
-.btn_estoques:hover{
+.btn_estoques:hover {
     background-color: #4b82ff;
 }
 
@@ -63,17 +63,18 @@
 }
 
 .produto-info {
-    background-color: #0B1220;
+    background-color: var(--background);
     padding: 12px 15px;
     border-radius: 8px;
     margin-bottom: 10px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr auto;
     align-items: center;
-    gap: 20px
+    gap: 20px;
+    color: var(--main-text);
 }
 
-.top-estoques{
+.top-estoques {
     display: flex;
     align-items: flex-start;
     gap: 20px;
@@ -82,12 +83,12 @@
     margin-left: 100px;
 }
 
-.produto-botoes{
+.produto-botoes {
     display: flex;
     gap: 10px;
 }
 
-.produto-botoes button{
+.produto-botoes button {
     border: none;
     padding: 6px 12px;
     border-radius: 6px;
@@ -96,20 +97,18 @@
     white-space: nowrap;
 }
 
-.btn-editar:hover{
+.btn-editar:hover {
     background-color: #4b82ff;
 }
 
-.btn-maisinfo{
+.btn-maisinfo {
     background-color: var(--sub-background);
+    color: var(--main-text);
 }
 
-.btn-maisinfo:hover{
+.btn-maisinfo:hover {
     background-color: #334155;
 }
-
-
-/* Aqui em diante é o css do dia 20-04 */
 
 /* Input de busca do estoque */
 .box-filter-estoque input {
@@ -117,15 +116,19 @@
     max-width: 400px;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #1e293b;
-    background-color: var(--background);
-    color: white;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
     font-size: 16px;
     outline: none;
 }
 
+.box-filter-estoque input::placeholder {
+    color: var(--input-placeholder);
+}
+
 .box-filter-estoque input:focus {
-    border-color: #3498db;
+    border-color: var(--input-focus-border);
 }
 
 /* Botão excluir */
@@ -144,7 +147,6 @@
     background-color: #ff4d4d;
 }
 
-/* Botão salvar no modal de editar */
 .btn-save-produto {
     border-radius: 8px;
     padding: 12px;
@@ -157,12 +159,6 @@
     transform: scale(1.03);
 }
 
-/* Grid do produto-info com a coluna extra para o excluir */
-.produto-info {
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-}
-
-/* Close buttons dos modais do estoque */
 .close-button-estoque,
 .close-info-produto,
 .close-move-estoque,
@@ -173,7 +169,7 @@
     transition: 0.3s;
 }
 
-.modal p{
+.modal p {
     margin: 0;
     margin-bottom: -10px;
 }
@@ -184,53 +180,50 @@
     color: #ff4d4d;
 }
 
-/* Modal de editar produto um pouco mais largo */
 #modal-editar-produto .modal-content {
     width: 450px;
 }
 
 .estoque-section select {
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-
-  background-color: #1e2433;
-  color: #e2e8f0;
-
-  border: 1px solid #2d3548;
-  border-radius: 8px;
-
-  padding: 12px 40px 12px 14px;
-  font-size: 15px;
-
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 12px 40px 12px 14px;
+    font-size: 15px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-image: var(--select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
 }
 
 .estoque-section select:hover {
-  border-color: #3d4a6a;
+    border-color: #3d4a6a;
 }
 
 .estoque-section select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
 .estoque-section select option {
-  background-color: #1e2433;
-  color: #e2e8f0;
+    background-color: var(--sub-background);
+    color: var(--main-text);
 }
 
 .estoque-section select optgroup {
-  background-color: #151a28;
-  color: #64748b;
-  font-size: 12px;
+    background-color: var(--background);
+    color: var(--main-text);
+    font-size: 12px;
 }
+
+/* Toast */
 #toast-container {
     position: fixed;
     bottom: 30px;
@@ -247,7 +240,7 @@
 
 .toast {
     background-color: var(--sub-background);
-    color: white;
+    color: var(--main-text);
     padding: 15px 20px;
     border-radius: 10px;
     border-left: 4px solid #00ff1a;
