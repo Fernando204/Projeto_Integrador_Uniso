@@ -34,6 +34,8 @@ public class SecurityConfig {
                                 "/images/**",
                                 "/index.html",
                                 "/components/**",
+                                "/login",
+                                "/register",
                                 "/assets/**",
                                 "/dashboard/**",
                                 "/css/**",
