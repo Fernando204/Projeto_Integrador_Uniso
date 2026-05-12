@@ -267,7 +267,7 @@
 }
 
 #modal-editar #form-editar label,
-#modal-colaborador-cadastro #turno label {
+#modal-colaborador-cadastro label {
     font-size: 16px;
     margin-bottom: -5px;
     margin-top: 10px;
@@ -326,4 +326,17 @@
 .data-log {
     font-weight: bold;
     color: var(--button);
+}
+
+#btn-toggle-salario {
+    background: none;
+    border: none;
+    font-size: 16px;
+    margin-left: 8px;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+#btn-toggle-salario:hover {
+    opacity: 1;
 }
