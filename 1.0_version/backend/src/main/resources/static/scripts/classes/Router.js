@@ -54,7 +54,7 @@ export class Router {
                 initializeEstoque(this.api);
             }
         },
-        "/relatórios":{
+        "/relatorios":{
             path: "components/relatorios/relatorios.html",
             function: () => {
                 initializeRelatorios(this.api);

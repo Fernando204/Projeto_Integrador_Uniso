@@ -149,7 +149,6 @@
     margin: 10% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
     color: var(--main-text);
 }
 
@@ -181,7 +180,7 @@
 
 .close-button:hover { color: #ff4d4d; }
 
-.modal .modal-content { padding: 30px; width: 400px; }
+.modal .modal-content { padding: 30px; width: 40vw; }
 
 .modal hr {
     border: 0;

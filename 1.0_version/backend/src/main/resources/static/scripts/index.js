@@ -53,9 +53,9 @@ sidebarToggleBtn.addEventListener("click", () => {
 });
 
 
-function setActiveButton(index) {
+function setActiveButton(bt) {
     changeButtons.forEach(btn => btn.classList.remove("active"));
-    if (changeButtons[index]) changeButtons[index].classList.add("active");
+    if (bt) bt.classList.add("active");
 }
 
 
@@ -126,16 +126,15 @@ function initializeMain() {
     router.changeView("/");
 
     // Nav buttons
-    changeButtons.forEach((bt, index) => {
+    changeButtons.forEach((bt) => {
         bt.addEventListener("click",()=>{
             router.changeView(bt.dataset.id);
+            setActiveButton(bt);
         })
     });
 
     settingsNavBtn.addEventListener("click", () => {
-        changePage("components/configuracoes/configuracoes.html").then(() => {
-            initializeConfiguracoes();
-        });
+        router.changeView("/configuraçoes");
     });
 
     userProfileButton.addEventListener("click", (e) => {
