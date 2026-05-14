@@ -13,6 +13,39 @@ import java.util.List;
 @Entity(name = "sales")
 public class Sale {
 
+    /*
+
+        ISSO É O QUE VAI FICAR SALVO NO BANCO DE DADOS:
+     * {
+     *  id: 6
+     *  caixa: 4,
+     *  cliente: 3,
+     *  company: 3,
+     *  valor: 45.55,
+     *  status: concluida/pendente
+     *  forma de pagamento: credito/debito/dinheiro/...
+     *  itens de venda:[
+     *      {
+     *          id: 34,
+     *          venda: 6,
+     *          produto: {....},
+     *          subtotal: 15,
+     *          quantidade: 1,
+     *      },{
+     *          id: 35,
+     *          venda: 6,
+     *          produto: {....},
+     *          subtotal: 30.55,
+     *          quantidade: 1,
+     *      }
+     *  ]
+     * 
+     *  criado em: 12/03/4567
+     *  finalizado em: 12/03/4567
+     * }
+     * 
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +63,10 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+    
 
+    //a data de finalização é pra quando o usuário fizer uma venda que ficar pendente
+    //a partir do momento em que o pagamento da venda for confirmado será gerado a data de finalização 
     private LocalDateTime finalizedDate;
     private LocalDateTime createdAt;
 

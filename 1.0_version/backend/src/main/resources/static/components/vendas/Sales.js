@@ -347,6 +347,7 @@ export const initializeSales = (api) => {
                     metodo: formaPagamento.value,
                     valorTotal: total
                 };
+                console.log(novaVenda);
 
                 vendasDoTurno.push(novaVenda); //Adiciona a venda à lista do turno para o resumo do fechamento do caixa
 
