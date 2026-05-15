@@ -1,38 +1,509 @@
-.relatórios-section .resumes-navigation-container {
+.relatórios-section .resumes-navigation-container{
     display: flex;
     flex-direction: column;
 }
-
-.relatórios-section .navigation-bar {
+.relatórios-section .navigation-bar{
     gap: 0;
     margin-left: 40px;
     width: auto;
 }
-
-.relatórios-section .navigation-button {
+.relatórios-section .navigation-button{
     height: 5vh;
     margin: 0;
     margin-right: 10px;
     border: none;
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 20px 20px 0px 0px        ;
 }
-
-.relatórios-section button {
+.relatórios-section button{
     background: var(--sub-background-2);
     padding-left: 20px;
     padding-right: 20px;
-    color: var(--main-text);
 }
-
-.relatórios-section .content-container {
+.relatórios-section .content-container{
     padding: 20px;
     background: var(--sub-background-2);
     width: 80vw;
+
     border-radius: 10px 20px 20px 20px;
+}
+.relatórios-section .active-button{
+    border-top: 3px solid rgb(0, 89, 255);
+    border-bottom: none;
+}
+/* container geral */
+.estatisticas-container{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* topo */
+.estatisticas-topo{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:15px;
+}
+
+/* cards */
+.estat-card{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+
+    min-height:120px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.estat-card h4{
+    margin:0;
+    font-size:14px;
+    opacity:0.7;
+}
+
+.estat-card h2{
+    margin:0;
+    font-size:30px;
+}
+
+/* meio */
+.estatisticas-meio{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:20px;
+}
+
+/* box */
+.estat-box{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+}
+
+.estat-box h3{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+/* info */
+.estat-info{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+/* barras */
+.barra{
+    width:100%;
+    height:12px;
+    background:#1b2b45;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.barra-preenchida{
+    width:70%;
+    height:100%;
+    background:#22c55e;
+    border-radius:20px;
+}
+
+.barra-preenchida.negativa{
+    width:30%;
+    background:#ef4444;
+}
+
+/* clientes */
+.cliente-status{
+    background:#1b2b45;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.cliente-status p{
+    margin:0;
+    opacity:0.7;
+}
+
+.cliente-status h2{
+    margin-top:10px;
+}
+
+/* bottom */
+.estatisticas-bottom{
+    display:flex;
+}
+
+/* detalhes */
+.estat-detalhes{
+    width:100%;
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+}
+
+.estat-detalhes h3{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+/* item detalhe */
+.detalhe-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#1b2b45;
+
+    padding:15px;
+    border-radius:12px;
+
+    margin-bottom:12px;
+}
+
+/* cores */
+.positivo{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.negativo{
+    color:#ef4444;
+    font-weight:600;
+}
+
+.amarelo{
+    color:#facc15;
+    font-weight:600;
+}
+
+/* container */
+.produtos-container{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.produtos-topo{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:15px;
+}
+
+/* cards */
+.produto-card{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+
+    min-height:120px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.produto-card h4{
+    margin:0;
+    font-size:14px;
+    opacity:0.7;
+}
+
+.produto-card h2{
+    margin:0;
+    font-size:28px;
+}
+
+/* meio */
+.produtos-meio{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:20px;
+}
+
+/* box */
+.produtos-box{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+}
+
+.produtos-box h3{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+/* item */
+.produto-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#1b2b45;
+
+    padding:15px;
+    border-radius:12px;
+
+    margin-bottom:12px;
+
+    transition:0.3s;
+}
+
+.produto-item:hover{
+    transform:scale(1.01);
+}
+
+/* bottom */
+.produtos-bottom{
+    display:flex;
+}
+
+/* cores */
+.positivo{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.negativo{
+    color:#ef4444;
+    font-weight:600;
+}
+
+.amarelo{
+    color:#facc15;
+    font-weight:600;
+}
+
+
+.financas-container{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* topo */
+.financas-topo{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap:15px;
+}
+
+/* cards */
+.financa-card{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+
+    min-height:120px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.financa-card h4{
+    margin:0;
+    font-size:14px;
+    opacity:0.7;
+}
+
+.financa-card h2{
+    margin:0;
+    font-size:28px;
+}
+
+/* meio */
+.financas-meio{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap:20px;
+}
+
+/* box */
+.financas-box{
+    background:var(--background);
+    border-radius:15px;
+    padding:20px;
+}
+
+.financas-box h3{
+    margin-top:0;
+    margin-bottom:20px;
+}
+
+/* movimentações */
+.movimentacao{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#1b2b45;
+
+    padding:15px;
+    border-radius:12px;
+
+    margin-bottom:12px;
+
+    transition:0.3s;
+}
+
+.movimentacao:hover{
+    transform:scale(1.01);
+}
+
+.movimentacao h4{
+    margin:0;
+    font-size:15px;
+}
+
+.movimentacao p{
+    margin-top:5px;
+    font-size:12px;
+    opacity:0.6;
+}
+
+/* meta */
+.meta-box{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.meta-info{
+    display:flex;
+    justify-content:space-between;
+}
+
+.barra-meta{
+    width:100%;
+    height:14px;
+
+    background:#1b2b45;
+
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.barra-preenchida-meta{
+    width:65%;
+    height:100%;
+
+    background:#22c55e;
+    border-radius:20px;
+}
+
+.meta-porcentagem{
+    margin:0;
+    font-weight:600;
+}
+
+/* bottom */
+.financas-bottom{
+    display:flex;
+}
+
+/* resumo */
+.resumo-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#1b2b45;
+
+    padding:15px;
+    border-radius:12px;
+
+    margin-bottom:12px;
+}
+
+/* cores */
+.positivo{
+    color:#22c55e;
+    font-weight:600;
+}
+
+.negativo{
+    color:#ef4444;
+    font-weight:600;
+}
+/*caixa onde fica o resumo diário*/
+.resumo-container{
+    background-color: #1f2c42;
+    border-radius: 12px;
+    padding: 10px 20px 20px 20px;
+    margin-bottom: 30px;
+    width: 75vw;
+}
+
+/* texto "Resumo diario" */
+.resumo-titulo{
+    color: #ffffff; 
+    margin-bottom: 15px; 
+    margin-top: 0;
+    font-size: 20px;
+}
+
+/* container que segura os 4 cards */
+.resumo-cards{
+    display: flex; 
+    gap: 20px; 
+}
+
+/* estilo individual de cada card */
+.resumo-card{
+    background-color: var(--background); 
+    border-radius: 10px; 
+    padding: 15px; 
+    width: 20vw; 
+    text-align: center; 
+    height: 15vh;
+}
+
+/* container dos 3 paineis de vendas */
+.vendas-paineis{
+    display: flex; /* coloca os paineis lado a lado */
+    gap: 30px; /* espaço entre eles */
+    width: 77vw;
+}
+
+/* painel individual */
+.painel{
+    background-color: #1f2c42; 
+    border-radius: 12px; 
+    padding: 0px; 
+    width: 30vw; 
+    height: 50vh; 
+    position: relative; /* permite posicionar elementos dentro dele */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* título dentro do painel */
+.painel h3{
+    text-align: center; /* centraliza o título */
+    margin-bottom: 20px;
+}
+
+/* botão registrar */
+.botao-registrar{
+    position: absolute; /* posicionamento relativo ao painel */
+    bottom: 20px; /* distância do fundo */
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: var(--button) !important; 
     color: var(--main-text);
 }
 
-.relatórios-section .active-button {
-    border-top: 3px solid rgb(0, 89, 255);
-    border-bottom: none;
+.botao-registrar:hover{
+    background-color: #4b82ff;
 }
