@@ -2,17 +2,22 @@
     margin-left: 100px;
 }
 
+.clientes-section .list {
+    padding-bottom: 50px;
+}
+
+/* Cards de contagem */
 .cardclientes {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0px;
     margin-top: 30px;
     background-color: var(--sub-background);
     padding: 10px;
     border-radius: 10px;
-    
+    width: 12vw;
+    height: 100px;
 }
 
 .cardclientes h1 {
@@ -29,20 +34,75 @@
     top: -5px;
 }
 
-.btn_clientes {
+/* Topo da página */
+.top-clientes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    width: 76vw;
+    margin-left: 100px;
+}
+
+/* Botões — base compartilhada */
+.btn_clientes,
+.btn-editarcliente {
     background-color: var(--button);
     color: white;
-    padding: 8px 15px;
     border-radius: 8px;
-    font-size: 18px;
     cursor: pointer;
+}
+
+.btn_clientes {
+    padding: 8px 15px;
+    font-size: 18px;
     align-self: flex-end;
 }
 
-.btn_clientes:hover {
+.btn-editarcliente {
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+.btn_clientes:hover,
+.btn-editarcliente:hover {
     background-color: #4b82ff;
 }
 
+.btn-excluir-cliente {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+.btn-excluir-cliente:hover {
+    background-color: #ff4d4d;
+}
+
+.btn-maisinfocliente {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    background-color: var(--sub-background);
+}
+
+.btn-maisinfocliente:hover {
+    background-color: #334155;
+}
+
+/* Botões dentro do card */
+.clientes-section .cliente-botoes {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+/* Caixa de filtro */
 .box-filter-clientes {
     display: flex;
     gap: 20px;
@@ -74,6 +134,7 @@
     border-color: var(--input-focus-border);
 }
 
+/* Lista de clientes */
 .clientes-historicos {
     background-color: var(--sub-background);
     margin-top: 10px;
@@ -131,44 +192,71 @@
     font-size: 14px;
     cursor: pointer;
     width: 100%;
-    background-image: var(--select-arrow);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 16px;
-}
-
-#modal-cliente-cadastro #cliente-pagamento-pref option {
-    background-color: var(--sub-background);
-    color: var(--main-text);
-    padding: 10px;
-}
-
-#cliente-pagamento-pref {
     color-scheme: dark;
 }
 
-#modal-cliente-cadastro h2 {
-    margin-bottom: 20px;
+#modal-cliente-cadastro #cliente-pagamento-pref:focus,
+#modal-editar-cliente #editar-cliente-pagamento:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
-.btn-excluir-cliente {
-    background-color: #f87171;
+#modal-cliente-cadastro #cliente-pagamento-pref option,
+#modal-editar-cliente #editar-cliente-pagamento option {
+    background-color: var(--background);
     color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
+    padding: 10px;
 }
 
-.btn-excluir-cliente:hover {
-    background-color: #ff4d4d;
+/* Modal editar — X de fechar */
+#modal-editar-cliente .close-edit-cliente {
+    float: right;
+    cursor: pointer;
+    font-size: 28px;
+    transition: 0.3s;
 }
 
-.clientes-section .cliente-botoes {
+#modal-editar-cliente .close-edit-cliente:hover {
+    color: #ff4d4d;
+}
+
+/* Histórico de compras */
+.historico-compras-container {
+    margin-top: 25px;
+    border-top: 1px solid #444;
+    padding-top: 15px;
+}
+
+.historico-compras-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #cbd5e1;
+}
+
+#historico-compras-lista {
+    max-height: none;
+    overflow-y: visible;
     display: flex;
-    gap: 10px;
-    white-space: nowrap;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.clientes-section .list {
-    padding-bottom: 50px;
+.compra-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    gap: 10px;
+    background: var(--sub-background-2);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: white;
+}
+
+.compra-atrasada {
+    border-left: 3px solid #f87171;
 }
