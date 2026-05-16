@@ -282,6 +282,7 @@ export async function initializeColaboradores(api) {
 
                     alert("Dados atualizados (Teste Local)!");
                     modalEditar.style.display = "none";
+                    atualizarCustoFolha();
                 } catch (error) {
                     alert("Erro ao salvar no servidor");
                 }
