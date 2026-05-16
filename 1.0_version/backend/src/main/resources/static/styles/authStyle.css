@@ -176,8 +176,6 @@ button {
 
 button:hover { font-weight: 900; }
 
-.register-link { margin-top: 15px; text-align: center; }
-.register-link a { color: #90CAF9; text-decoration: none; font-size: 0.9rem; }
 .auth-link { margin-top: 15px; text-align: center; }
 .auth-link a { color: #90CAF9; text-decoration: none; font-size: 0.9rem; }
 
