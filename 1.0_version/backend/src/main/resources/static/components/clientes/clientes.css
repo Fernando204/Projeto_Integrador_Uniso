@@ -23,15 +23,14 @@
 .cardclientes h1 {
     font-size: 20px;
     color: #cbd5e1;
-    margin: 0;
-    position: relative;
+    margin: 0px;
     top: -25px;
+    margin-bottom: 20px;
 }
 
 .cardclientes h3 {
     margin: 0;
     font-size: 28px;
-    position: relative;
     top: -5px;
 }
 
@@ -120,15 +119,19 @@
     max-width: 400px;
     padding: 12px;
     border-radius: 8px;
-    background-color: var(--background);
-    color: white;
+    border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
+    color: var(--input-text);
     font-size: 16px;
     outline: none;
-    border: 1px solid #1e293b;
+}
+
+.box-filter-clientes input::placeholder {
+    color: var(--input-placeholder);
 }
 
 .box-filter-clientes input:focus {
-    border-color: #3498db;
+    border-color: var(--input-focus-border);
 }
 
 /* Lista de clientes */
@@ -149,19 +152,43 @@
     grid-template-columns: 1fr 1fr 1fr 1fr auto;
     align-items: center;
     gap: 20px;
+    color: var(--main-text);
 }
 
-/* Modais — selects de pagamento */
-#modal-cliente-cadastro #cliente-pagamento-pref,
-#modal-editar-cliente #editar-cliente-pagamento {
+.top-clientes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    width: 76vw;
+    margin-left: 100px;
+}
+
+.btn-maisinfocliente {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    background-color: var(--sub-background);
+    color: var(--main-text);
+}
+
+.btn-maisinfocliente:hover {
+    background-color: #334155;
+}
+
+/* Modal cadastrar cliente */
+#modal-cliente-cadastro #cliente-pagamento-pref {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-color: var(--background);
-    color: white;
+    background-color: var(--input-bg);
+    color: var(--input-text);
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #1e293b;
+    border: 1px solid var(--input-border);
     font-size: 14px;
     cursor: pointer;
     width: 100%;

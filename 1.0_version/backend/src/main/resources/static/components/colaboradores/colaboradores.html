@@ -12,7 +12,7 @@
 
         <div class="card-funcionarios">
             <h1>Custo da folha:</h1>
-            <h3>R$ 75.000</h3>
+            <h3 id="custo-folha">R$ --</h3>
         </div>
 
         <button class="btn_funcionarios" id="btn_add_funcionarios">
@@ -36,6 +36,7 @@
                     <span>Status: Ativo <span class="dot dot-ativo"></span></span>
                     <span>Turno: Manhã</span>
                     <span>Contato: (11) 90000-0000</span>
+                    <span class="info-salario-card" style="display:none;">Salario: 0</span>
 
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
@@ -54,6 +55,7 @@
                     <span>Status: Férias <span class="dot dot-ferias"></span></span>
                     <span>Turno: Tarde</span>
                     <span>Contato: (15) 93232-3213</span>
+                    <span class="info-salario-card" style="display:none;">Salario: 0</span>
 
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
@@ -72,6 +74,7 @@
                     <span>Status: Ativo <span class="dot dot-ativo"></span></span>
                     <span>Turno: Tarde</span>
                     <span>Contato: (15) 91234-9878</span>
+                    <span class="info-salario-card" style="display:none;">Salario: 0</span>
 
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
@@ -89,6 +92,7 @@
                     <span>Status: Ativo <span class="dot dot-ativo"></span></span>
                     <span>Turno: Tarde</span>
                     <span>Contato: (15) 95843-6677</span>
+                    <span class="info-salario-card" style="display:none;">Salario: 0</span>
 
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
@@ -106,6 +110,7 @@
                     <span>Status: Licença <span class="dot dot-licenca"></span></span>
                     <span>Turno: Manhã</span>
                     <span>Contato: (15) 95478-5798</span>
+                    <span class="info-salario-card" style="display:none;">Salario: 0</span>
 
                     <div class="produto-botoes">
                         <button class="btn-editar">Editar</button>
@@ -134,6 +139,7 @@
                         <option value="Noite">Noite</option>
                     </select>
                 <input type="text" id="contato" placeholder="Contato (15) 99999-9999" required>
+                <input type="number" id="salario" placeholder="Salário (R$)" required>
                 <button type="submit" class="btn_funcionarios">Salvar Colaborador</button>
             </form>
         </div>
@@ -151,6 +157,11 @@
                 <p><strong>Status:</strong> <span id="info-status"></span></p>
                 <p><strong>Turno:</strong> <span id="info-turno"></span></p>
                 <p><strong>Contato:</strong> <span id="info-contato"></span></p>
+                <p>
+                    <strong>Salário:</strong>
+                    <span id="info-salario-texto">••••••</span> 
+                    <button id="btn-toggle-salario" title="Mostrar/ocultar salário">👁</button> 
+                </p>
             </div>
 
             <div class="historico-container">
@@ -181,6 +192,8 @@
                     </select>
                 <input type="text" id="editar-turno" placeholder="Turno">
                 <input type="text" id="editar-contato" placeholder="Contato">
+                <label>Salário:</label>
+                <input type="number" id="editar-salario" placeholder="Salário (R$)">
                 <button type="submit" class="btn-save">Salvar Alterações</button>
             </form>
         </div>

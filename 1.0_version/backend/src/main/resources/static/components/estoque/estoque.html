@@ -15,7 +15,7 @@
             <h3>Macarrao</h3>
         </div>
 
-        <button class="btn_estoques" id="btn_move_estoque">
+        <button class="btn_estoques .btn_estoque_1" id="btn_move_estoque">
             Movimentar Estoque
         </button>
 
@@ -40,14 +40,17 @@
             <span class="close-button-estoque">&times;</span>
             <h2>Cadastrar Novo Produto</h2>
             <form id="form-cadastro-produto">
+
                 <input type="text" id="produto-nome" placeholder="Nome do Produto" required>
                 <input type="text" id="produto-descricao" placeholder="Descrição do Produto" required>
                 <input type="number" id="produto-min-quantidade" placeholder="Quantidade minima" required>
                 <input type="number" id="produto-preco-custo" step="0.01" placeholder="Preço de custo (R$)" required>
-                <div>
+
+                <div class="double-column-input">
                     <input type="number" id="produto-preco-venda" step="0.01" placeholder="Preço de venda (R$)" required>
                     <input type="number" id="lucro-desejado" step="0.01" placeholder="Lucro desejado (%)" required>
                 </div>
+
                 <select id="unidade">
                     <optgroup label="Peso">
                         <option value="kg">Quilograma (kg)</option>
@@ -74,6 +77,7 @@
         </div>
     </div>
 
+    <!-- Modal movimentar estoque -->
     <div id="modal-movimentacao-estoque" class="modal">
         <div class="modal-content">
             <span class="close-move-estoque">&times;</span>

@@ -243,14 +243,17 @@ export function initializeEstoque(api) {
                 const nome = card.querySelector("p").innerText;
                 const atributos = card.querySelectorAll("span");
 
+                atributos.forEach(a =>{
+                    console.log(a.innerHTML);
+                })
+
                 const dataAdicaoBruta = atributos[0].innerText.replace("DataAdicao: ", "");
                 const dataAdicaoFormatada = dataAdicaoBruta.split('-').reverse().join('/');
 
                 document.getElementById("info-produto-nome").innerText = nome;
                 document.getElementById("info-produto-preco").innerText = atributos[1].innerText.replace("Preco: ", "");
-                document.getElementById("info-produto-validade").innerText = atributos[2].innerText.replace("Validade: ", "");
                 document.getElementById("info-produto-adicao").innerText = dataAdicaoFormatada;
-                document.getElementById("info-produto-quantidade").innerText = atributos[3].innerText.replace("Quantidade no estoque: ", "");
+                document.getElementById("info-produto-quantidade").innerText = atributos[2].innerText.replace("Quantidade no estoque: ", "");
 
                 modalInfo.style.display = "block";
             }

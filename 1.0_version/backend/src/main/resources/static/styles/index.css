@@ -1,10 +1,15 @@
-:root{
+/* =============================================
+   THEME VARIABLES — Light (default)
+   ============================================= */
+:root {
     --background: #F8FAFC;
     --sub-background: #E2E8F0;
-    --sub-background-2: #cadffa;
+    --sub-background-2: linear-gradient(45deg, #E2E8F0, #3d4f75);
     --button: #2563EB;
 
     --main-text: #0F172A;
+    --icon-color: #ffffff;
+    --notify-icon: #000000;
 
     --saldo: #3B82F6;
     --receita: #16A34A;
@@ -12,47 +17,116 @@
     --lucro: #15803D;
     --prejuizo: #DC2626;
 
+    --input-bg: #F9FAFB;
+    --input-border: #D1D5DB;
+    --input-text: #111827;
+    --input-placeholder: #9CA3AF;
+    --input-focus-border: #2563EB;
+    --input-focus-shadow: rgba(37, 99, 235, 0.3);
+    --card-bg: #FFFFFF;
+    --border-color: rgba(0,0,0,0.08);
+    --logo-filter: none;
+    --modal-bg: rgba(0,0,0,0.5);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230f172a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 60px;
+    --nav-item-hover: rgba(0,0,0,0.06);
+    --nav-item-active: #2563EB;
+}
+
+[data-theme="dark"] {
+    --background: #0B1220;
+    --sub-background: #1E293B;
+    --sub-background-2: #171e2e;
+    --button: #2563EB;
+    --main-text: #E2E8F0;
     --icon-color: #ffffff;
-    --notify-icon:  #000000;
+    --notify-icon: #ffffff;
 
-    --sub-background-2: linear-gradient(45deg, var(--sub-background), #3d4f75)
-}
+    --input-bg: #2e2e3f;
+    --input-border: #44475a;
+    --input-text: #f8f8f2;
+    --input-placeholder: #888aa6;
+    --input-focus-border: #6272a4;
+    --input-focus-shadow: rgba(98, 114, 164, 0.5);
+    --card-bg: #162032;
+    --border-color: rgba(255,255,255,0.07);
+    --logo-filter: invert(100%) brightness(200%);
+    --modal-bg: rgba(0,0,0,0.75);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
 
-.logo-image{
-    filter: none;
-}
-
-.saldo{color: var(--saldo);}
-.receita{color: var(--receita);}
-.despesa{color: var(--despesa);}
-.lucro{color: var(--lucro);}
-.prejuizo{color: var(--prejuizo);}
-
-*{
-    font-family: Arial, sans-serif;
+    --nav-item-hover: rgba(255,255,255,0.06);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root{
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
         --background: #0B1220;
         --sub-background: #1E293B;
+        --sub-background-2: #171e2e;
         --button: #2563EB;
         --main-text: #E2E8F0;
+        --icon-color: #ffffff;
         --notify-icon: #ffffff;
-        --sub-background-2: #171e2e;
-    }
 
-    .logo-image {
-        filter: invert(100%) brightness(200%);
+        --input-bg: #2e2e3f;
+        --input-border: #44475a;
+        --input-text: #f8f8f2;
+        --input-placeholder: #888aa6;
+        --input-focus-border: #6272a4;
+        --input-focus-shadow: rgba(98, 114, 164, 0.5);
+        --card-bg: #162032;
+        --border-color: rgba(255,255,255,0.07);
+        --logo-filter: invert(100%) brightness(200%);
+        --modal-bg: rgba(0,0,0,0.75);
+        --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+
+        --nav-item-hover: rgba(255,255,255,0.06);
     }
 }
-.notification-bt{
-    color: var(--notify-icon);
+
+[data-theme="light"] {
+    --background: #F8FAFC;
+    --sub-background: #E2E8F0;
+    --sub-background-2: linear-gradient(45deg, #E2E8F0, #3d4f75);
+    --button: #2563EB;
+    --main-text: #0F172A;
+    --icon-color: #ffffff;
+    --notify-icon: #000000;
+
+    --input-bg: #F9FAFB;
+    --input-border: #D1D5DB;
+    --input-text: #111827;
+    --input-placeholder: #9CA3AF;
+    --input-focus-border: #2563EB;
+    --input-focus-shadow: rgba(37, 99, 235, 0.3);
+    --card-bg: #FFFFFF;
+    --border-color: rgba(0,0,0,0.08);
+    --logo-filter: none;
+    --modal-bg: rgba(0,0,0,0.5);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230f172a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+
+    --nav-item-hover: rgba(0,0,0,0.06);
 }
-button span{
-    color: var(--icon-color);
+
+/* =============================================
+   TYPOGRAPHY HELPERS
+   ============================================= */
+.saldo   { color: var(--saldo); }
+.receita { color: var(--receita); }
+.despesa { color: var(--despesa); }
+.lucro   { color: var(--lucro); }
+.prejuizo{ color: var(--prejuizo); }
+
+* {
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
-body{
+
+/* =============================================
+   BASE
+   ============================================= */
+body {
     background-color: var(--background);
     height: 100vh;
     width: 100vw;
@@ -60,264 +134,509 @@ body{
     overflow-y: auto;
     overflow-x: hidden;
     color: var(--main-text);
+    transition: background-color 0.3s, color 0.3s;
 }
-.main-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    height: 60px;
-    padding: 0 20px;
-}
-button{
+button {
     border: none;
-    transition: all 0.3s;
+    transition: all 0.2s;
     cursor: pointer;
+    background-color: transparent;
     background-color: var(--button);
     color: var(--main-text);
 }
-button:hover{
-    transform: scale(1.1);
+
+button:hover {
+    transform: scale(1.05);
 }
-.header-div{
+
+button span {
+    color: var(--icon-color);
+}
+
+/* =============================================
+   HEADER
+   ============================================= */
+.main-header {
     display: flex;
-    gap: 10px;
-}
-
-.content {
-    margin-left: 70px;
-    transition: margin-left 0.3s;
-}
-
-.spacer{
-    height: 100vh;
-    width: 80px;
-}
-.flex-half-main-container{
-    display: flex;
-
-}
-#site-content{
-    flex: 1;
-}
-.navBar{
-    background-color: var(--sub-background);
-
+    align-items: center;
+    justify-content: flex-end;
+    height: 56px;
+    padding: 0 16px;
     position: fixed;
     top: 0;
-    left: 0;
+    left: var(--sidebar-width);
+    right: 0;
+    z-index: 1001;
+    
+    transition: left 0.3s, background-color 0.3s;
+}
 
-    height: 100vh;
-    width: 6vw;
+.sidebar-collapsed ~ .main-header,
+.navBar.sidebar-collapsed ~ * .main-header {
+    left: var(--sidebar-collapsed-width);
+}
 
+.header-left {
+    display: none; /* toggle button now lives in sidebar footer */
+}
+
+.header-div {
     display: flex;
-    flex-direction: column;
+    gap: 4px;
     align-items: center;
-    justify-content: center;
-
-    gap: 20px;
-    transition: width 0.3s;
-    z-index: 1000;
-
-    box-shadow: 0.1px 0.1px 10px 0.1px black;
-
-    overflow: hidden;
-
-}
-.navBar:hover{
-    width: 13vw;
-    box-shadow: 0.1px 0.1px 7px 0.1px black;
-
+    position: relative;
 }
 
-    #site-content{
-        margin-top: -60px;
-        margin-left: 10vw;
-        transition: all 0.3s;
-    }
-    .navBar:hover ~ #site-content{
-        margin-left: 16vw;
-    }
-
-.navBar button{
-    background-color: var(--button);
-    height: 5vh;
-    width: 5vh;
-    border-radius: 10px;
-}
-
-.navBar .button-box{
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: calc(3vw - 2.5vh);
-    box-sizing: border-box;
-}
-.navBar .button-box:hover{
-    background-color: rgba(0, 0, 0, 0.24);
-    padding-left: calc(3vw - 2.5vh);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    border-radius: 10px;
-}
-.navBar .button-box h5{
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 0;
-    transition: all 0.7s;
-}
-.navBar:hover h5{
-    opacity: 1;
-    width: auto;
-    margin-left: 12px;
-}
-.logo-image{
-    width: 60px;
-    position: fixed;
-    top: 20px;
-}
-.pageButton{
-    cursor: pointer;
-}
-
-.notification-button{
-    z-index: 1;
-    width: 40px;
-    height: 40px;
-
+/* =============================================
+   HEADER BUTTONS
+   ============================================= */
+.settings-button {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    margin: 20px;
     border-radius: 50%;
     background-color: var(--sub-background);
+    margin-left: 4px;
 }
-.user-profile-button{
-    z-index: 1;
-    width: 40px;
-    height: 40px;
 
+.settings-button:hover {
+    background-color: var(--button);
+    transform: scale(1.1);
+}
+
+.settings-button span {
+    color: var(--notify-icon);
+    font-size: 20px;
+}
+
+.settings-button:hover span {
+    color: #ffffff;
+}
+
+.notification-bt {
+    color: var(--notify-icon);
+    font-size: 20px;
+}
+
+.notification-button {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    background-color: var(--sub-background);
+    margin: 0;
+}
 
-    margin: 20px;
+.notification-button:hover {
+    background-color: var(--sub-background);
+    transform: scale(1.1);
+}
+
+.user-profile-button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     background-color: var(--button);
+    margin: 0;
 }
 
 .user-profile-button:hover {
-    transform: scale(1.2);
-    box-shadow: 0.1px 0.1px 4px 0.1px black;
-}
-.notification-button:hover{
-    transform: scale(1.2);
-    box-shadow: 0.1px 0.1px 4px 0.1px black;
+    transform: scale(1.1);
 }
 
+/* =============================================
+   LAYOUT
+   ============================================= */
+.flex-half-main-container {
+    display: flex;
+    padding-top: 56px; /* header height */
+}
 
+#site-content {
+    flex: 1;
+    min-height: calc(100vh - 56px);
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s;
+    padding: 24px;
+}
 
-.right-modal-container{
+/* =============================================
+   SIDEBAR / NAVBAR
+   ============================================= */
+.navBar {
+    background-color: var(--sub-background);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transition: width 0.3s, background-color 0.3s;
+    z-index: 1000;
+    box-shadow: 1px 0 0 var(--border-color);
+    overflow: hidden;
+}
+
+/* Collapsed state */
+.navBar.sidebar-collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+.navBar.sidebar-collapsed ~ * #site-content,
+.navBar.sidebar-collapsed + * + #site-content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* --- Sidebar Header --- */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    min-height: 57px; /* align with main header */
+    overflow: hidden;
+}
+
+.sidebar-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    filter: var(--logo-filter);
+}
+
+.sidebar-title-group {
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.2s, width 0.3s;
+}
+
+.navBar.sidebar-collapsed .sidebar-title-group {
+    opacity: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+.sidebar-app-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--main-text);
+    line-height: 1.3;
+}
+
+.sidebar-app-sub {
+    font-size: 11px;
+    color: var(--main-text);
+    opacity: 0.45;
+    line-height: 1;
+}
+
+/* --- Nav scroll area --- */
+.nav-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.nav-scroll::-webkit-scrollbar { width: 3px; }
+.nav-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+/* --- Nav items (button-box) --- */
+.navBar .button-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    white-space: nowrap;
+    width: 100%;
+    text-decoration: none;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.navBar .button-box:hover {
+    background-color: var(--nav-item-hover);
+    transform: none;
+}
+
+.navBar .button-box.active {
+    background-color: var(--nav-item-active);
+}
+
+.navBar .button-box.active .nav-icon,
+.navBar .button-box.active .nav-label {
+    color: #ffffff;
+    opacity: 1;
+}
+
+/* Nav icon — replaces old <button> */
+.nav-icon {
+    color: var(--main-text);
+    opacity: 0.65;
+    font-size: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+/* Nav label */
+.nav-label {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--main-text);
+    opacity: 0.8;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.2s, width 0.3s;
+}
+
+.navBar.sidebar-collapsed .nav-label {
+    opacity: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+/* Tooltip for collapsed mode */
+.navBar.sidebar-collapsed .button-box::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: calc(var(--sidebar-collapsed-width) + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--main-text);
+    color: var(--background);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+}
+
+.navBar.sidebar-collapsed .button-box:hover::after {
+    opacity: 1;
+}
+
+/* --- Sidebar Footer (collapse button) --- */
+.sidebar-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 8px;
+    flex-shrink: 0;
+}
+
+.sidebar-toggle-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    color: var(--main-text);
+    transition: background-color 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-toggle-button:hover {
+    background-color: var(--nav-item-hover);
+    transform: none;
+}
+
+.sidebar-toggle-button .toggle-icon {
+    font-size: 20px;
+    color: var(--main-text);
+    opacity: 0.65;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+}
+
+.navBar.sidebar-collapsed .sidebar-toggle-button .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.toggle-label {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--main-text);
+    opacity: 0.8;
+    transition: opacity 0.2s, width 0.3s;
+    overflow: hidden;
+}
+
+.navBar.sidebar-collapsed .toggle-label {
+    opacity: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+/* =============================================
+   HEADER repositioning when sidebar collapses
+   ============================================= */
+body.sidebar-is-collapsed .main-header {
+    left: var(--sidebar-collapsed-width);
+}
+
+body.sidebar-is-collapsed #site-content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* =============================================
+   MODALS (profile / notify)
+   ============================================= */
+.right-modal-container {
     z-index: 0;
     width: 1px;
     height: 1px;
-    background-color: var(--sub-background);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    transform-origin: top;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    transition: all 0.25s ease;
     position: absolute;
-    border: 3px solid rgb(0, 52, 77);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     opacity: 0;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    pointer-events: none;
 }
-.notify-container{
-    margin-top: 50px;
-    margin-left: 120px;
+
+.notify-container {
+    top: 48px;
+    right: 0;
 }
-.expand{
-    width: 300px;
-    height: 400px;
-    margin-top: 65px;
-    margin-left: -165px;
+
+.profile-container {
+    top: 48px;
+    right: 0;
+}
+
+.expand {
+    width: 280px;
+    height: auto;
+    min-height: 120px;
+    padding: 16px;
     opacity: 1;
+    pointer-events: all;
 }
 
-
-.profile-container{
-    margin-top: 50px;
-    margin-left: 120px;
-}
-.profile-container h3{
+.profile-container h3 {
     text-align: center;
-    text-indent: 10px;
+    margin: 0 0 12px;
+    font-size: 15px;
+    color: var(--main-text);
 }
-.profile-container.expand{
-    width: 300px;
-    height: 400px;
-    margin-top: 65px;
-    margin-left: -165px;
+
+.profile-container.expand {
+    width: 280px;
+    height: auto;
+    min-height: 160px;
+    padding: 20px 16px;
     opacity: 1;
+    pointer-events: all;
 }
-.profile-container button{
-    margin-bottom: 10px;
+
+.profile-container button {
+    margin-bottom: 8px;
     background-color: var(--button);
-    width: 80%;
-    height: 5vh;
-    border-radius: 10px;
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
 }
-.danger{
-    background-color: #DC2626;
+
+.profile-container button:hover {
+    opacity: 0.9;
+    transform: none;
+}
+
+.danger,
+.profile-container .logout-btn {
+    background-color: #DC2626 !important;
     color: white;
 }
-.profile-modal-top{
-    margin-bottom: 70%;
-}
-.profile-modal-top .title{
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: -10px;
-}
-.profile-container .logout-btn{
-    background-color: #DC2626;
+
+.profile-modal-top {
+    width: 100%;
+    margin-bottom: 16px;
 }
 
-.vertical-align{
+.profile-modal-top .title {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 2px;
+    color: var(--main-text);
+}
+
+.profile-modal-top .modal-sub-title {
+    font-size: 13px;
+    opacity: 0.6;
+    color: var(--main-text);
+    margin: 0;
+}
+
+/* =============================================
+   UTILITIES
+   ============================================= */
+.vertical-align {
     display: flex;
     flex-direction: column;
 }
-.loading{
-    position: absolute;
+
+/* =============================================
+   LOADING SPINNER
+   ============================================= */
+.loading {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
+    min-height: 60vh;
 }
+
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-.loading-icon{
-    height: 100px;
-    width: 100px;
-    border: 5px solid transparent;
-    border-top: 5px solid white;
+
+.loading-icon {
+    height: 60px;
+    width: 60px;
+    border: 4px solid transparent;
+    border-top: 4px solid var(--button);
     border-radius: 50%;
-    animation: spin 0.5s infinite;
+    animation: spin 0.6s linear infinite;
 }

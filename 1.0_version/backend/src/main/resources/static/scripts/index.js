@@ -5,18 +5,12 @@ import { initializeRelatorios } from "../components/relatorios/relatorios.js";
 import { initializeSales } from "../components/vendas/Sales.js";
 import { initializeFinances } from "../components/finanças/finance.js";
 import { initializeEstoque } from "../components/estoque/estoque.js";
-import { ApiConnection } from "./classes/ApiConnection.js"
-/**
- * 
- * pagina principal ->
- *  
- * receita: tudo os entrou 
- * lucro: receita - despesa
- * saldo: total acumulado de todo o periodo;
- * despesas: tudo oq saiu 
- */
+import { initializeConfiguracoes, loadSavedTheme } from "../components/configuracoes/configuracoes.js";
+import { ApiConnection } from "./classes/ApiConnection.js";
+import { Router } from "./classes/Router.js";
 
-const apiConnection = new ApiConnection();
+loadSavedTheme();
+
 const userInfoModal = document.getElementById("user-info-modal");
 const loginBt = document.getElementById("gotoLoginBt");
 const contentBox = document.getElementById("site-content");
@@ -25,12 +19,53 @@ const userProfileButton = document.querySelector(".user-profile-button");
 const notifyButton = document.querySelector(".notification-button");
 const notifyContainer = document.querySelector(".notify-container");
 const profileContainer = document.querySelector(".profile-container");
+const navBar = document.getElementById("mainNavBar");
+const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+const settingsNavBtn = document.getElementById("settingsNavBtn");
+const mainHeader = document.getElementById("mainHeader");
+const apiConnection = new ApiConnection();
+const router = new Router(contentBox,apiConnection);
+const SERVER_URL = "http://localhost:8080";
 
 let logged = false;
+let sidebarOpen = true;
+
+function updateHeaderPosition() {
+    if (mainHeader) {
+        mainHeader.style.left = sidebarOpen
+            ? "var(--sidebar-width)"
+            : "var(--sidebar-collapsed-width)";
+    }
+    contentBox.style.marginLeft = sidebarOpen
+        ? "var(--sidebar-width)"
+        : "var(--sidebar-collapsed-width)";
+}
+
+
+sidebarToggleBtn.addEventListener("click", () => {
+    sidebarOpen = !sidebarOpen;
+    if (sidebarOpen) {
+        navBar.classList.remove("sidebar-collapsed");
+    } else {
+        navBar.classList.add("sidebar-collapsed");
+    }
+    updateHeaderPosition();
+});
+
+
+function setActiveButton(bt) {
+    changeButtons.forEach(btn => btn.classList.remove("active"));
+    if (bt) bt.classList.add("active");
+}
+
 
 const redirectToLogin = () => {
-    location.href = "Pages/loginPage.html";
+    location.href = SERVER_URL+"/login";
 };
+
+window.addEventListener("popstate", () => {
+    router.changeView(window.location.pathname);
+});
 
 const logout = async () => {
     try {
@@ -46,8 +81,6 @@ const renderUserModal = (user) => {
             <p class="title"></p>
             <p class="modal-sub-title"></p>
         </div>
-
-        <button id="settingsBtn">Configurações</button>
         <button id="logoutBtn" class="logout-btn">Logout</button>
     `;
 
@@ -75,7 +108,7 @@ const checkSession = async () => {
         logged = true;
         initializeMain();
     } catch {
-        alert("sessão invalida")
+        alert("sessão invalida");
         redirectToLogin();
     }
 };
@@ -85,122 +118,70 @@ let profileCardOpened = false;
 let notifyCardOpened = false;
 
 function initializeMain() {
-    if (logged) {
-        contentBox.classList.remove("loading");
-        const changePage = async (pageUrl) => {
-            const res = await fetch(pageUrl);
-            const res_1 = await res.text();
-            contentBox.innerHTML = res_1;
-        }
+    if (!logged) {
+        console.log("Não logado!");
+        return;
+    }
+    contentBox.classList.remove("loading");
+    router.changeView("/");
 
-        changePage("components/dashboard/dashboard.html").then(() => {
-            initializeDashboard(apiConnection);
-        }).catch(e => {
-            alert(e);
-        });
-
-        changeButtons.forEach((bt, index) => {
-            switch (index) {
-                case 0:
-                    bt.addEventListener("click", () => {
-                        changePage("components/dashboard/dashboard.html").then((res) => {
-                            initializeDashboard(apiConnection);
-                        });
-
-                    })
-                    break;
-                case 1:
-                    bt.addEventListener("click", () => {
-                        changePage("components/finanças/finance.html").then((res) => {
-                            initializeFinances(apiConnection);
-                        });
-                    })
-                    break;
-                case 2:
-                    bt.addEventListener("click", () => {
-                        changePage("components/vendas/sales.html").then((res) => {
-                            initializeSales(apiConnection);
-                        });
-                    })
-                    break;
-                case 3:
-                    bt.addEventListener("click", () => {
-                        changePage("components/clientes/clientes.html").then((res) => {
-                            initializeClientes(apiConnection);
-                        })
-                    })
-                    break;
-                case 4:
-                    bt.addEventListener("click", () => {
-                        changePage("components/estoque/estoque.html").then((res) => {
-                            initializeEstoque(apiConnection);
-                        })
-                    })
-                    break;
-                case 5:
-                    bt.addEventListener("click", () => {
-                        changePage("components/relatorios/relatorios.html").then((res) => {
-                            initializeRelatorios();
-                        })
-                    })
-                    break;
-                case 6:
-                    bt.addEventListener("click", () => {
-                        changePage("components/colaboradores/colaboradores.html").then((res) => {
-                            initializeColaboradores(apiConnection);
-                        })
-                    })
-                    break;
-            }
-        });
-
-        userProfileButton.addEventListener("click", (e) => {
-            e.stopPropagation(); // impede o clique de subir pro document
-
-            if (!profileCardOpened) {
-                profileContainer.classList.add("expand");
-                profileCardOpened = true;
-            } else {
-                closeProfile();
-            }
-        });
-
-        notifyButton.addEventListener("click", () => {
-            if (!notifyCardOpened && notifyContainer) {
-                notifyContainer.classList.add("expand");
-                notifyCardOpened = true;
-            } else {
-                closeNotifications();
-            }
+    // Nav buttons
+    changeButtons.forEach((bt) => {
+        bt.addEventListener("click",()=>{
+            router.changeView(bt.dataset.id);
+            setActiveButton(bt);
         })
+    });
 
-        document.addEventListener("click", (e) => {
-            if (
-                profileCardOpened &&
-                !profileContainer.contains(e.target) &&
-                !userProfileButton.contains(e.target)
-            ) {
-                closeProfile();
-            }
+    settingsNavBtn.addEventListener("click", () => {
+        router.changeView("/configuraçoes");
+    });
 
-            if (notifyCardOpened &&
-                !notifyContainer.contains(e.target) &&
-                !notifyButton.contains(e.target)
-            ) {
-                closeNotifications();
-            }
-        });
-
-        function closeNotifications() {
-            notifyContainer.classList.remove("expand");
-            notifyCardOpened = false;
+    userProfileButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (!profileCardOpened) {
+            profileContainer.classList.add("expand");
+            profileCardOpened = true;
+        } else {
+            closeProfile();
         }
-        function closeProfile() {
-            profileContainer.classList.remove("expand");
-            profileCardOpened = false;
+    });
+
+    notifyButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (!notifyCardOpened && notifyContainer) {
+            notifyContainer.classList.add("expand");
+            notifyCardOpened = true;
+        } else {
+            closeNotifications();
         }
-    } else {
-        console.log("Não logado!")
+    });
+
+    document.addEventListener("click", (e) => {
+        if (
+            profileCardOpened &&
+            !profileContainer.contains(e.target) &&
+            !userProfileButton.contains(e.target)
+        ) {
+            closeProfile();
+        }
+
+        if (
+            notifyCardOpened &&
+            !notifyContainer.contains(e.target) &&
+            !notifyButton.contains(e.target)
+        ) {
+            closeNotifications();
+        }
+    });
+
+    function closeNotifications() {
+        notifyContainer.classList.remove("expand");
+        notifyCardOpened = false;
+    }
+
+    function closeProfile() {
+        profileContainer.classList.remove("expand");
+        profileCardOpened = false;
     }
 }
-

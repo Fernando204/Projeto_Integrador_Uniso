@@ -33,6 +33,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private static final List<String> PUBLIC_PATHS = List.of(
         "/index.html",
             "/",
+            "/login",
+            "/register",
 
             "/scripts/index.js",
             "/scripts/pages/login.js",
