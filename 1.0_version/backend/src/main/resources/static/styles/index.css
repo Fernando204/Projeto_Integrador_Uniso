@@ -2,36 +2,36 @@
    THEME VARIABLES — Light (default)
    ============================================= */
 :root {
-    --background: #F8FAFC;
-    --sub-background: #E2E8F0;
-    --sub-background-2: linear-gradient(45deg, #E2E8F0, #3d4f75);
+    --background: #EEF4FB;
+    --sub-background: #D6E6F7;
+    --sub-background-2: linear-gradient(45deg, #C8DCEF, #3d6fa8);
     --button: #2563EB;
 
-    --main-text: #0F172A;
+    --main-text: #1A2B4A;
     --icon-color: #ffffff;
-    --notify-icon: #000000;
+    --notify-icon: #2563EB;
 
-    --saldo: #3B82F6;
-    --receita: #16A34A;
+    --saldo: #2563EB;
+    --receita: #059669;
     --despesa: #F97316;
-    --lucro: #15803D;
+    --lucro: #047857;
     --prejuizo: #DC2626;
 
-    --input-bg: #F9FAFB;
-    --input-border: #D1D5DB;
-    --input-text: #111827;
-    --input-placeholder: #9CA3AF;
+    --input-bg: #F0F7FF;
+    --input-border: #AECBEC;
+    --input-text: #1A2B4A;
+    --input-placeholder: #7FA8CC;
     --input-focus-border: #2563EB;
-    --input-focus-shadow: rgba(37, 99, 235, 0.3);
+    --input-focus-shadow: rgba(37, 99, 235, 0.25);
     --card-bg: #FFFFFF;
-    --border-color: rgba(0,0,0,0.08);
+    --border-color: rgba(37, 99, 235, 0.10);
     --logo-filter: none;
-    --modal-bg: rgba(0,0,0,0.5);
-    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230f172a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    --modal-bg: rgba(15, 40, 80, 0.45);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231A2B4A'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
 
     --sidebar-width: 240px;
     --sidebar-collapsed-width: 60px;
-    --nav-item-hover: rgba(0,0,0,0.06);
+    --nav-item-hover: rgba(37, 99, 235, 0.10);
     --nav-item-active: #2563EB;
 }
 
@@ -86,27 +86,27 @@
 }
 
 [data-theme="light"] {
-    --background: #F8FAFC;
-    --sub-background: #E2E8F0;
-    --sub-background-2: linear-gradient(45deg, #E2E8F0, #3d4f75);
+    --background: #EEF4FB;
+    --sub-background: #D6E6F7;
+    --sub-background-2: linear-gradient(45deg, #C8DCEF, #3d6fa8);
     --button: #2563EB;
-    --main-text: #0F172A;
+    --main-text: #1A2B4A;
     --icon-color: #ffffff;
-    --notify-icon: #000000;
+    --notify-icon: #2563EB;
 
-    --input-bg: #F9FAFB;
-    --input-border: #D1D5DB;
-    --input-text: #111827;
-    --input-placeholder: #9CA3AF;
+    --input-bg: #F0F7FF;
+    --input-border: #AECBEC;
+    --input-text: #1A2B4A;
+    --input-placeholder: #7FA8CC;
     --input-focus-border: #2563EB;
-    --input-focus-shadow: rgba(37, 99, 235, 0.3);
+    --input-focus-shadow: rgba(37, 99, 235, 0.25);
     --card-bg: #FFFFFF;
-    --border-color: rgba(0,0,0,0.08);
+    --border-color: rgba(37, 99, 235, 0.10);
     --logo-filter: none;
-    --modal-bg: rgba(0,0,0,0.5);
-    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230f172a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    --modal-bg: rgba(15, 40, 80, 0.45);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231A2B4A'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
 
-    --nav-item-hover: rgba(0,0,0,0.06);
+    --nav-item-hover: rgba(37, 99, 235, 0.10);
 }
 
 /* =============================================
@@ -168,7 +168,7 @@ button span {
     left: var(--sidebar-width);
     right: 0;
     z-index: 1001;
-    
+
     transition: left 0.3s, background-color 0.3s;
 }
 
