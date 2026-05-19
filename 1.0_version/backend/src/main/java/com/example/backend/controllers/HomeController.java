@@ -16,4 +16,9 @@ public class HomeController {
 
     @GetMapping("/register")
     public String register(){return "registerPage";}
+
+    @GetMapping("/recover")
+    public String recover(){
+        return "recoverPage";
+    }
 }

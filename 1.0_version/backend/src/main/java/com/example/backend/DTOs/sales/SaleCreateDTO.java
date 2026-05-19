@@ -7,10 +7,12 @@ import java.util.List;
 
 
 public record SaleCreateDTO(
-    List<SaleItem> itens,
+    List<SaleItemDTO> itens,
+    Long companyId,
     Long clientId,
     BigDecimal total,
-    PaymentWay paymentWay
+    PaymentWay paymentWay,
+    Long cashRegisterId
 ){}
 
 /*

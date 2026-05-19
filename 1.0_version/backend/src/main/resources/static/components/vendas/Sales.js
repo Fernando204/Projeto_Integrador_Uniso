@@ -21,7 +21,7 @@ export const initializeSales = (api) => {
     let caixaInfo = {}; //Variavel que guarda as informações sobre o caixa vindas do back-end
     let vendasDoTurno = [];
     let clienteSelecionado = null; //Guarda o cliente que foi clicado na lista (id e name)
-    let produtosDaCompra = {}; //Objeto que guarda os produtos selecionados no formato { id: { name, price, qty } }
+    let produtosDaCompra = []; //Objeto que guarda os produtos selecionados no formato { id: { name, price, qty } }
 
     let data = JSON.parse(localStorage.getItem("user-data")); //Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
@@ -97,8 +97,9 @@ export const initializeSales = (api) => {
     }
 
     function createProductCard(product) { //Cria o HTML de um card de produto com botões de quantidade no step 1
+        if(!product.productId) alert(product);
         return `
-            <div class="product-card" data-id="${product.id}" data-name="${product.name}" data-price="${product.sellingPrice}">
+            <div class="product-card" data-id="${product.productId}" data-name="${product.name}" data-price="${product.sellingPrice}">
                 <div class="vertical-align">
                     <h4>${product.name}</h4>
                     <p>R$ ${parseFloat(product.sellingPrice).toFixed(2).replace('.', ',')}</p>
@@ -117,7 +118,9 @@ export const initializeSales = (api) => {
     async function loadClientList() { //Busca clientes do back-end e renderiza os cards na tela
         clientListDiv.innerHTML = "<p>Carregando...</p>";
         const clients = await getList("client/get/all?id=" + data.companyId);
+
         if (!clients) return;
+
         clientListDiv.innerHTML = ""; //Limpa o "Carregando..." antes de renderizar os cards
         clients.forEach(client => {
             clientListDiv.insertAdjacentHTML('beforeend', createClientCard(client));
@@ -197,11 +200,15 @@ export const initializeSales = (api) => {
             const id = card.dataset.id;
             const name = card.dataset.name;
             const price = parseFloat(card.dataset.price);
+            
+            if(!id || !card.dataset.is){
+                showAlert("ID não definido")
+            }else console.log(id)
 
             btnMais.addEventListener("click", () => {
                 let qty = parseInt(input.value) + 1; //Incrementa a quantidade em 1
                 input.value = qty;
-                produtosDaCompra[id] = { name, price, qty }; //Salva ou atualiza o produto no objeto de estado
+                produtosDaCompra[id] = { name: name, price: price, qty: qty, productId: id}; //Salva ou atualiza o produto no objeto de estado
                 atualizarSubtotal(card, price, qty); //Atualiza o subtotal do produto
                 atualizarTotalParcial(); //Atualiza o total geral
             });
@@ -294,11 +301,11 @@ export const initializeSales = (api) => {
                     <label>Forma de pagamento:</label>
                     <select id="forma-pagamento">
                         <option value="">Selecione...</option>
-                        <option value="pix">Pix</option>
-                        <option value="credito">Cartão de Crédito</option>
-                        <option value="debito">Cartão de Débito</option>
-                        <option value="dinheiro">Dinheiro</option>
-                        <option value="pendente">Pendente</option>
+                        <option value="PIX">Pix</option>
+                        <option value="CARTAO_DE_CREDITO">Cartão de Crédito</option>
+                        <option value="CARTAO_DE_DEBITO">Cartão de Débito</option>
+                        <option value="DINHEIRO">Dinheiro</option>
+                        <option value="PENDENTE">Pendente</option>
                     </select>
                 </div>
             </div>
@@ -347,6 +354,25 @@ export const initializeSales = (api) => {
                     metodo: formaPagamento.value,
                     valorTotal: total
                 };
+
+                const obj = {
+                    itens: novaVenda.produtos,
+                    companyId: data.companyId,
+                    clientId: parseInt(clienteSelecionado.id),
+                    total: total,
+                    paymentWay: formaPagamento.value,
+                    cashRegisterId: caixaInfo.id
+                }
+
+                console.log(obj)
+
+                const response = await api.sendPostRequest("/sales/new",obj);
+
+                if(response.error){
+                    showAlert("Erro ao salvar venda");
+                    return
+                }
+
                 console.log(novaVenda);
 
                 vendasDoTurno.push(novaVenda); //Adiciona a venda à lista do turno para o resumo do fechamento do caixa

@@ -2,37 +2,55 @@ package com.example.backend.controllers;
 
 import com.example.backend.DTOs.sales.CashRegisterDTO;
 import com.example.backend.DTOs.sales.InitCashRegisterDTO;
+import com.example.backend.DTOs.sales.SaleCreateDTO;
 
 import com.example.backend.models.CashRegister;
+import com.example.backend.models.Client;
 import com.example.backend.models.Company;
+import com.example.backend.models.Product;
 import com.example.backend.models.User;
+
 import com.example.backend.repository.UserRepository;
 import com.example.backend.repository.CashRegisterRepository;
+import com.example.backend.repository.ClientRepository;
 import com.example.backend.repository.CompanyRepository;
+import com.example.backend.repository.ProductRepository;
+import com.example.backend.repository.SaleItemRepository;
+
 import com.example.backend.services.Logger;
-import org.apache.juli.logging.Log;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/sales")
-public class SalesController {
+public class SalesController{
     private CashRegisterRepository cashRegisterRepository;
     private CompanyRepository companyRepository;
+    private ProductRepository productRepository;
     private UserRepository userRepository;
+    private ClientRepository clientRepository;
+    private SaleItemRepository saleItemRepository;
 
     public SalesController(
+            SaleItemRepository saleItemRepository,
+            ClientRepository clientRepository,
+            ProductRepository productRepository,
             CashRegisterRepository cashRegisterRepository,
             UserRepository userRepository,
             CompanyRepository companyRepository
-    ){
+    ){  
+        this.saleItemRepository = saleItemRepository;
+        this.clientRepository = clientRepository;
+        this.productRepository = productRepository;
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
         this.cashRegisterRepository = cashRegisterRepository;
@@ -43,7 +61,7 @@ public class SalesController {
     * usuário inicia venda ->
     * usuário seleciona o cliente ->
     * adiciona produtos ->
-    * confirma ou cancela venda ->
+    * confirma ou cancela venda ->  
     * FIM
     * */
 
@@ -135,7 +153,27 @@ public class SalesController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<?> addNewSale(){
+    public ResponseEntity<?> addNewSale(@RequestBody SaleCreateDTO dto){
+        Logger.warn("salvando venda...");
+        Client client = clientRepository.findById(dto.clientId()).orElse(null);
+
+        if(client == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message","cliente não encontrado"));
+        }
+
+        Logger.simpleMessage("Cliente: "+client.getName());
+
+        List<Product> products = productRepository.findByCompany_id(dto.companyId());
+        Set<Long> ids = products.stream().map(p -> p.getId()).collect(Collectors.toSet());
+
+        boolean allProductExists = dto.itens().stream()
+        .allMatch(p -> ids.contains(p.productId()));
+
+        if(!allProductExists){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message","produto invalido encontrado!"));
+        }
+
+        Logger.simpleMessage("produtos:  "+dto.itens().toString());
 
         return ResponseEntity.ok("");
     }

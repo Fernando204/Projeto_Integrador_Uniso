@@ -4,12 +4,47 @@ const btnEnviarCodigo = document.getElementById("btn-enviar-codigo");
 const btnRedefinirSenha = document.getElementById("btn-redefinir-senha");
 const btnVoltarPasso1 = document.getElementById("btn-voltar-passo1");
 
+
+function showAlert(message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+}
+
+function showConfirm(message) {
+    return new Promise(resolve => {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast toast-confirm";
+        toast.innerHTML = `
+            <span>${message}</span>
+            <div class="toast-buttons">
+                <button class="btn-sim">Sim</button>
+                <button class="btn-nao">Não</button>
+            </div>
+        `;
+        container.appendChild(toast);
+
+        toast.querySelector(".btn-sim").onclick = () => {
+            toast.remove();
+            resolve(true);
+        };
+        toast.querySelector(".btn-nao").onclick = () => {
+            toast.remove();
+            resolve(false);
+        };
+    });
+}
+
 // PASSO 1 — Enviar código
 btnEnviarCodigo.addEventListener("click", async () => {
     const email = document.getElementById("recover-email").value;
 
     if (!email) {
-        alert("Por favor, digite seu e-mail.");
+        showAlert("Por favor, digite seu e-mail.");
         return;
     }
 
@@ -19,7 +54,7 @@ btnEnviarCodigo.addEventListener("click", async () => {
         passo1.style.display = "none";
         passo2.style.display = "block";
     } catch (error) {
-        alert("Erro ao enviar código. Tente novamente.");
+        showAlert("Erro ao enviar código. Tente novamente.");
     }
 });
 
@@ -30,22 +65,22 @@ btnRedefinirSenha.addEventListener("click", async () => {
     const confirmarSenha = document.getElementById("confirmar-nova-senha").value;
 
     if (!codigo || !novaSenha || !confirmarSenha) {
-        alert("Por favor, preencha todos os campos.");
+        showAlert("Por favor, preencha todos os campos.");
         return;
     }
 
     if (novaSenha !== confirmarSenha) {
-        alert("As senhas não coincidem.");
+        showAlert("As senhas não coincidem.");
         return;
     }
 
     try {
         // TODO: await api.sendPostRequest("/auth/reset-password", { codigo, novaSenha });
         console.log("Senha redefinida com sucesso!"); // simulado
-        alert("Senha redefinida com sucesso!");
-        window.location.href = "loginPage.html";
+        showAlert("Senha redefinida com sucesso!");
+        window.location.href = "http://localhost:8080/login";
     } catch (error) {
-        alert("Erro ao redefinir senha. Tente novamente.");
+        showAlert("Erro ao redefinir senha. Tente novamente.");
     }
 });
 

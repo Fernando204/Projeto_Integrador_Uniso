@@ -11,6 +11,7 @@ import { ApiConnection } from "./ApiConnection.js";
 export class Router {
     api = null;
     container = null;
+    cachedHtml;
 
     constructor(container, api) {
         this.container = container;
@@ -82,14 +83,14 @@ export class Router {
             return;
         }
 
-        const res = await fetch(route.path);
-        const html = await res.text();
-
-        this.container.innerHTML = html;
-
-        if (route.function) {
-            route.function();
+        if (!route.cachedHtml) {
+            this.container.innerHTML = `<div class="loading-spinner">...</div>`;
+            const res = await fetch(route.path);
+            route.cachedHtml = await res.text();
         }
+    
+        this.container.innerHTML = route.cachedHtml;
+        if (route.function) route.function();
     }
 
 }

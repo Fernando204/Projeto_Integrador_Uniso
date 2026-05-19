@@ -24,6 +24,7 @@ const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
 const settingsNavBtn = document.getElementById("settingsNavBtn");
 const mainHeader = document.getElementById("mainHeader");
 const apiConnection = new ApiConnection();
+
 const router = new Router(contentBox,apiConnection);
 const SERVER_URL = "http://localhost:8080";
 
@@ -114,6 +115,13 @@ const checkSession = async () => {
 };
 checkSession();
 
+async function preloadRoutes() {
+    for (const route of Object.values(router.routes)) {
+        const res = await fetch(route.path);
+        route.cachedHtml = await res.text();
+    }
+}
+
 let profileCardOpened = false;
 let notifyCardOpened = false;
 
@@ -124,6 +132,8 @@ function initializeMain() {
     }
     contentBox.classList.remove("loading");
     router.changeView("/");
+
+    preloadRoutes();
 
     // Nav buttons
     changeButtons.forEach((bt) => {

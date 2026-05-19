@@ -13,6 +13,40 @@ const enderecoinput = document.getElementById("endereco");
 
 const confirmBt = document.getElementById("confirmBt");
 
+function showAlert(message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+}
+
+function showConfirm(message) {
+    return new Promise(resolve => {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast toast-confirm";
+        toast.innerHTML = `
+            <span>${message}</span>
+            <div class="toast-buttons">
+                <button class="btn-sim">Sim</button>
+                <button class="btn-nao">Não</button>
+            </div>
+        `;
+        container.appendChild(toast);
+
+        toast.querySelector(".btn-sim").onclick = () => {
+            toast.remove();
+            resolve(true);
+        };
+        toast.querySelector(".btn-nao").onclick = () => {
+            toast.remove();
+            resolve(false);
+        };
+    });
+}
+
 confirmBt.addEventListener("click",()=>{
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
@@ -29,55 +63,55 @@ confirmBt.addEventListener("click",()=>{
     }
 
     if (!name) {
-        alert("Por favor, preencha o nome completo.");
+        showAlert("Por favor, preencha o nome completo.");
         nameInput.focus();
         return;
     }
 
     if(!endereco){
-        alert("Por favor, preencha o endereço");
+        showAlert("Por favor, preencha o endereço");
         enderecoinput.focus();
         return;
     }
 
     if(!phone){
-        alert("Por favor, insira um numero de telefone");
+        showAlert("Por favor, insira um numero de telefone");
         phoneInput.focus();
         return;
     }
 
     if (!email) {
-        alert("Por favor, preencha o e-mail.");
+        showAlert("Por favor, preencha o e-mail.");
         emailInput.focus();
         return;
     }
 
     if (!isValidEmail(email)) {
-        alert("Por favor, insira um e-mail válido.");
+        showAlert("Por favor, insira um e-mail válido.");
         emailInput.focus();
         return;
     }
 
     if (!companyName) {
-        alert("Por favor, preencha a razão social.");
+        showAlert("Por favor, preencha a razão social.");
         companyNameInput.focus();
         return;
     }
 
     if (!cnpj) {
-        alert("Por favor, preencha o CNPJ.");
+        showAlert("Por favor, preencha o CNPJ.");
         cnpjInput.focus();
         return;
     }
 
     if (!password) {
-        alert("Por favor, preencha a senha.");
+        showAlert("Por favor, preencha a senha.");
         passwordInput.focus();
         return;
     }
 
     if (password !== confirmPassword) {
-        alert("As senhas não conferem. Por favor, confirme a senha corretamente.");
+        showAlert("As senhas não conferem. Por favor, confirme a senha corretamente.");
         confirmPasswordInput.focus();
         return;
     }
@@ -98,7 +132,7 @@ confirmBt.addEventListener("click",()=>{
     api.sendPostRequest("/auth/register",obj).then(async res =>{
         
         if(res.error){
-            alert(res.message);
+            showAlert(res.message);
             console.log(res);
             return;
         }
