@@ -176,8 +176,8 @@ button {
 
 button:hover { font-weight: 900; }
 
-.register-link { margin-top: 15px; text-align: center; }
-.register-link a { color: #90CAF9; text-decoration: none; font-size: 0.9rem; }
+.auth-link { margin-top: 15px; text-align: center; }
+.auth-link a { color: #90CAF9; text-decoration: none; font-size: 0.9rem; }
 
 @media (max-width: 900px) {
     .split-screen { flex-direction: column; }
@@ -193,3 +193,10 @@ button:hover { font-weight: 900; }
 
 .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
 .field { display: flex; flex-direction: column; width: 100%; }
+
+.recover-descricao {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--input-placeholder);
+    margin-bottom: 20px;
+}

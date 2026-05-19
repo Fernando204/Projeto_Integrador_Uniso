@@ -21,6 +21,7 @@ export async function initializeColaboradores(api) {
                             <span>Status: ${func.status} <span class="dot dot-${func.status.toLowerCase()}"></span></span>
                             <span>Turno: ${func.turno}</span>
                             <span>Contato: ${func.contato}</span>
+                            <span style="display:none">Salario: ${func.salary || '0'}</span>
                             <div class="produto-botoes">
                                 <button class="btn-editar">Editar</button>
                                 <button class="btn-maisinfo">Mais informações</button>
@@ -33,7 +34,8 @@ export async function initializeColaboradores(api) {
         } catch (error) {
             console.warn("API offline. Mantendo colaboradores estáticos para teste.");
         } finally {
-            atualizarContador(); // Atualiza o número (seja 5 estáticos ou X do banco)
+            atualizarContador(); // Atualiza o número
+            atualizarCustoFolha();
         }
     }
 
@@ -44,6 +46,21 @@ export async function initializeColaboradores(api) {
         if (displayContador) { //Se o displayContador existir, roda o código abaixo
             displayContador.innerText = total; //Escreve o ''total'' da quantidade de funcionário no elemento que exibe a quantidade de funcionários (displayContador)
         }
+    }
+
+    function atualizarCustoFolha() {
+        const cards = document.querySelectorAll(".funcionario-info");
+        let total = 0;
+        cards.forEach(card => {
+            const spans = card.querySelectorAll("span");
+            const salarioSpan = Array.from(spans).find(s => s.innerText.startsWith("Salario: "));
+            if (salarioSpan) {
+                const valor = parseFloat(salarioSpan.innerText.replace("Salario: ", "")) || 0;
+                total += valor;
+            }
+        });
+        const el = document.getElementById("custo-folha");
+        if (el) el.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 
 
@@ -117,7 +134,8 @@ export async function initializeColaboradores(api) {
                 nascimento: document.getElementById("nascimento").value,
                 cargo: document.getElementById("cargo").value,
                 turno: document.getElementById("turno").value,
-                contato: document.getElementById("contato").value
+                contato: document.getElementById("contato").value,
+                salary: document.getElementById("salario").value
             };
 
             try {
@@ -154,6 +172,11 @@ export async function initializeColaboradores(api) {
 
             const dataBruta = atributos[0].innerText.replace("Data: ", "");
             const dataFormatada = dataBruta.split('-').reverse().join('/');
+
+            const salarioValor = atributos[6] ? atributos[6].innerText.replace("Salario: ", "") : "N/A";
+            const salarioTexto = document.getElementById("info-salario-texto");
+            const btnToggle = document.getElementById("btn-toggle-salario");
+
         
             document.getElementById("info-nome").innerText = nome;
             document.getElementById("info-nascimento").innerText = dataFormatada;
@@ -162,6 +185,20 @@ export async function initializeColaboradores(api) {
             // Pulei o atributo[3] pq ele seria o span da bolinha de status
             document.getElementById("info-turno").innerText = atributos[4].innerText.replace("Turno: ", "");
             document.getElementById("info-contato").innerText = atributos[5].innerText.replace("Contato: ", "");
+
+            salarioTexto.innerText = "••••••";
+            salarioTexto.dataset.valor = salarioValor;
+            salarioTexto.dataset.visivel = "false";
+
+            btnToggle.onclick = () => {
+                if (salarioTexto.dataset.visivel === "false") {
+                    salarioTexto.innerText = `R$ ${parseFloat(salarioValor).toFixed(2).replace('.', ',')}`;
+                    salarioTexto.dataset.visivel = "true";
+                } else {
+                    salarioTexto.innerText = "••••••";
+                    salarioTexto.dataset.visivel = "false";
+                }
+            };
 
             modalInfo.style.display = "block"; 
             }
@@ -192,6 +229,7 @@ export async function initializeColaboradores(api) {
                 
                 document.getElementById("editar-turno").value = atributos[4].innerText.replace("Turno: ", ""); //Vai dar replace na palavra "Turno" por nada, vai encontrar o input lá no modal-editar e vai colocar o turno neste input e acessá-lo com .value
                 document.getElementById("editar-contato").value = atributos[5].innerText.replace("Contato: ", "");
+                document.getElementById("editar-salario").value = atributos[6] ? atributos[6].innerText.replace("Salario: ", "") : "";
 
                 modalEditar.style.display = "block";
             }
@@ -215,13 +253,17 @@ export async function initializeColaboradores(api) {
                 const bolinha = cardSendoEditado.querySelector(".dot"); //teste
                 const novoTurno = document.getElementById("editar-turno").value; //teste
                 const novoContato = document.getElementById("editar-contato").value; //teste
-            
+                const novoSalario = document.getElementById("editar-salario").value;            
 
                 cardSendoEditado.querySelector("p").innerText = novoNome; //teste
                 cardSendoEditado.querySelectorAll("span")[1].innerText = "Cargo: " + novoCargo; //teste
                 cardSendoEditado.querySelectorAll("span")[2].childNodes[0].textContent = "Status: " + novoStatus + " "; //teste, o childNodes[0] só mexe no primeiro item do span[1], que é o texto: "Status: Ativo"
                 cardSendoEditado.querySelectorAll("span")[4].innerText = "Turno: " + novoTurno; //teste
                 cardSendoEditado.querySelectorAll("span")[5].innerText = "Contato: " + novoContato; //teste
+                if (cardSendoEditado.querySelectorAll("span")[6]) { 
+                    cardSendoEditado.querySelectorAll("span")[6].innerText = "Salario: " + novoSalario;
+                }
+                   
 
                 bolinha.classList.remove("dot-ativo", "dot-ferias", "dot-licenca"); //teste
 
@@ -236,10 +278,11 @@ export async function initializeColaboradores(api) {
                 try {
                     // Quando o Fernando liberar, descomento a linha abaixo:
                     const id = cardSendoEditado.getAttribute("data-id");
-                    // await api.sendPutRequest(`/colaboradores/${id}`, { nome: novoNome, ... }); ESPERAR O ENDPOINT CORRETO
+                    // await api.sendPutRequest(`/colaboradores/${id}`, { nome: novoNome, salary: novoSalario, ... }); ESPERAR O ENDPOINT CORRETO
 
                     alert("Dados atualizados (Teste Local)!");
                     modalEditar.style.display = "none";
+                    atualizarCustoFolha();
                 } catch (error) {
                     alert("Erro ao salvar no servidor");
                 }

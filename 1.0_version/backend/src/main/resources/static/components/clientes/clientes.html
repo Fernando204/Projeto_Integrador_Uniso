@@ -65,6 +65,36 @@
                 <p><strong>Total de Compras:</strong> <span id="info-cliente-compras"></span></p>
                 <p><strong>Total Gasto:</strong> <span id="info-cliente-gastos"></span></p>
             </div>
+            <div class="historico-compras-container">
+                <h3>Histórico de Compras</h3>
+                <div id="historico-compras-lista">
+                    <p id="historico-loading">Carregando...</p>
+                </div>
+                <p id="aviso-conta-atrasada" style="display:none; color:#f87171; font-weight:bold;">
+                    ⚠ Este cliente possui conta(s) em atraso!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-editar-cliente" class="modal">
+        <div class="modal-content">
+            <span class="close-edit-cliente">&times;</span>
+            <h2>Editar Cliente</h2>
+            <form id="form-editar-cliente">
+                <input type="text" id="editar-cliente-nome" placeholder="Nome Completo">
+                <input type="email" id="editar-cliente-email" placeholder="E-mail">
+                <label>Data de Nascimento:</label>
+                <input type="date" id="editar-cliente-nascimento">
+                <label>Pagamento Preferido:</label>
+                <select id="editar-cliente-pagamento">
+                    <option value="PIX">Pix</option>
+                    <option value="CARTAO_DE_CREDITO">Cartão de Crédito</option>
+                    <option value="CARTAO_DE_DEBITO">Cartão de Débito</option>
+                    <option value="DINHEIRO">Dinheiro</option>
+                </select>
+                <button type="submit" class="btn_clientes">Salvar Alterações</button>
+            </form>
         </div>
     </div>
 
