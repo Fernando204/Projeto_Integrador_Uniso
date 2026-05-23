@@ -22,6 +22,16 @@ export function initializeClientes(api) {
         return mapa[valor] || valor;
     }
 
+    function desformatarPagamento(valor) {
+        const mapa = {
+            "Pix": "PIX",
+            "Cartão de Crédito": "CARTAO_DE_CREDITO",
+            "Cartão de Débito": "CARTAO_DE_DEBITO",
+            "Dinheiro": "DINHEIRO"
+        };
+        return mapa[valor] || valor;
+    }
+
     // --- FILTRO DE CLIENTES ---
     if (inputBusca) {
         inputBusca.addEventListener("input", () => {
@@ -198,7 +208,7 @@ export function initializeClientes(api) {
                 document.getElementById("editar-cliente-nome").value = cardClienteSendoEditado.querySelector("p").innerText;
                 document.getElementById("editar-cliente-email").value = atributos[0].innerText;
                 document.getElementById("editar-cliente-nascimento").value = atributos[2].innerText;
-                document.getElementById("editar-cliente-pagamento").value = atributos[4].innerText.replace("Prioridade: ", "");
+                document.getElementById("editar-cliente-pagamento").value = desformatarPagamento(atributos[4].innerText.replace("Prioridade: ", ""));
 
                 modalEditarCliente.style.display = "block";
             }

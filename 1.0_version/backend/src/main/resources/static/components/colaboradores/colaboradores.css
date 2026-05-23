@@ -1,4 +1,5 @@
-.colaboradores-section .main {
+.colaboradores-section .main,
+.colaboradores-section #funcionariostitle {
     margin-left: 100px;
 }
 
@@ -21,14 +22,14 @@
     color: #cbd5e1;
     margin: 0px;
     position: relative;
-    top: -25px;
+    top: -10px;
 }
 
 .card-funcionarios h3 {
     margin: 0;
     font-size: 28px;
     position: relative;
-    top: -5px;
+    top: 0px;
 }
 
 .btn_funcionarios {
@@ -41,6 +42,7 @@
     font-size: 18px;
     align-self: flex-end;
     margin-left: auto;
+    margin-top: 30px;
 }
 
 .btn_funcionarios:hover {
@@ -115,7 +117,7 @@
     align-items: flex-start;
     gap: 20px;
     margin-top: 30px;
-    width: 76vw;
+    width: 75vw;
     margin-left: 100px;
 }
 
