@@ -1,5 +1,32 @@
 let cardSendoEditado = null;
 
+function showAlert(message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+}
+
+function showConfirm(message) {
+    return new Promise(resolve => {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast toast-confirm";
+        toast.innerHTML = `
+            <span>${message}</span>
+            <div class="toast-buttons">
+                <button class="btn-sim">Sim</button>
+                <button class="btn-nao">Não</button>
+            </div>
+        `;
+        container.appendChild(toast);
+        toast.querySelector(".btn-sim").onclick = () => { toast.remove(); resolve(true); };
+        toast.querySelector(".btn-nao").onclick = () => { toast.remove(); resolve(false); };
+    });
+}
+
 export async function initializeColaboradores(api) { 
 
     const containerCards = document.querySelector(".funcionarios-info"); //Fica parado "ouvindo" qualquer clique que aconteça no card pai e depois filtra se foi no botão de excluir, mais-info ou editar
@@ -90,6 +117,28 @@ export async function initializeColaboradores(api) {
         });
     }
 
+    // --- FORMATAÇÃO DO CONTATO ---
+    const inputContato = document.getElementById("contato");
+    if (inputContato) {
+        inputContato.addEventListener("input", function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 6) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+            else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+            this.value = v;
+        });
+    }
+
+    const inputCpf = document.getElementById("cpf");
+    if (inputCpf) {
+        inputCpf.addEventListener("input", function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+            else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+            else if (v.length > 3) v = v.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+            this.value = v;
+        });
+    }
+
     if (containerCards) { //Excluir Funcionário
         containerCards.addEventListener("click", async (evento) => {
             if (evento.target.classList.contains("btn-excluir")) { // Verifica se o que foi clicado EXATAMENTE é o botão de excluir
@@ -98,14 +147,14 @@ export async function initializeColaboradores(api) {
                 const nomeFuncionario = card.querySelector("p").innerText; //Pega o nome do funcionário e guarda numa constante
                 const idColaborador = card.getAttribute("data-id"); // Pega o ID do banco, PERGUNTAR AO FERNANDO SOBRE ISSO
 
-                if (confirm(`Tem certeza que deseja excluir o colaborador ${nomeFuncionario}?`)) {
+                if (await showConfirm(`Tem certeza que deseja excluir o colaborador ${nomeFuncionario}?`)) {
                     try {
                         await api.sendDeleteRequest(`/colaboradores/${idColaborador}`); //ESPERAR O ENDPOINT CORRETO
                         card.remove();
                         atualizarContador();
-                        alert("Colaborador removido com sucesso!");
+                        showAlert("Colaborador removido com sucesso!");
                     } catch (error) {
-                        alert("Erro ao excluir no servidor.");
+                        showAlert("Erro ao excluir no servidor.");
                     }
                 }
             }
@@ -140,11 +189,11 @@ export async function initializeColaboradores(api) {
 
             try {
                 await api.sendPostRequest("/colaboradores/save", dadosParaEnviar); //ESPERAR O ENDPOINT CORRETO
-                alert("Funcionário cadastrado com sucesso");
+                showAlert("Funcionário cadastrado com sucesso");
                 await carregarColaboradores(); // Recarrega a lista do banco
             } catch(error) {
                 console.error("Erro ao registrar:", error);
-                alert("Erro ao salvar no servidor.");
+                showAlert("Erro ao salvar no servidor.");
             } finally {
                 modal.style.display = "none";
                 form.reset();
@@ -280,11 +329,11 @@ export async function initializeColaboradores(api) {
                     const id = cardSendoEditado.getAttribute("data-id");
                     // await api.sendPutRequest(`/colaboradores/${id}`, { nome: novoNome, salary: novoSalario, ... }); ESPERAR O ENDPOINT CORRETO
 
-                    alert("Dados atualizados (Teste Local)!");
+                    showAlert("Dados atualizados (Teste Local)!");
                     modalEditar.style.display = "none";
                     atualizarCustoFolha();
                 } catch (error) {
-                    alert("Erro ao salvar no servidor");
+                    showAlert("Erro ao salvar no servidor");
                 }
             };
         }

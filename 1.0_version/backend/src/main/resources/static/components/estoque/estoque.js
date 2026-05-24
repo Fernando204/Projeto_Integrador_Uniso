@@ -1,5 +1,38 @@
 let produtoSendoEditado = null;
 
+function showAlert(message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+}
+function showConfirm(message) {
+    return new Promise(resolve => {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast toast-confirm";
+        toast.innerHTML = `
+            <span>${message}</span>
+            <div class="toast-buttons">
+                <button class="btn-sim">Sim</button>
+                <button class="btn-nao">Não</button>
+            </div>
+        `;
+        container.appendChild(toast);
+
+        toast.querySelector(".btn-sim").onclick = () => {
+            toast.remove();
+            resolve(true);
+        };
+        toast.querySelector(".btn-nao").onclick = () => {
+            toast.remove();
+            resolve(false);
+        };
+    });
+}
+
 export function initializeEstoque(api) {
     const container = document.querySelector(".estoque-info");
 
@@ -12,50 +45,17 @@ export function initializeEstoque(api) {
         }
     }
 
-    function showAlert(message) {
-        const container = document.getElementById("toast-container");
-        const toast = document.createElement("div");
-        toast.className = "toast";
-        toast.innerText = message;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 4000); // some após 4 segundos
-    }
-    function showConfirm(message) {
-        return new Promise(resolve => {
-            const container = document.getElementById("toast-container");
-            const toast = document.createElement("div");
-            toast.className = "toast toast-confirm";
-            toast.innerHTML = `
-                <span>${message}</span>
-                <div class="toast-buttons">
-                    <button class="btn-sim">Sim</button>
-                    <button class="btn-nao">Não</button>
-                </div>
-            `;
-            container.appendChild(toast);
-
-            toast.querySelector(".btn-sim").onclick = () => {
-                toast.remove();
-                resolve(true);
-            };
-            toast.querySelector(".btn-nao").onclick = () => {
-                toast.remove();
-                resolve(false);
-            };
-        });
-    }
-
     // Adiciona card na tela após cadastro
     function adicionarCardNaTela(dados) {
         let dataAdicao = new Date(dados.createdAt);
         dataAdicao = dataAdicao.toLocaleDateString('pt-BR');
-        console.log(dados)
         const novoCardHTML = `
             <div class="produto-info" data-id="${dados.id}">
                 <p>${dados.name}</p>
-                <span class="info-adicao-card">DataAdicao: ${dataAdicao}</span>
+                <span>${dados.description}</span>
+                <span style="display:none">DataAdicao: ${dataAdicao}</span>
+                <span style="display:none">Validade: ${dados.validade || ''}</span>
                 <span>Preço: R$ ${parseFloat(dados.sellingPrice).toFixed(2).replace('.', ',')}</span>
-
                 <span>Quantidade no estoque: ${dados.qty}</span>
                 <div class="produto-botoes">
                     <button class="btn-editar">Editar</button>
@@ -143,7 +143,9 @@ export function initializeEstoque(api) {
 
         products.forEach(produto => {
             adicionarCardNaTela(produto);
-        })
+        });
+
+        atualizarContador();
     }
 
     getAllProducts();
@@ -190,9 +192,9 @@ export function initializeEstoque(api) {
                 sellingPrice: parseFloat(document.getElementById("produto-preco-venda").value),
                 profitRate: parseFloat(document.getElementById("lucro-desejado").value),
                 minQuantity: parseInt(document.getElementById("produto-min-quantidade").value),
+                validade: document.getElementById("produto-validade").value,
                 unity: document.getElementById("unidade").value
             };
-            console.log(dadosParaEnviar);
             const bt = e.submitter;
             bt.innerHTML = "Salvando...";
             let saved = false;
@@ -202,13 +204,11 @@ export function initializeEstoque(api) {
                     throw new Error(product.message);
                 }
 
-                container.innerHtml = "";
-                adicionarCardNaTela(product);
-                atualizarContador();
+                await getAllProducts()
                 saved = true;
             } catch (error) {
                 console.error("Erro ao cadastrar produto:", error);
-                alert("O servidor não respondeu corretamente.");
+                showAlert("O servidor não respondeu corretamente.");
             } finally {
                 if(saved) showAlert("Produto salvo!");
                 bt.innerHTML = "Salvar Produto";
@@ -243,17 +243,15 @@ export function initializeEstoque(api) {
                 const nome = card.querySelector("p").innerText;
                 const atributos = card.querySelectorAll("span");
 
-                atributos.forEach(a =>{
-                    console.log(a.innerHTML);
-                })
-
-                const dataAdicaoBruta = atributos[0].innerText.replace("DataAdicao: ", "");
+                const dataAdicaoBruta = atributos[1].innerText.replace("DataAdicao: ", "");
                 const dataAdicaoFormatada = dataAdicaoBruta.split('-').reverse().join('/');
 
                 document.getElementById("info-produto-nome").innerText = nome;
-                document.getElementById("info-produto-preco").innerText = atributos[1].innerText.replace("Preco: ", "");
+                document.getElementById("info-produto-descricao").innerText = atributos[0].innerText;
                 document.getElementById("info-produto-adicao").innerText = dataAdicaoFormatada;
-                document.getElementById("info-produto-quantidade").innerText = atributos[2].innerText.replace("Quantidade no estoque: ", "");
+                document.getElementById("info-produto-validade").innerText = atributos[2].innerText.replace("Validade: ", "") || "N/A";
+                document.getElementById("info-produto-preco").innerText = atributos[3].innerText.replace("Preço: ", "");
+                document.getElementById("info-produto-quantidade").innerText = atributos[4].innerText.replace("Quantidade no estoque: ", "");
 
                 modalInfo.style.display = "block";
             }
@@ -269,9 +267,9 @@ export function initializeEstoque(api) {
                 const atributos = produtoSendoEditado.querySelectorAll("span");
 
                 document.getElementById("editar-produto-nome").value = produtoSendoEditado.querySelector("p").innerText;
-                document.getElementById("editar-produto-preco").value = atributos[1].innerText.replace("Preco: R$ ", "").replace(",", ".");
+                document.getElementById("editar-produto-preco").value = atributos[3].innerText.replace("Preço: R$ ", "").replace(",", ".");
                 document.getElementById("editar-produto-validade").value = atributos[2].innerText.replace("Validade: ", "").split('/').reverse().join('-');
-                document.getElementById("editar-produto-quantidade").value = atributos[3].innerText.replace("Quantidade no estoque: ", "");
+                document.getElementById("editar-produto-quantidade").value = atributos[4].innerText.replace("Quantidade no estoque: ", "");
 
                 modalEditar.style.display = "block";
             }
@@ -293,12 +291,12 @@ export function initializeEstoque(api) {
                 const novaQuantidade = document.getElementById("editar-produto-quantidade").value;
 
                 produtoSendoEditado.querySelector("p").innerText = novoNome;
-                produtoSendoEditado.querySelectorAll("span")[1].innerText = "Preco: R$ " + parseFloat(novoPreco).toFixed(2).replace('.', ',');
                 produtoSendoEditado.querySelectorAll("span")[2].innerText = "Validade: " + novaValidade.split('-').reverse().join('/');
-                produtoSendoEditado.querySelectorAll("span")[3].innerText = "Quantidade no estoque: " + novaQuantidade;
+                produtoSendoEditado.querySelectorAll("span")[3].innerText = "Preço: R$ " + parseFloat(novoPreco).toFixed(2).replace('.', ',');
+                produtoSendoEditado.querySelectorAll("span")[4].innerText = "Quantidade no estoque: " + novaQuantidade;
 
                 // TODO: quando tiver endpoint → await api.sendPutRequest("/estoque/produto/" + id, dadosAtualizados) ESPERAR O ENDPOINT CORRETO
-                alert("Produto atualizado com sucesso!");
+                showAlert("Produto atualizado com sucesso!");
                 modalEditar.style.display = "none";
             };
         }
@@ -315,5 +313,4 @@ export function initializeEstoque(api) {
     // const produtos = await api.sendGetRequest("/estoque/produtos"); ESPERAR O ENDPOINT CORRETO
     // produtos.forEach(p => adicionarCardNaTela(p));
 
-    atualizarContador();
 }

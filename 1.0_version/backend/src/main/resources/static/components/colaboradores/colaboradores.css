@@ -235,7 +235,8 @@
 
 /* Selects */
 #modal-editar #editar-status,
-#modal-colaborador-cadastro #turno {
+#modal-colaborador-cadastro #turno,
+#modal-editar #editar-turno {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -254,14 +255,16 @@
 }
 
 #modal-editar #editar-status:focus,
-#modal-colaborador-cadastro #turno:focus {
+#modal-colaborador-cadastro #turno:focus,
+#modal-editar #editar-turno:focus {
     outline: none;
     border-color: #3498db;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
 }
 
 #modal-editar #editar-status option,
-#modal-colaborador-cadastro #turno option {
+#modal-colaborador-cadastro #turno option,
+#modal-editar #editar-turno option {
     background-color: var(--sub-background);
     color: var(--main-text);
     padding: 10px;

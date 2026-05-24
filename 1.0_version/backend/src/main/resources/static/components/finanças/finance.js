@@ -13,7 +13,7 @@ function adicionarCardNaTela(dados) {
             <p><strong>${dados.name}</strong></p>
             <span>${dados.description}</span>
             <span>${dataFormatada}</span>
-            <span class="valor-transacao">${sinal} R$ ${parseFloat(dados.value).toFixed(2).replace('.', ',')}</span>
+            <span class="valor-transacao ${ehEntrada ? 'receita' : 'despesa'}">${sinal} R$ ${parseFloat(dados.value).toFixed(2).replace('.', ',')}</span>
         </div>
     `;
     container.innerHTML += novoCardHTML;
@@ -72,7 +72,7 @@ export function atualizarSaldos() {
 
     // Bônus: Se o saldo for negativo, fica vermelho. Se for positivo, fica branco.
     if (elSaldo) {
-        elSaldo.style.color = saldoTotal < 0 ? "#ff4d4d" : "white";
+        elSaldo.style.color = saldoTotal < 0 ? "var(--prejuizo)" : "var(--lucro)";
     }
 }
 
@@ -149,6 +149,8 @@ export async function initializeFinances(api){
                  } finally {
                      modal.style.display = "none";
                      form.reset();
+                     btn.disabled = false;
+                     btn.innerText = "Salvar Movimentação";
                  }
              });
          } else {
