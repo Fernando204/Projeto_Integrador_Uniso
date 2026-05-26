@@ -12,12 +12,50 @@ export function initializeClientes(api) {
 
     let data = JSON.parse(localStorage.getItem("user-data"));
 
+    function showAlert(message) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function showConfirm(message) {
+        return new Promise(resolve => {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            toast.className = "toast toast-confirm";
+            toast.innerHTML = `
+                <span>${message}</span>
+                <div class="toast-buttons">
+                    <button class="btn-sim">Sim</button>
+                    <button class="btn-nao">Não</button>
+                </div>
+            `;
+            container.appendChild(toast);
+
+            toast.querySelector(".btn-sim").onclick = () => { toast.remove(); resolve(true); };
+            toast.querySelector(".btn-nao").onclick = () => { toast.remove(); resolve(false); };
+        });
+    }
+
     function formatarPagamento(valor) {
         const mapa = {
             "PIX": "Pix",
             "CARTAO_DE_CREDITO": "Cartão de Crédito",
             "CARTAO_DE_DEBITO": "Cartão de Débito",
             "DINHEIRO": "Dinheiro"
+        };
+        return mapa[valor] || valor;
+    }
+
+    function desformatarPagamento(valor) {
+        const mapa = {
+            "Pix": "PIX",
+            "Cartão de Crédito": "CARTAO_DE_CREDITO",
+            "Cartão de Débito": "CARTAO_DE_DEBITO",
+            "Dinheiro": "DINHEIRO"
         };
         return mapa[valor] || valor;
     }
@@ -30,6 +68,18 @@ export function initializeClientes(api) {
                 const nomeCliente = card.querySelector("p").innerText.toLowerCase();
                 card.style.display = nomeCliente.includes(termoBusca) ? "grid" : "none";
             });
+        });
+    }
+
+    // --- FORMATAÇÃO DO CPF ---
+    const inputCpfCliente = document.getElementById("cliente-cpf");
+    if (inputCpfCliente) {
+        inputCpfCliente.addEventListener("input", function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+            else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+            else if (v.length > 3) v = v.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+            this.value = v;
         });
     }
 
@@ -102,9 +152,9 @@ export function initializeClientes(api) {
             try {
                 const res = await api.sendPostRequest("/client/create", dadosParaEnviar);
                 if (res.error) throw new Error(res.message || "Erro ao cadastrar cliente!");
-                alert("Cliente cadastrado com sucesso");
+                showAlert("Cliente cadastrado com sucesso");
             } catch (error) {
-                alert("Erro ao registrar ou servidor offline: " + error);
+                showAlert("Erro ao registrar ou servidor offline: " + error);
             } finally {
                 await carregarClientes();
                 modal.style.display = "none";
@@ -126,7 +176,9 @@ export function initializeClientes(api) {
                 document.getElementById("info-cliente-nome").innerText = nome;
                 document.getElementById("info-cliente-email").innerText = atributos[0].innerText;
                 document.getElementById("info-cliente-cpf").innerText = atributos[1].innerText;
-                document.getElementById("info-cliente-nascimento").innerText = atributos[2].innerText;
+                const dataNascBruta = atributos[2].innerText;
+                const dataNascFormatada = dataNascBruta.split('-').reverse().join('/');
+                document.getElementById("info-cliente-nascimento").innerText = dataNascFormatada; //Exibir dd/mm/aaaa ao invés de aaaa/mm/dd
                 document.getElementById("info-cliente-compras").innerText = atributos[3].innerText;
                 document.getElementById("info-cliente-pagamento").innerText = atributos[4].innerText.replace("Prioridade: ", "");
                 document.getElementById("info-cliente-gastos").innerText = atributos[5].innerText;
@@ -168,14 +220,14 @@ export function initializeClientes(api) {
                 const nomeCliente = card.querySelector("p").innerText;
                 const idCliente = card.getAttribute("data-id");
 
-                if (confirm(`Tem certeza que deseja excluir o cliente ${nomeCliente}?`)) {
+                if (await showConfirm(`Tem certeza que deseja excluir o cliente ${nomeCliente}?`)) {
                     try {
                         // TODO: await api.sendDeleteRequest("/client/delete/" + idCliente);
                         card.remove();
                         atualizarContador();
-                        alert("Cliente removido com sucesso!");
+                        showAlert("Cliente removido com sucesso!");
                     } catch (error) {
-                        alert("Erro ao excluir no servidor.");
+                        showAlert("Erro ao excluir no servidor.");
                     }
                 }
             }
@@ -198,7 +250,7 @@ export function initializeClientes(api) {
                 document.getElementById("editar-cliente-nome").value = cardClienteSendoEditado.querySelector("p").innerText;
                 document.getElementById("editar-cliente-email").value = atributos[0].innerText;
                 document.getElementById("editar-cliente-nascimento").value = atributos[2].innerText;
-                document.getElementById("editar-cliente-pagamento").value = atributos[4].innerText.replace("Prioridade: ", "");
+                document.getElementById("editar-cliente-pagamento").value = desformatarPagamento(atributos[4].innerText.replace("Prioridade: ", ""));
 
                 modalEditarCliente.style.display = "block";
             }
@@ -225,10 +277,10 @@ export function initializeClientes(api) {
                 try {
                     const id = cardClienteSendoEditado.getAttribute("data-id");
                     // TODO: await api.sendPutRequest("/client/update/" + id, { name: novoNome, email: novoEmail, birthDate: novoNascimento, favoritePayment: novoPagamento });
-                    alert("Cliente atualizado!");
+                    showAlert("Cliente atualizado!");
                     modalEditarCliente.style.display = "none";
                 } catch (error) {
-                    alert("Erro ao salvar no servidor.");
+                    showAlert("Erro ao salvar no servidor.");
                 }
             };
         }
