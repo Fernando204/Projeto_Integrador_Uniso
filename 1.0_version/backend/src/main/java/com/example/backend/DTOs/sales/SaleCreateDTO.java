@@ -12,7 +12,7 @@ public record SaleCreateDTO(
     Long clientId,
     BigDecimal total,
     PaymentWay paymentWay,
-    Long cashRegisterId
+    Long cashRegisterId,
 ){}
 
 /*

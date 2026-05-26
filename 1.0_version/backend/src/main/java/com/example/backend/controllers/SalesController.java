@@ -2,12 +2,17 @@ package com.example.backend.controllers;
 
 import com.example.backend.DTOs.sales.CashRegisterDTO;
 import com.example.backend.DTOs.sales.InitCashRegisterDTO;
-import com.example.backend.DTOs.sales.SaleCreateDTO;
 
+import com.example.backend.DTOs.sales.SaleCreateDTO;
+import com.example.backend.DTOs.sales.SaleItemDTO;
+import com.example.backend.enums.PaymentWay;
+import com.example.backend.enums.SaleStatus;
 import com.example.backend.models.CashRegister;
 import com.example.backend.models.Client;
 import com.example.backend.models.Company;
 import com.example.backend.models.Product;
+import com.example.backend.models.Sale;
+import com.example.backend.models.SaleItem;
 import com.example.backend.models.User;
 
 import com.example.backend.repository.UserRepository;
@@ -163,17 +168,43 @@ public class SalesController{
 
         Logger.simpleMessage("Cliente: "+client.getName());
 
-        List<Product> products = productRepository.findByCompany_id(dto.companyId());
-        Set<Long> ids = products.stream().map(p -> p.getId()).collect(Collectors.toSet());
+        List<Long> ids = dto.itens().stream()
+            .map(SaleItemDTO::productId)
+            .toList();
+            
+        List<Product> products = productRepository.findAllById(ids);
 
-        boolean allProductExists = dto.itens().stream()
-        .allMatch(p -> ids.contains(p.productId()));
+        Map<Long, Product> productMap = products
+            .stream()
+            .collect(Collectors.toMap(Product::getId, p->p));
 
-        if(!allProductExists){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message","produto invalido encontrado!"));
+        CashRegister cashRegister = cashRegisterRepository.findById(dto.cashRegisterId()).orElse(null);
+        if(cashRegister == null || cashRegister.isOpen()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message","Caixa não aberto"));
         }
 
         Logger.simpleMessage("produtos:  "+dto.itens().toString());
+
+        SaleStatus status = dto.paymentWay().equals(PaymentWay.PENDENTE) ? SaleStatus.PENDENTE : SaleStatus.FINALIZADA;
+
+        Sale sale = new Sale(
+                cashRegister,
+                dto.paymentWay(),
+                status,
+                dto.total(),
+                client
+            );
+
+        List<SaleItem> items = dto.itens()
+            .stream()
+            .map(i ->{
+                return new SaleItem(
+                    sale,
+                    productMap.get(i.productId()),
+                    i.qty(),
+                    i.price()
+                );
+        }).toList();
 
         return ResponseEntity.ok("");
     }

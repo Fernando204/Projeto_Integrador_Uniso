@@ -14,20 +14,18 @@ public class SaleItem {
     @ManyToOne
     @JoinColumn(name = "sale_id", nullable = false)
     private Sale sale;
-
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
-
     private BigDecimal subTotal;
-
     private int quantity;
 
     public SaleItem() {}
-    public SaleItem(Sale sale, Product product, int quantity) {
+    public SaleItem(Sale sale, Product product, int quantity,BigDecimal subtotal) {
         this.sale = sale;
         this.product = product;
         this.quantity = quantity;
+        this.subTotal = subtotal;
     }
 
     // Calcula o subtotal na hora, usando o preço atual do produto
