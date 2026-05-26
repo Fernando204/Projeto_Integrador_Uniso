@@ -201,8 +201,7 @@ public class SalesController{
                 return new SaleItem(
                     sale,
                     productMap.get(i.productId()),
-                    i.qty(),
-                    i.price()
+                    i.qty()
                 );
         }).toList();
 
