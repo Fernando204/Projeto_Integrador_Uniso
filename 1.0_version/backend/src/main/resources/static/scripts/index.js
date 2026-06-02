@@ -61,7 +61,7 @@ function setActiveButton(bt) {
 
 
 const redirectToLogin = () => {
-    location.href = SERVER_URL+"/login";
+    location.href ="/login";
 };
 
 window.addEventListener("popstate", () => {

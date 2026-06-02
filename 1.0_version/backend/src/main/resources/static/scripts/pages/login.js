@@ -59,7 +59,7 @@ const login = ()=>{
             return;
         }
         showAlert("Ususário logado com sucesso");
-        location.href  = "http://localhost:8080";
+        location.href  = "/";
 
     });
 }
