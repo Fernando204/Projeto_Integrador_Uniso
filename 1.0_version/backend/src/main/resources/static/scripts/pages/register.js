@@ -136,6 +136,6 @@ confirmBt.addEventListener("click",()=>{
             console.log(res);
             return;
         }
-        location.href = "loginPage.html";
+        location.href = "/login";
     })
 });

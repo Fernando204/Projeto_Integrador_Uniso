@@ -78,7 +78,7 @@ btnRedefinirSenha.addEventListener("click", async () => {
         // TODO: await api.sendPostRequest("/auth/reset-password", { codigo, novaSenha });
         console.log("Senha redefinida com sucesso!"); // simulado
         showAlert("Senha redefinida com sucesso!");
-        window.location.href = "http://localhost:8080/login";
+        window.location.href = "/login";
     } catch (error) {
         showAlert("Erro ao redefinir senha. Tente novamente.");
     }
