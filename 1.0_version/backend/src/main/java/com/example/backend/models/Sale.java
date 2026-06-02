@@ -100,7 +100,7 @@ public class Sale {
     }
 
     public void addItem(Product product, int quantity) {
-        SaleItem item = new SaleItem(this, product, quantity);
+        SaleItem item = new SaleItem(this, product, quantity,BigDecimal.ZERO);
         this.items.add(item);
         recalculate();
     }
