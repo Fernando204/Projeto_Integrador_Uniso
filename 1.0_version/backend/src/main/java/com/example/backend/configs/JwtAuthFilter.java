@@ -41,6 +41,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             "/scripts/classes/ApiConnection.js",
             "/scripts/classes/ApiConnection",
             "/stock/product/add",
+            "/images/icon-logo.png",
+            "/images/main-logo.png",
             
             "/components/clientes/clientes.js",
             "/components/clientes/clientes.html",
@@ -109,6 +111,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+        Logger.debug("JWT FILTER -> " + request.getRequestURI());
 
         if (request.getCookies() == null) {
             Logger.error("Nenhum cookie encontrado");
