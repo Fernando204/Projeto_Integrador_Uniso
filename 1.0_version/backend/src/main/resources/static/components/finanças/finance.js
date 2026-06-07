@@ -70,6 +70,10 @@ export function atualizarSaldos() {
     if (elEntradas) elEntradas.innerText = formatador.format(totalEntradas);
     if (elDespesas) elDespesas.innerText = formatador.format(totalDespesas);
 
+    elSaldo.title = (formatador.format(saldoTotal))
+    elEntradas.title = (formatador.format(totalEntradas))
+    elDespesas.title = (formatador.format(totalDespesas))
+
     // Bônus: Se o saldo for negativo, fica vermelho. Se for positivo, fica branco.
     if (elSaldo) {
         elSaldo.style.color = saldoTotal < 0 ? "var(--prejuizo)" : "var(--lucro)";

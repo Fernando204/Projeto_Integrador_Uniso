@@ -1,110 +1,373 @@
-.dashboard-section .main-container{
+/* ========== DASHBOARD SECTION ========== */
+
+.dashboard-section .main-container {
     margin-left: 3vw;
     padding-right: 5vw;
+    padding-bottom: 4vh;
 }
 
-.dashboard-section .cards-info-panel{
-    margin-top: 3vh;
+/* ---- Títulos ---- */
+.dashboard-section h1 {
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.15em;
+}
+
+.dashboard-section h4 {
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    font-weight: 400;
+    opacity: 0.55;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* ========== CARDS DE INFORMAÇÃO ========== */
+
+.dashboard-section .cards-info-panel {
+    margin-top: 2vh;
+    margin-bottom: 2.5vh;
     display: grid;
-    gap: 15px;
-
-    grid-template-rows: repeat(2, 2fr);
-    grid-template-columns: repeat(2,2fr);
-    margin-bottom: 20px;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
-.dashboard-section .card{
-    padding: 10px;
+
+.dashboard-section .card {
+    padding: 20px 18px;
     border-radius: 20px;
     background-color: var(--sub-background);
-    display: flex;
-    flex-direction: row;
-
-    align-items: center;
-    gap: 30px;
-}
-.dashboard-section .infosCard{
-    display: flex;
-    gap: 20px;
-    height: 50vh;
-}
-.dashboard-section .infosCard .card{
-    flex: 1;
-}
-.dashboard-section .resume-card{
-    padding: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    position: relative;
+
+    /* borda sutil */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    /* transição suave no hover */
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.dashboard-section .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Info cards (Saldo, Receitas, etc.) */
+.info-card {
+    flex-direction: column;
+    gap: 8px !important;
+    align-items: flex-start !important;
+    padding: 22px 20px !important;
+    cursor: default;
+}
+
+
+.info-card h1 {
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem) !important;
+    font-weight: 500 !important;
+    opacity: 0.55;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 !important;
+}
+
+.info-card h2 {
+    font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.1;
+    transition: opacity 0.3s ease;
+}
+
+/* Cores por tipo de card */
+.info-card .saldo   { color: #60d4f5; }
+.info-card .receita { color: #22c55e; }
+.info-card .despesa { color: #f97171; }
+.info-card .lucro   { color: #a78bfa; }
+
+/* Ícone decorativo no canto do info-card */
+.info-card .card-icon {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    opacity: 0.07;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ========== INFOS CARD (área de vendas) ========== */
+
+.dashboard-section .infosCard {
+    display: flex;
+    gap: 16px;
+    height: 52vh;
+    min-height: 340px;
+}
+
+.dashboard-section .infosCard .card {
+    flex: 1;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+}
+
+/* ========== RESUME CARD ========== */
+
+.dashboard-section .resume-card {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
     height: 100%;
 }
-.dashboard-section .list-container{
+
+/* ---- Botões de alternância ---- */
+.dashboard-section .btContainter {
     display: flex;
-    flex: 1;
-    width: 100%;
     flex-direction: row;
-    justify-content: center;
-    background-color: var(--background);
-    border-radius: 20px;
-    text-align: center;
+    width: 100%;
+    padding: 12px 12px 8px;
+    gap: 8px;
+    flex-shrink: 0;
 }
-.dashboard-section .itens-list{
-    flex: 0.9;
-    height: 50px;
+
+.dashboard-section .saleResumeBt {
+    flex: 1;
+    background-color: var(--background);
+    padding: 10px 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: inherit;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    opacity: 0.7;
+}
+
+.dashboard-section .saleResumeBt:hover {
+    opacity: 1;
+    background-color: rgba(0, 156, 228, 0.08);
+}
+
+.dashboard-section .active-bt {
+    border: 1px solid rgb(0, 156, 228) !important;
+    color: rgb(0, 156, 228);
+    opacity: 1 !important;
+    background-color: rgba(0, 156, 228, 0.07) !important;
+}
+
+/* ---- Lista container ---- */
+.dashboard-section .list-container {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: var(--background);
+    border-radius: 14px;
+    padding: 10px;
+    margin: 0 12px 12px;
+}
+
+/* scrollbar customizada */
+.dashboard-section .list-container::-webkit-scrollbar {
+    width: 4px;
+}
+.dashboard-section .list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.dashboard-section .list-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+}
+
+/* ========== ITENS DE VENDA ========== */
+
+.titulo-vendas {
+    margin: 14px 16px 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.vendas-lista {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 12px 12px;
+    width: 100%;
+    gap: 0;
+}
+
+/* sobrescreve a segunda declaração duplicada */
+.vendas-lista {
+    gap: 0;
+    padding: 0 12px 12px;
+}
+
+.venda-item {
+    background-color: var(--sub-background-2);
+    border-radius: 12px;
+    padding: 13px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background-color 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+    cursor: default;
+    box-sizing: border-box;
+}
+
+/* Itens dentro da lista scrollável ganham margem top */
+.list-container .venda-item {
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+/* Animar entrada dos itens */
+.list-container .venda-item:nth-child(1)  { animation: fadeSlide 0.3s ease 0.05s both; }
+.list-container .venda-item:nth-child(2)  { animation: fadeSlide 0.3s ease 0.10s both; }
+.list-container .venda-item:nth-child(3)  { animation: fadeSlide 0.3s ease 0.15s both; }
+.list-container .venda-item:nth-child(4)  { animation: fadeSlide 0.3s ease 0.20s both; }
+.list-container .venda-item:nth-child(5)  { animation: fadeSlide 0.3s ease 0.25s both; }
+.list-container .venda-item:nth-child(n+6){ animation: fadeSlide 0.3s ease 0.30s both; }
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.venda-item:hover {
     background-color: var(--sub-background);
-    margin-top: 10px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-}
-.dashboard-section .btContainter{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-.dashboard-section .saleResumeBt{
-    background-color: var(--background);
-    flex: 1;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 10px;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    border-radius: 20px;
-}
-.dashboard-section .active-bt{
-    border: 1px solid rgb(0, 156, 228);
+    transform: translateX(3px);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.titulo-vendas{
-    margin:10px;
-    font-size:16px;
+.nome-item {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%;
 }
 
-.vendas-lista{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    padding:10px;
-    width:100%;
+.valor-item {
+    color: #22c55e;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-right: 4px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
 }
 
-.venda-item{
-    background-color: var(--background);
-    border-radius:15px;
-    padding:20px 1px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    width:100%;
+/* ========== BADGE DE STATUS (opcional — aparece se o JS adicionar) ========== */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 30px;
+    flex-shrink: 0;
 }
 
-.nome-item{
-    font-size:14px;
-    margin-left:10px;
+.status-badge.pendente {
+    background: rgba(251, 191, 36, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.25);
 }
 
-.valor-item{
-    color:#22c55e;
-    font-weight:600;
-    margin-right:10px;
+.status-badge.nao-faturada {
+    background: rgba(249, 113, 113, 0.12);
+    color: #f97171;
+    border: 1px solid rgba(249, 113, 113, 0.25);
+}
+
+/* ========== RESPONSIVIDADE ========== */
+
+/* Tablet */
+@media (max-width: 900px) {
+    .dashboard-section .main-container {
+        margin-left: 2vw;
+        padding-right: 3vw;
+    }
+
+    .dashboard-section .infosCard {
+        flex-direction: column;
+        height: auto;
+        min-height: unset;
+    }
+
+    .dashboard-section .infosCard .card {
+        height: 300px;
+    }
+
+    .dashboard-section .cards-info-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 580px) {
+    .dashboard-section .main-container {
+        margin-left: 4vw;
+        padding-right: 4vw;
+    }
+
+    .dashboard-section .cards-info-panel {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .info-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .dashboard-section .infosCard .card {
+        height: 280px;
+    }
+
+    .dashboard-section .btContainter {
+        padding: 10px 10px 6px;
+        gap: 6px;
+    }
+
+    .dashboard-section .saleResumeBt {
+        font-size: 0.72rem;
+        padding: 8px 0;
+    }
+
+    .dashboard-section .list-container {
+        margin: 0 8px 8px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 380px) {
+    .dashboard-section .cards-info-panel {
+        grid-template-columns: 1fr;
+    }
 }

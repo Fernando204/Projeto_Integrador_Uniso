@@ -1,20 +1,25 @@
 let produtoSendoEditado = null;
 
-function showAlert(message) {
+/* =====================================================
+   UTILITÁRIOS DE NOTIFICAÇÃO (toast)
+   ===================================================== */
+
+function showAlert(mensagem) {
     const container = document.getElementById("toast-container");
     const toast = document.createElement("div");
     toast.className = "toast";
-    toast.innerText = message;
+    toast.innerText = mensagem;
     container.appendChild(toast);
-    setTimeout(() => toast.remove(), 4000); // some após 4 segundos
+    setTimeout(() => toast.remove(), 4000);
 }
-function showConfirm(message) {
+
+function showConfirm(mensagem) {
     return new Promise(resolve => {
         const container = document.getElementById("toast-container");
         const toast = document.createElement("div");
         toast.className = "toast toast-confirm";
         toast.innerHTML = `
-            <span>${message}</span>
+            <span>${mensagem}</span>
             <div class="toast-buttons">
                 <button class="btn-sim">Sim</button>
                 <button class="btn-nao">Não</button>
@@ -22,21 +27,45 @@ function showConfirm(message) {
         `;
         container.appendChild(toast);
 
-        toast.querySelector(".btn-sim").onclick = () => {
-            toast.remove();
-            resolve(true);
-        };
-        toast.querySelector(".btn-nao").onclick = () => {
-            toast.remove();
-            resolve(false);
-        };
+        toast.querySelector(".btn-sim").onclick = () => { toast.remove(); resolve(true); };
+        toast.querySelector(".btn-nao").onclick = () => { toast.remove(); resolve(false); };
     });
 }
 
+/* =====================================================
+   INICIALIZAÇÃO DO MÓDULO DE ESTOQUE
+   ===================================================== */
+
 export function initializeEstoque(api) {
     const container = document.querySelector(".estoque-info");
+    const containerCards = document.querySelector(".estoque-info");
+    const data = JSON.parse(localStorage.getItem("user-data"));
 
-    // Atualiza o contador de produtos
+    /* --- Seletores dos modais --- */
+    const modal = document.getElementById("modal-produto-cadastro");
+    const modalInfo = document.getElementById("modal-info-produto");
+    const modalEditar = document.getElementById("modal-editar-produto");
+    const modalMovimentar = document.getElementById("modal-movimentacao-estoque");
+
+    /* --- Seletores de botões e formulários --- */
+    const btnAdd = document.getElementById("btn_add_estoque");
+    const form = document.getElementById("form-cadastro-produto");
+    const formEditar = document.getElementById("form-editar-produto");
+    const abrirMovModalBt = document.getElementById("btn_move_estoque");
+
+    /* --- Seletores de botões de fechar --- */
+    const closeBtnEstoque = document.querySelector(".close-button-estoque");
+    const closeInfo = document.querySelector(".close-info-produto");
+    const closeEdit = document.querySelector(".close-edit-produto");
+    const closemovModal = document.querySelector(".close-move-estoque");
+
+    /* --- Campo de busca --- */
+    const inputBusca = document.getElementById("inputBuscaProduto");
+
+    /* =====================================================
+       CONTADOR DE PRODUTOS
+       ===================================================== */
+
     function atualizarContador() {
         const total = document.querySelectorAll(".produto-info").length;
         const displayContador = document.getElementById("contagem-total-produtos");
@@ -45,10 +74,14 @@ export function initializeEstoque(api) {
         }
     }
 
-    // Adiciona card na tela após cadastro
+    /* =====================================================
+       RENDERIZAÇÃO DOS CARDS DE PRODUTO
+       ===================================================== */
+
     function adicionarCardNaTela(dados) {
         let dataAdicao = new Date(dados.createdAt);
         dataAdicao = dataAdicao.toLocaleDateString('pt-BR');
+
         const novoCardHTML = `
             <div class="produto-info" data-id="${dados.id}">
                 <p>${dados.name}</p>
@@ -67,34 +100,29 @@ export function initializeEstoque(api) {
         container.innerHTML += novoCardHTML;
     }
 
-    // Elementos do modal de cadastro
-    const btnAdd = document.getElementById("btn_add_estoque");
-    const modal = document.getElementById("modal-produto-cadastro");
-    const closeBtnEstoque = document.querySelector(".close-button-estoque");
-    const form = document.getElementById("form-cadastro-produto");
+    /* =====================================================
+       CARREGAMENTO DE TODOS OS PRODUTOS
+       ===================================================== */
 
-    // Elementos do modal de mais informações
-    const modalInfo = document.getElementById("modal-info-produto");
-    const closeInfo = document.querySelector(".close-info-produto");
+    async function getAllProducts() {
+        container.innerHTML = "";
+        const produtos = await api.sendGetRequest("/stock/product/get?id=" + data.companyId);
 
-    // Elementos do modal de editar
-    const modalEditar = document.getElementById("modal-editar-produto");
-    const closeEdit = document.querySelector(".close-edit-produto");
-    const formEditar = document.getElementById("form-editar-produto");
+        if (produtos.error) {
+            container.innerHTML = "Erro ao carregar produtos";
+            return;
+        }
 
-    //Elementos Modal de movimentação
-    const modalMovimentar = document.getElementById("modal-movimentacao-estoque");
-    const closemovModal = document.querySelector(".close-move-estoque");
-    const abrirMovModalBt = document.getElementById("btn_move_estoque");
+        produtos.forEach(produto => adicionarCardNaTela(produto));
+        atualizarContador();
+    }
 
-    // Container dos cards
-    const containerCards = document.querySelector(".estoque-info");
+    getAllProducts();
 
-    const data = JSON.parse(localStorage.getItem("user-data"));//Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
+    /* =====================================================
+       FILTRO DE BUSCA POR NOME
+       ===================================================== */
 
-
-    // --- Filtro de busca ---
-    const inputBusca = document.getElementById("inputBuscaProduto");
     if (inputBusca) {
         inputBusca.addEventListener("input", () => {
             const termoBusca = inputBusca.value.toLowerCase();
@@ -105,76 +133,56 @@ export function initializeEstoque(api) {
         });
     }
 
-    // --- Excluir produto ---
+    /* =====================================================
+       EXCLUIR PRODUTO
+       ===================================================== */
+
     containerCards.addEventListener("click", async (evento) => {
-        if (evento.target.classList.contains("btn-excluir")) {
-            const card = evento.target.closest(".produto-info");
-            const nomeProduto = card.querySelector("p").innerText;
+        if (!evento.target.classList.contains("btn-excluir")) return;
 
-            const confirmacao = await showConfirm(
-                `Tem certeza que deseja excluir o produto "${nomeProduto}"?`
-            );
+        const card = evento.target.closest(".produto-info");
+        const nomeProduto = card.querySelector("p").innerText;
 
-            if (!confirmacao) return;
+        const confirmado = await showConfirm(`Tem certeza que deseja excluir o produto "${nomeProduto}"?`);
+        if (!confirmado) return;
 
-            const response = await api.sendDeleteRequest(
-                "/stock/product/" + card.dataset.id
-            );
+        const resposta = await api.sendDeleteRequest("/stock/product/" + card.dataset.id);
 
-            if (response && response.error) {
-                showAlert("Erro ao excluir produto");
-                return;
-            }
-
-            showAlert("Produto removido com sucesso!");
-            card.remove();
-        }
-    });
-
-
-    async function getAllProducts() {
-        container.innerHTML = "";
-        const products = await api.sendGetRequest("/stock/product/get?id=" + data.companyId);
-
-        if (products.error) {
-            container.innerHTML = "Erro ao carregar produtos";
+        if (resposta && resposta.error) {
+            showAlert("Erro ao excluir produto");
             return;
         }
 
-        products.forEach(produto => {
-            adicionarCardNaTela(produto);
-        });
-
+        card.remove();
+        showAlert("Produto removido com sucesso!");
         atualizarContador();
-    }
+    });
 
-    getAllProducts();
+    /* =====================================================
+       CADASTRAR PRODUTO
+       ===================================================== */
 
-    // --- Cadastrar produto ---
     if (btnAdd && modal && form) {
 
+        /* Sincroniza preço de venda e lucro desejado */
         document.getElementById("produto-preco-venda").addEventListener("input", (e) => {
-            const costPrice = document.getElementById("produto-preco-custo").value;
+            const precoCusto = document.getElementById("produto-preco-custo").value;
+            if (!precoCusto) return;
 
-            if (costPrice) {
-                const sellingPrice = e.target.value;
-                const rate = ((sellingPrice / costPrice) - 1) * 100;
-                document.getElementById("lucro-desejado").value = rate.toFixed(2);
-            }
+            const precoVenda = e.target.value;
+            const taxa = ((precoVenda / precoCusto) - 1) * 100;
+            document.getElementById("lucro-desejado").value = taxa.toFixed(2);
         });
 
         document.getElementById("lucro-desejado").addEventListener("input", (e) => {
-            const costPrice = document.getElementById("produto-preco-custo").value;
+            const precoCusto = document.getElementById("produto-preco-custo").value;
+            if (!precoCusto) return;
 
-            if (costPrice) {
-                const rate = e.target.value / 100 + 1;
-                document.getElementById("produto-preco-venda").value = (costPrice * rate).toFixed(2);
-            }
-        })
-
-        btnAdd.addEventListener("click", () => {
-            modal.style.display = "block";
+            const multiplicador = e.target.value / 100 + 1;
+            document.getElementById("produto-preco-venda").value = (precoCusto * multiplicador).toFixed(2);
         });
+
+        btnAdd.addEventListener("click", () => { modal.style.display = "block"; });
 
         closeBtnEstoque.addEventListener("click", () => {
             modal.style.display = "none";
@@ -195,22 +203,22 @@ export function initializeEstoque(api) {
                 validade: document.getElementById("produto-validade").value,
                 unity: document.getElementById("unidade").value
             };
+
             const bt = e.submitter;
             bt.innerHTML = "Salvando...";
-            let saved = false;
-            try {
-                const product = await api.sendPostRequest("/stock/product/add", dadosParaEnviar);
-                if (product.error) {
-                    throw new Error(product.message);
-                }
+            let salvo = false;
 
-                await getAllProducts()
-                saved = true;
-            } catch (error) {
-                console.error("Erro ao cadastrar produto:", error);
+            try {
+                const produto = await api.sendPostRequest("/stock/product/add", dadosParaEnviar);
+                if (produto.error) throw new Error(produto.message);
+
+                await getAllProducts();
+                salvo = true;
+            } catch (erro) {
+                console.error("Erro ao cadastrar produto:", erro);
                 showAlert("O servidor não respondeu corretamente.");
             } finally {
-                if(saved) showAlert("Produto salvo!");
+                if (salvo) showAlert("Produto salvo!");
                 bt.innerHTML = "Salvar Produto";
                 modal.style.display = "none";
                 form.reset();
@@ -218,67 +226,66 @@ export function initializeEstoque(api) {
         });
     }
 
-    if(modalMovimentar && abrirMovModalBt && closemovModal){
-        abrirMovModalBt.addEventListener("click", ()=>{
-            modalMovimentar.style.display = "block";
-        });
+    /* =====================================================
+       MOVIMENTAR ESTOQUE
+       ===================================================== */
 
-        closemovModal.addEventListener("click",()=>{
-            modalMovimentar.style.display = "none";
-        });
+    if (modalMovimentar && abrirMovModalBt && closemovModal) {
+        abrirMovModalBt.addEventListener("click", () => { modalMovimentar.style.display = "block"; });
+        closemovModal.addEventListener("click", () => { modalMovimentar.style.display = "none"; });
     }
 
-    // --- Mais informações ---
-    if (modalInfo && containerCards) {
+    /* =====================================================
+       MAIS INFORMAÇÕES DO PRODUTO
+       ===================================================== */
 
+    if (modalInfo && containerCards) {
         if (closeInfo) {
-            closeInfo.onclick = () => {
-                modalInfo.style.display = "none";
-            };
+            closeInfo.onclick = () => { modalInfo.style.display = "none"; };
         }
 
         containerCards.addEventListener("click", (evento) => {
-            if (evento.target.classList.contains("btn-maisinfo")) {
-                const card = evento.target.closest(".produto-info");
-                const nome = card.querySelector("p").innerText;
-                const atributos = card.querySelectorAll("span");
+            if (!evento.target.classList.contains("btn-maisinfo")) return;
 
-                const dataAdicaoBruta = atributos[1].innerText.replace("DataAdicao: ", "");
-                const dataAdicaoFormatada = dataAdicaoBruta.split('-').reverse().join('/');
+            const card = evento.target.closest(".produto-info");
+            const nome = card.querySelector("p").innerText;
+            const atributos = card.querySelectorAll("span");
 
-                document.getElementById("info-produto-nome").innerText = nome;
-                document.getElementById("info-produto-descricao").innerText = atributos[0].innerText;
-                document.getElementById("info-produto-adicao").innerText = dataAdicaoFormatada;
-                document.getElementById("info-produto-validade").innerText = atributos[2].innerText.replace("Validade: ", "") || "N/A";
-                document.getElementById("info-produto-preco").innerText = atributos[3].innerText.replace("Preço: ", "");
-                document.getElementById("info-produto-quantidade").innerText = atributos[4].innerText.replace("Quantidade no estoque: ", "");
+            const dataAdicaoBruta = atributos[1].innerText.replace("DataAdicao: ", "");
+            const dataAdicaoFormatada = dataAdicaoBruta.split('-').reverse().join('/');
 
-                modalInfo.style.display = "block";
-            }
+            document.getElementById("info-produto-nome").innerText = nome;
+            document.getElementById("info-produto-descricao").innerText = atributos[0].innerText;
+            document.getElementById("info-produto-adicao").innerText = dataAdicaoFormatada;
+            document.getElementById("info-produto-validade").innerText = atributos[2].innerText.replace("Validade: ", "") || "N/A";
+            document.getElementById("info-produto-preco").innerText = atributos[3].innerText.replace("Preço: ", "");
+            document.getElementById("info-produto-quantidade").innerText = atributos[4].innerText.replace("Quantidade no estoque: ", "");
+
+            modalInfo.style.display = "block";
         });
     }
 
-    // --- Editar produto ---
+    /* =====================================================
+       EDITAR PRODUTO
+       ===================================================== */
+
     if (modalEditar && containerCards) {
-
         containerCards.addEventListener("click", (evento) => {
-            if (evento.target.classList.contains("btn-editar")) {
-                produtoSendoEditado = evento.target.closest(".produto-info");
-                const atributos = produtoSendoEditado.querySelectorAll("span");
+            if (!evento.target.classList.contains("btn-editar")) return;
 
-                document.getElementById("editar-produto-nome").value = produtoSendoEditado.querySelector("p").innerText;
-                document.getElementById("editar-produto-preco").value = atributos[3].innerText.replace("Preço: R$ ", "").replace(",", ".");
-                document.getElementById("editar-produto-validade").value = atributos[2].innerText.replace("Validade: ", "").split('/').reverse().join('-');
-                document.getElementById("editar-produto-quantidade").value = atributos[4].innerText.replace("Quantidade no estoque: ", "");
+            produtoSendoEditado = evento.target.closest(".produto-info");
+            const atributos = produtoSendoEditado.querySelectorAll("span");
 
-                modalEditar.style.display = "block";
-            }
+            document.getElementById("editar-produto-nome").value = produtoSendoEditado.querySelector("p").innerText;
+            document.getElementById("editar-produto-preco").value = atributos[3].innerText.replace("Preço: R$ ", "").replace(",", ".");
+            document.getElementById("editar-produto-validade").value = atributos[2].innerText.replace("Validade: ", "").split('/').reverse().join('-');
+            document.getElementById("editar-produto-quantidade").value = atributos[4].innerText.replace("Quantidade no estoque: ", "");
+
+            modalEditar.style.display = "block";
         });
 
         if (closeEdit) {
-            closeEdit.onclick = () => {
-                modalEditar.style.display = "none";
-            };
+            closeEdit.onclick = () => { modalEditar.style.display = "none"; };
         }
 
         if (formEditar) {
@@ -295,22 +302,21 @@ export function initializeEstoque(api) {
                 produtoSendoEditado.querySelectorAll("span")[3].innerText = "Preço: R$ " + parseFloat(novoPreco).toFixed(2).replace('.', ',');
                 produtoSendoEditado.querySelectorAll("span")[4].innerText = "Quantidade no estoque: " + novaQuantidade;
 
-                // TODO: quando tiver endpoint → await api.sendPutRequest("/estoque/produto/" + id, dadosAtualizados) ESPERAR O ENDPOINT CORRETO
+                // TODO: integrar com endpoint quando disponível → api.sendPutRequest("/stock/product/" + id, dados)
                 showAlert("Produto atualizado com sucesso!");
                 modalEditar.style.display = "none";
             };
         }
     }
 
-    // --- Fechar modais clicando fora ---
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) modal.style.display = "none";
-        if (event.target === modalInfo) modalInfo.style.display = "none";
-        if (event.target === modalEditar) modalEditar.style.display = "none";
+    /* =====================================================
+       FECHAR MODAIS AO CLICAR FORA
+       ===================================================== */
+
+    window.addEventListener("click", (evento) => {
+        if (evento.target === modal) modal.style.display = "none";
+        if (evento.target === modalInfo) modalInfo.style.display = "none";
+        if (evento.target === modalEditar) modalEditar.style.display = "none";
+        if (evento.target === modalMovimentar) modalMovimentar.style.display = "none";
     });
-
-    // TODO: quando tiver endpoint de GET → carregar produtos do backend:
-    // const produtos = await api.sendGetRequest("/estoque/produtos"); ESPERAR O ENDPOINT CORRETO
-    // produtos.forEach(p => adicionarCardNaTela(p));
-
 }

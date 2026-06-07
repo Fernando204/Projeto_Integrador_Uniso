@@ -9,30 +9,33 @@
 
 /* Cards de contagem */
 .cardclientes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
     background-color: var(--sub-background);
-    padding: 10px;
-    border-radius: 10px;
-    width: 12vw;
-    height: 100px;
+        padding: 15px;
+        border-radius: 10px;
+        min-height: 100px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        overflow: hidden;
 }
 
 .cardclientes h1 {
-    font-size: 20px;
-    color: #cbd5e1;
-    margin: 0px;
-    top: -25px;
-    margin-bottom: 20px;
+    margin: 0;
+        color: #cbd5e1;
+        font-size: 18px;
 }
 
 .cardclientes h3 {
-    margin: 0;
-    font-size: 28px;
-    top: -5px;
+    margin-top: 12px;
+        color: white;
+
+        font-size: clamp(16px, 2vw, 24px);
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 }
 
 /* Topo da página */

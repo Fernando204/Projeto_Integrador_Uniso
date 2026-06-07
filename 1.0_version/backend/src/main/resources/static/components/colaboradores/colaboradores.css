@@ -4,32 +4,33 @@
 }
 
 .card-funcionarios {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0px;
-    margin-top: 30px;
     background-color: var(--sub-background);
-    padding: 10px;
-    border-radius: 10px;
-    width: 12vw;
-    height: 100px;
+        padding: 15px;
+        border-radius: 10px;
+        min-height: 100px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        overflow: hidden;
 }
 
 .card-funcionarios h1 {
-    font-size: 20px;
-    color: #cbd5e1;
-    margin: 0px;
-    position: relative;
-    top: -10px;
+    margin: 0;
+            color: #cbd5e1;
+            font-size: 18px;
 }
 
 .card-funcionarios h3 {
-    margin: 0;
-    font-size: 28px;
-    position: relative;
-    top: 0px;
+    margin-top: 12px;
+            color: white;
+
+            font-size: clamp(16px, 2vw, 24px);
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 }
 
 .btn_funcionarios {

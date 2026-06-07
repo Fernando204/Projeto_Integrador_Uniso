@@ -90,7 +90,8 @@ public class AuthController{
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginMethod(@RequestBody LoginRequestDTO dto, HttpServletResponse response, HttpServletRequest request){
+    public ResponseEntity<?> loginMethod(@RequestBody LoginRequestDTO dto, HttpServletResponse response){
+        Logger.warn("Usuário logando");
         Optional<User> userOptional = userRepository.findByEmail(dto.email());
 
         if(userOptional.isEmpty()){

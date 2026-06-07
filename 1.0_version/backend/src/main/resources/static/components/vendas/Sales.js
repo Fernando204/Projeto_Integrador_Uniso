@@ -26,6 +26,8 @@ export const initializeSales = (api) => {
     let data = JSON.parse(localStorage.getItem("user-data")); //Pega do localStorage as informações sobre o usuário como id da empresa e o id do usuário em si
 
 
+    // --- TOASTS (alertas e confirmações) ---
+
     function showAlert(message) {
         const container = document.getElementById("toast-container");
         const toast = document.createElement("div");
@@ -103,10 +105,10 @@ export const initializeSales = (api) => {
                 <div class="vertical-align">
                     <h4>${product.name}</h4>
                     <p>R$ ${parseFloat(product.sellingPrice).toFixed(2).replace('.', ',')}</p>
-                    <small class="produto-subtotal" style="color: #00ff1a;"></small>
+                    <small class="produto-subtotal"></small>
                 </div>
                 <div class="product-amount">
-                    <button class="btn-diminuir">-</button>
+                    <button class="btn-diminuir">−</button>
                     <input type="number" min="0" value="0" class="qty-input">
                     <button class="btn-aumentar">+</button>
                 </div>
@@ -146,6 +148,9 @@ export const initializeSales = (api) => {
             productListDiv.insertAdjacentHTML('beforeend', createProductCard(p));
         });
         bindProductAmounts(); //Após renderizar, ativa os eventos de + e - nos cards
+
+        // Restaura as quantidades caso o usuário volte do step 2 para o step 1
+        restaurarQuantidades();
     }
 
     // --- SELEÇÃO DE CLIENTE ---
@@ -158,6 +163,7 @@ export const initializeSales = (api) => {
                     card.classList.remove("selected");
                     clienteSelecionado = null;
                     atualizarInfoCliente(null);
+                    atualizarBotaoConfirmar(0); // desabilita o botão ao desmarcar
                     return;
                 }
 
@@ -170,8 +176,29 @@ export const initializeSales = (api) => {
                 };
 
                 atualizarInfoCliente(clienteSelecionado.name);
+                atualizarBotaoConfirmar(0); // habilita o botão ao selecionar um cliente
             });
         });
+    }
+
+    // --- HABILITAR / DESABILITAR BOTÃO CONFIRMAR ---
+    // Centraliza a lógica de habilitar o botão "Próximo" de cada step
+    function atualizarBotaoConfirmar(stepIndex) {
+        const bt = btnConfirmar[stepIndex];
+        if (!bt) return;
+
+        if (stepIndex === 0) {
+            // Step 0: habilita somente se houver um cliente selecionado
+            bt.disabled = !clienteSelecionado;
+        } else if (stepIndex === 1) {
+            // Step 1: habilita somente se houver ao menos um produto com quantidade > 0
+            const temProduto = Object.values(produtosDaCompra).some(p => p.qty > 0);
+            bt.disabled = !temProduto;
+        } else if (stepIndex === 2) {
+            // Step 2: habilita somente se a forma de pagamento foi selecionada
+            const formaPagamento = document.getElementById("forma-pagamento");
+            bt.disabled = !formaPagamento || formaPagamento.value === "";
+        }
     }
 
     function atualizarSubtotal(card, price, qty) { //Calcula e exibe o subtotal de um produto específico no card
@@ -179,8 +206,10 @@ export const initializeSales = (api) => {
         if (!subtotalEl) return;
         if (qty === 0) {
             subtotalEl.innerText = ""; //Se a quantidade for 0, limpa o subtotal
+            card.classList.remove("tem-produto"); // remove destaque visual do card
         } else {
             subtotalEl.innerText = `= R$ ${(price * qty).toFixed(2).replace('.', ',')}`; //Exibe o subtotal
+            card.classList.add("tem-produto"); // adiciona destaque visual para indicar que está no carrinho
         }
     }
 
@@ -188,6 +217,22 @@ export const initializeSales = (api) => {
         const total = Object.values(produtosDaCompra).reduce((acc, p) => acc + (p.price * p.qty), 0);
         const totalEl = document.getElementById("total-parcial");
         if (totalEl) totalEl.innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`; //Atualiza o texto na tela
+        atualizarBotaoConfirmar(1); // atualiza o estado do botão toda vez que o total mudar
+    }
+
+    // --- RESTAURAR QUANTIDADES AO VOLTAR PARA O STEP 1 ---
+    // Reaplica as quantidades salvas em produtosDaCompra nos inputs dos cards após re-renderizar
+    function restaurarQuantidades() {
+        const cards = productListDiv.querySelectorAll(".product-card");
+        cards.forEach(card => {
+            const id = card.dataset.id;
+            const produto = produtosDaCompra[id];
+            if (produto && produto.qty > 0) {
+                const input = card.querySelector(".qty-input");
+                if (input) input.value = produto.qty;
+                atualizarSubtotal(card, produto.price, produto.qty);
+            }
+        });
     }
 
     // --- CONTROLE DE QUANTIDADE DOS PRODUTOS ---
@@ -200,9 +245,10 @@ export const initializeSales = (api) => {
             const id = card.dataset.id;
             const name = card.dataset.name;
             const price = parseFloat(card.dataset.price);
-            
-            if(!id || !card.dataset.is){
+
+            if(!id || !card.dataset.id){
                 showAlert("ID não definido")
+                console.log("ID de "+name+" não encontrado")
             }else console.log(id)
 
             btnMais.addEventListener("click", () => {
@@ -260,6 +306,7 @@ export const initializeSales = (api) => {
                 .forEach(c => c.classList.remove("selected"));
             clienteSelecionado = { id: null, name: "Sem cadastro" };
             atualizarInfoCliente(clienteSelecionado.name);
+            atualizarBotaoConfirmar(0); // habilita o botão ao escolher "sem cadastro"
         });
     }
 
@@ -310,6 +357,12 @@ export const initializeSales = (api) => {
                 </div>
             </div>
         `;
+
+        // Monitora a seleção da forma de pagamento para habilitar o botão confirmar do step 2
+        const selectPagamento = finalizacaoDiv.querySelector("#forma-pagamento");
+        if (selectPagamento) {
+            selectPagamento.addEventListener("change", () => atualizarBotaoConfirmar(2));
+        }
     }
 
     // --- NAVEGAÇÃO ENTRE STEPS ---

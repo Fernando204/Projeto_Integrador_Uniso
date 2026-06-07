@@ -1,61 +1,72 @@
 <div class="sales-section">
     <header>
-        <button  id="openButton">Carregando...</button>
+        <button id="openButton">Carregando...</button>
         <h1 class="waiting" id="titleInfo">Carregando...</h1>
         <h3 class="closed" id="dataTitle"></h3>
     </header>
 
     <div class="main-container">
+
+        <!-- Block esquerdo: fluxo de venda em steps -->
         <div class="block">
+
+            <!-- Step 0: Seleção de cliente -->
             <div id="init-container" class="sale-container step-container">
-                <h1>Selecione o cliente </h1>
+                <h1>Selecione o cliente</h1>
                 <p id="cliente-selecionado-info"></p>
                 <input placeholder="Busca por Nome, CPF ou Id" id="client-search">
                 <button id="btn-sem-cadastro">Vender sem cadastro</button>
-                
+
                 <div class="client-list" id="client-list">
                     <h1>Carregando...</h1>
                 </div>
+
                 <div>
-                    <button class="activate-item btnConfirmar" disabled>Proximo →</button>
+                    <button class="activate-item btnConfirmar" disabled>Próximo →</button>
                 </div>
             </div>
 
+            <!-- Step 1: Seleção de produtos -->
             <div class="sale-container step-container" style="display: none;">
                 <h1>Selecione os produtos</h1>
-                <p id="cliente-selecionado-info-step1"></p> 
+                <p id="cliente-selecionado-info-step1"></p>
                 <p id="total-parcial">Total: R$ 0,00</p>
-                <input placeholder="Busca por Nome Id" id="product-search">
+                <input placeholder="Busca por Nome ou Id" id="product-search">
 
                 <div class="product-list" id="product-list">
                     <h1>Carregando...</h1>
                 </div>
 
                 <div>
-                    <button class="activate-item btnRetornar" disabled>← voltar</button>
-                    <button class="activate-item btnConfirmar" disabled>Proximo →</button>
+                    <button class="activate-item btnRetornar" disabled>← Voltar</button>
+                    <button class="activate-item btnConfirmar" disabled>Próximo →</button>
                     <button id="btn-cancelar-venda" class="activate-item">Cancelar venda</button>
                 </div>
             </div>
 
+            <!-- Step 2: Finalização da compra -->
             <div class="sale-container step-container" style="display: none;">
                 <h1>Finalizar compra</h1>
-                <input placeholder="Busca por Nome Id" id="product-search">
+                <input placeholder="Busca por Nome ou Id" id="product-search">
 
+                <!-- product-list aqui é preenchido dinamicamente por montarFinalizacao() -->
                 <div class="product-list"></div>
-                
+
                 <div>
-                    <button class="activate-item btnRetornar" disabled>← voltar</button>
+                    <button class="activate-item btnRetornar" disabled>← Voltar</button>
                     <button class="activate-item btnConfirmar" disabled>Confirmar venda ✓</button>
                     <button id="btn-cancelar-venda" class="activate-item">Cancelar venda</button>
                 </div>
             </div>
         </div>
 
+        <!-- Block direito: resumo das vendas do turno -->
         <div class="block">
             <h1>Resumo</h1>
         </div>
+
     </div>
 </div>
 
+<!-- Container dos toasts de alerta e confirmação -->
 <div id="toast-container"></div>
