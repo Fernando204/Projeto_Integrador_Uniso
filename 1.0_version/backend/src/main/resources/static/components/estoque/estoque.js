@@ -166,20 +166,27 @@ export function initializeEstoque(api) {
 
         /* Sincroniza preço de venda e lucro desejado */
         document.getElementById("produto-preco-venda").addEventListener("input", (e) => {
-            const precoCusto = document.getElementById("produto-preco-custo").value;
-            if (!precoCusto) return;
+            const precoCusto = parseFloat(document.getElementById("produto-preco-custo").value);
+            if (!precoCusto || precoCusto <= 0) return;
 
-            const precoVenda = e.target.value;
-            const taxa = ((precoVenda / precoCusto) - 1) * 100;
+            const precoVenda = parseFloat(e.target.value);
+            if (!precoVenda || precoVenda <= 0) return;
+
+            // Taxa de lucro = (venda - custo) / venda * 100
+            const taxa = ((precoVenda - precoCusto) / precoVenda) * 100;
             document.getElementById("lucro-desejado").value = taxa.toFixed(2);
         });
 
         document.getElementById("lucro-desejado").addEventListener("input", (e) => {
-            const precoCusto = document.getElementById("produto-preco-custo").value;
-            if (!precoCusto) return;
+            const precoCusto = parseFloat(document.getElementById("produto-preco-custo").value);
+            if (!precoCusto || precoCusto <= 0) return;
 
-            const multiplicador = e.target.value / 100 + 1;
-            document.getElementById("produto-preco-venda").value = (precoCusto * multiplicador).toFixed(2);
+            const taxa = parseFloat(e.target.value);
+            if (isNaN(taxa) || taxa >= 100) return;
+
+            // Preço de venda = custo / (1 - taxa/100)
+            const precoVenda = precoCusto / (1 - taxa / 100);
+            document.getElementById("produto-preco-venda").value = precoVenda.toFixed(2);
         });
 
         btnAdd.addEventListener("click", () => { modal.style.display = "block"; });

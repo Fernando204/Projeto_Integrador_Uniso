@@ -1,7 +1,7 @@
 
 export class ApiConnection {
-    API_URL = "https://projeto-integrador-uniso.onrender.com";
-//    API_URL = "http://localhost:8080";
+//    API_URL = "https://projeto-integrador-uniso.onrender.com";
+    API_URL = "http://localhost:8080";
 
     async sendGetRequest(endpoint) {
         try {

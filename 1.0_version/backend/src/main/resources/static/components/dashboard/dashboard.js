@@ -7,21 +7,48 @@ export async function initializeDashboard(api) {
     const salesListContainer = document.getElementById("listContainer");
     const pendentBt    = document.getElementById("pendentBt");
     const notFaturedBt = document.getElementById("notFaturedBt");
-    const item         = document.getElementById("item");
 
     const data = JSON.parse(localStorage.getItem("user-data"));
+
+    // ----- Dados hardcoded de exemplo -----
+    const vendasPendentes = [
+        { nome: "Ração Premium 15kg",    valor: "R$ 230,00"   },
+        { nome: "Suplemento Equino",     valor: "R$ 89,90"    },
+        { nome: "Ferradura (jogo)",      valor: "R$ 160,00"   },
+        { nome: "Feno Coastcross",       valor: "R$ 75,00"    },
+        { nome: "Vermífugo Ivermectina", valor: "R$ 42,50"    },
+    ];
+
+    const vendasNaoFaturadas = [
+        { nome: "Sela de Couro",       valor: "R$ 1.800,00" },
+        { nome: "Cabeçada com Freio",  valor: "R$ 340,00"   },
+        { nome: "Manta de Pelo",       valor: "R$ 95,00"    },
+        { nome: "Corda de Laço 30m",   valor: "R$ 120,00"   },
+    ];
+
+    function renderVendas(lista) {
+        salesListContainer.innerHTML = lista.map(v => `
+            <div class="venda-item">
+                <span class="nome-item">${v.nome}</span>
+                <span class="valor-item">${v.valor}</span>
+            </div>
+        `).join("");
+    }
+
+    // Renderiza pendentes por padrão (aba inicial)
+    renderVendas(vendasPendentes);
 
     // ----- Alternância de abas -----
     pendentBt.addEventListener("click", () => {
         pendentBt.classList.add("active-bt");
         notFaturedBt.classList.remove("active-bt");
-        item.innerHTML = "Lista de vendas pendentes";
+        renderVendas(vendasPendentes);
     });
 
     notFaturedBt.addEventListener("click", () => {
         pendentBt.classList.remove("active-bt");
         notFaturedBt.classList.add("active-bt");
-        item.innerHTML = "Lista de vendas não faturadas";
+        renderVendas(vendasNaoFaturadas);
     });
 
     // ----- Busca de dados -----
@@ -33,19 +60,19 @@ export async function initializeDashboard(api) {
     }
 
     // ----- Atualiza labels com animação de contagem -----
-    animateValue(saldoLabel,    0, res.balance,         1000, "R$");
-    animateValue(receitasLabel, 0, res.monthlyRevenue,  1000, "R$");
+    animateValue(saldoLabel,    0, res.balance,          1000, "R$");
+    animateValue(receitasLabel, 0, res.monthlyRevenue,   1000, "R$");
     animateValue(despesasLabel, 0, -res.monthlyExpenses, 1000, "R$");
-    animateValue(lucroLabel,    0, res.monthlyProfit,   1000, "R$");
+    animateValue(lucroLabel,    0, res.monthlyProfit,    1000, "R$");
 }
 
 /**
  * Anima o valor de um label de 0 até o valor final.
- * @param {HTMLElement} el     - Elemento alvo
- * @param {number}      start  - Valor inicial
- * @param {number}      end    - Valor final
+ * @param {HTMLElement} el       - Elemento alvo
+ * @param {number}      start    - Valor inicial
+ * @param {number}      end      - Valor final
  * @param {number}      duration - Duração em ms
- * @param {string}      suffix - Sufixo (ex: "R$")
+ * @param {string}      suffix   - Sufixo (ex: "R$")
  */
 function animateValue(el, start, end, duration, suffix) {
     const startTime = performance.now();
@@ -55,7 +82,6 @@ function animateValue(el, start, end, duration, suffix) {
     function update(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        // easing suave
         const eased = 1 - Math.pow(1 - progress, 3);
         const current = start + (absEnd - start) * eased;
 
@@ -64,9 +90,7 @@ function animateValue(el, start, end, duration, suffix) {
 
         el.innerHTML = (negative ? "-" : "") + formatted + " " + suffix;
 
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
+        if (progress < 1) requestAnimationFrame(update);
     }
 
     requestAnimationFrame(update);
